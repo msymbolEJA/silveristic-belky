@@ -120,3 +120,40 @@ export const FONTS = {
     FONT3: "Pasifico", //OK
   },
 };
+
+export const NavbarOptions = [
+  {
+    label: "Orders",
+    name: "orders",
+    options: [
+      { id: 1, order: "Bekleyen" },
+      { id: 2, order: "Tekrar" },
+      { id: 3, order: "İşlemde" },
+      { id: 4, order: "Hazır" },
+      { id: 5, order: "Yolda" },
+      { id: 6, order: "İptal" },
+      { id: 7, order: "Tamamı" },
+    ],
+  },
+  {
+    label: "Administration",
+    name: "administration",
+    options: [
+      { id: 1, order: "Order Search" },
+      { id: 2, order: "Order Preparation" },
+      { id: 3, order: "Manuel Order" },
+      { id: 4, order: "Shipped Orders" },
+    ],
+  },
+  {
+    label: "Follow",
+    name: "follow",
+    options: [
+      { id: 1, order: "Gönderi Listesi" },
+      { id: 2, order: "Gönderi İçerikleri" },
+      { id: 3, order: "Üretim Takip" },
+      { id: 4, order: "Gönderi Takip" },
+      { id: 5, order: "Follow-up" },
+    ],
+  },
+];
