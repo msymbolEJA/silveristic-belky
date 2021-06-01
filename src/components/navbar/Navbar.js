@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import FormControl from "@material-ui/core/FormControl";
@@ -8,6 +8,15 @@ import NativeSelect from "@material-ui/core/NativeSelect";
 import { NavbarOptions } from "../..//helper/Constants";
 
 const STORE_NAME = process.env.REACT_APP_STORE_NAME;
+
+const MyNativeSelect = withStyles({
+  root: {
+    width: 100,
+  },
+  icon: {
+    color: "lightgrey",
+  },
+})(NativeSelect);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     minWidth: 100,
   },
-  option: {
+  optionStyle: {
     color: "black",
   },
   selectEmpty: {
@@ -100,7 +109,7 @@ export default function MenuAppBar() {
             >
               {NavbarOptions?.map((item) => (
                 <FormControl className={classes.formControl} key={item.name}>
-                  <NativeSelect
+                  <MyNativeSelect
                     className={classes.selectEmpty}
                     value={orderOpt}
                     name={item.name}
@@ -113,13 +122,13 @@ export default function MenuAppBar() {
                     {item.options?.map((order) => (
                       <option
                         value={order.order}
-                        className={classes.option}
+                        className={classes.optionStyle}
                         key={order.order}
                       >
                         {order.order}
                       </option>
                     ))}
-                  </NativeSelect>
+                  </MyNativeSelect>
                 </FormControl>
               ))}
             </div>
