@@ -2,6 +2,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,19 +48,39 @@ const useStyles = makeStyles((theme) => ({
 
 const Dashboard = () => {
   const classes = useStyles();
+  const history = useHistory();
+
+  const handleRoute = (event) => {
+    history.push(`/${event.currentTarget.id}`);
+  };
 
   return (
     <div className={classes.root}>
       <h2 className={classes.header}>Toplu İşlemler</h2>
       <hr className={classes.hrStyle} />
       <div className={classes.btnGroup}>
-        <Button variant="contained" className={classes.button}>
+        <Button
+          variant="contained"
+          onClick={handleRoute}
+          className={classes.button}
+          id="awaiting-orders"
+        >
           Bekleyen Siparişler
         </Button>
-        <Button variant="contained" className={classes.button}>
+        <Button
+          variant="contained"
+          id="due-dates"
+          onClick={handleRoute}
+          className={classes.button}
+        >
           Sipariş Takip
         </Button>
-        <Button variant="contained" className={classes.button}>
+        <Button
+          variant="contained"
+          id="shipment-content"
+          onClick={handleRoute}
+          className={classes.button}
+        >
           Gönderi Listesi
         </Button>
       </div>

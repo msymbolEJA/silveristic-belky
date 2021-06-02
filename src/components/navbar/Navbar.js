@@ -31,9 +31,10 @@ const useStyles = makeStyles((theme) => ({
   },
   rightTitle: {
     fontSize: "1.25rem",
+    cursor: "pointer",
   },
   toolbar: {
-    backgroundColor: "#BA000D",
+    backgroundColor: STORE_NAME === "Hilal Serisi" ? "#BA000D" : "#5F788A",
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
