@@ -17,7 +17,7 @@ import ForgetPassword from "../components/forgetpassword/ForgetPassword";
 import ResetPassword from "../components/forgetpassword/ResetPassword";
 import AllOrdersTable from "../components/orders/allorders/AllOrdersTable";
 import Search from "../components/search/Search";
-import ReadyOrders from "../components/orders/readyorders/ReadyOrders";
+// import ReadyOrders from "../components/orders/readyorders/ReadyOrders";
 import OrderDetails from "../components/orders/readyorders/orderdetails/OrderDetails";
 // Private Router
 import PrivateRouter from "./PrivateRouter";
@@ -30,6 +30,12 @@ import StockList from "../components/stock/StockList";
 import NewStock from "../components/stock/NewStock";
 import CostTable from "../components/costtable/CostTable";
 import AwaitingOrders from "../pages/awaiting-orders/AwaitingOrders";
+import RepeatOrders from "../pages/repeat-orders/RepeatOrders";
+import ProcessingOrders from "../pages/processing-orders/ProcessingOrders";
+import ReadyOrders from "../pages/ready-orders/ReadyOrders";
+import InTransit from "../pages/in-transit/InTransit";
+import CancelledOrders from "../pages/cancelled-orders/CancelledOrders";
+import AllOrders from "../pages/all-orders/AllOrders";
 
 const history = require("history").createBrowserHistory();
 
@@ -62,6 +68,16 @@ const DefaultContainer = () => (
     <PrivateRouter exact path="/ready-orders" component={ReadyOrders} />
     <PrivateRouter exact path="/cargo-list" component={CargoList} />
     <PrivateRouter exact path="/awaiting_orders" component={AwaitingOrders} />
+    <PrivateRouter exact path="/repeat_orders" component={RepeatOrders} />
+    <PrivateRouter exact path="/ready_orders" component={ReadyOrders} />
+    <PrivateRouter exact path="/in_transit" component={InTransit} />
+    <PrivateRouter exact path="/cancelled_orders" component={CancelledOrders} />
+    <PrivateRouter exact path="/orders/page/:page" component={AllOrders} />
+    <PrivateRouter
+      exact
+      path="/processing_orders"
+      component={ProcessingOrders}
+    />
     <PrivateRouter
       exact
       path="/workshop-due-dates"

@@ -102,38 +102,20 @@ const AwaitingOrders = () => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    getData(`${BASE_URL}etsy/orders/?status=pending&limit=25&offset=0`).then(
-      (response) => {
-        console.log(response.data.count);
-        setCount(response.data.count);
-        setRows(response.data.results);
-      }
-    );
+    getData(
+      `${BASE_URL}etsy/orders/?status=in_progress&limit=25&offset=0`
+    ).then((response) => {
+      console.log(response.data);
+      setCount(response.data.count);
+      setRows(response.data.results);
+    });
   }, []);
 
   // http://185.15.198.109:8080/etsy/orders/?status=pending
 
   return (
     <div className={classes.root}>
-      <div className={classes.headerDiv}>
-        <p className={classes.header}>Bekleyen Siparişleriniz</p>
-      </div>
-      <div className={classes.headerDiv}>
-        <p className={classes.found}>{count} result found!</p>
-      </div>
-      <div className={classes.headerDiv}>
-        <div className={classes.btnGroup}>
-          <Button variant="contained" className={classes.button}>
-            All
-          </Button>
-          <Button variant="contained" className={classes.button}>
-            USA
-          </Button>
-          <Button variant="contained" className={classes.button}>
-            International
-          </Button>
-        </div>
-      </div>
+      <div className={classes.headerDiv}>Pages</div>
       <div className={classes.paper}>
         <TableContainer className={classes.tContainer}>
           <Table className={classes.table} aria-label="simple table">
