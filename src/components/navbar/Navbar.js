@@ -1,22 +1,15 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import FormControl from "@material-ui/core/FormControl";
-import NativeSelect from "@material-ui/core/NativeSelect";
 import { NavbarOptions } from "../..//helper/Constants";
+import Button from "@material-ui/core/Button";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 
 const STORE_NAME = process.env.REACT_APP_STORE_NAME;
-
-const MyNativeSelect = withStyles({
-  root: {
-    width: 100,
-  },
-  icon: {
-    color: "lightgrey",
-  },
-})(NativeSelect);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,15 +22,17 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     alignItems: "center",
   },
-  rightTitle: {
+  storeName: {
     fontSize: "1.25rem",
     cursor: "pointer",
+    marginRight: "1rem",
   },
   toolbar: {
     backgroundColor: STORE_NAME === "Hilal Serisi" ? "#BA000D" : "#5F788A",
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
+    minHeight: 55,
   },
   rightPart: {
     display: "flex",
@@ -47,22 +42,42 @@ const useStyles = makeStyles((theme) => ({
       color: "lightgrey",
     },
   },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 100,
+  menuBtn: {
+    color: "#CBD5DB",
+    textTransform: "none",
+    fontWeight: "bold",
   },
-  optionStyle: {
-    color: "black",
+  menu: {
+    marginTop: "2rem",
   },
-  selectEmpty: {
-    color: "lightgrey",
+  menuDiv: {
+    display: "flex",
   },
 }));
 
 export default function MenuAppBar() {
   const classes = useStyles(); // eslint-disable-next-line
   const history = useHistory();
-  const [orderOpt, setOrderOpt] = useState("");
+  const [anchorEl, setAnchorEl] = useState({
+    orders: null,
+    administration: null,
+    follow: null,
+  });
+
+  const handleClick = (event, name) => {
+    setAnchorEl({ ...anchorEl, [name]: event.currentTarget });
+  };
+
+  const handleClose = (e, name) => {
+    setAnchorEl({ ...anchorEl, [name]: false });
+  };
+  const handleMenuClick = (e, name, url) => {
+    e.stopPropagation();
+    if (url) {
+      history.push(`/${url}`);
+    }
+    setAnchorEl(null);
+  };
 
   const handleAccountPage = () => {
     history.push("/account");
@@ -87,10 +102,6 @@ export default function MenuAppBar() {
     localStorage.removeItem("localId");
   };
 
-  const handleOrderChange = (event) => {
-    setOrderOpt(event.target.value);
-  };
-
   return (
     <div className={classes.root}>
       <AppBar position="fixed">
@@ -99,8 +110,10 @@ export default function MenuAppBar() {
           variant="dense"
           style={{ height: "50px" }}
         >
-          <div className={classes.leftPart} onClick={handleMainPage}>
-            <h1 className={classes.rightTitle}>{STORE_NAME.toUpperCase()}</h1>
+          <div className={classes.leftPart}>
+            <h1 className={classes.storeName} onClick={handleMainPage}>
+              {STORE_NAME.toUpperCase()}
+            </h1>
             <div
               style={{
                 display: "flex",
@@ -108,29 +121,38 @@ export default function MenuAppBar() {
                 justifyContent: "center",
               }}
             >
-              {NavbarOptions?.map((item) => (
-                <FormControl className={classes.formControl} key={item.name}>
-                  <MyNativeSelect
-                    className={classes.selectEmpty}
-                    value={orderOpt}
-                    name={item.name}
-                    onChange={handleOrderChange}
-                    inputProps={{ "aria-label": "age" }}
+              {NavbarOptions?.map((item, index) => (
+                <div key={index} className={classes.menuDiv}>
+                  <Button
+                    aria-controls="simple-menu"
+                    aria-haspopup="true"
+                    onClick={(e) => handleClick(e, item.name)}
+                    className={classes.menuBtn}
                   >
-                    <option value="" disabled>
-                      {item.label}
-                    </option>
-                    {item.options?.map((order) => (
-                      <option
-                        value={order.order}
-                        className={classes.optionStyle}
-                        key={order.order}
+                    {item.label}
+                    <ArrowDropDownIcon
+                      color="disabled"
+                      style={{ color: "#CBD5DB" }}
+                    />
+                  </Button>
+                  <Menu
+                    id="simple-menu"
+                    anchorEl={anchorEl ? anchorEl[item?.name] : null}
+                    keepMounted
+                    open={Boolean(anchorEl ? anchorEl[item?.name] : null)}
+                    onClose={(e) => handleClose(e, item?.name)}
+                    className={classes.menu}
+                  >
+                    {item?.options.map((item, index) => (
+                      <MenuItem
+                        onClick={(e) => handleMenuClick(e, item.name, item.url)}
+                        key={index}
                       >
-                        {order.order}
-                      </option>
+                        {item.order}
+                      </MenuItem>
                     ))}
-                  </MyNativeSelect>
-                </FormControl>
+                  </Menu>
+                </div>
               ))}
             </div>
           </div>
