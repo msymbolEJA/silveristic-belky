@@ -36,6 +36,23 @@ const useStyles = makeStyles(() => ({
       color: "white",
     },
   },
+  activeBtn: {
+    color: "black",
+    textTransform: "none",
+    border: "1px solid #17A2B8",
+    // marginRight: "5px",
+    width: "fit-content",
+    paddingTop: "6px",
+    paddingBottom: "6px",
+    paddingRight: "12px",
+    paddingLeft: "12px",
+    cursor: "pointer",
+    borderRadius: "5px",
+    backgroundColor: "#17A2B8",
+    "&:hover": {
+      backgroundColor: "#138496",
+    },
+  },
   btnGroup: {
     display: "flex",
     flexDirection: "row",
@@ -142,7 +159,10 @@ const AwaitingOrders = (props) => {
             Önceki
           </div>
         ) : null}
-        <div className={classes.button} onClick={() => handlePageChange(page)}>
+        <div
+          className={classes.activeBtn}
+          onClick={() => handlePageChange(page)}
+        >
           {page}
         </div>
         <div
@@ -151,15 +171,27 @@ const AwaitingOrders = (props) => {
         >
           {Number(page) + 1}
         </div>
-        ...
         <div
           className={classes.button}
+          onClick={() => handlePageChange(Number(page) + 2)}
+        >
+          {Number(page) + 2}
+        </div>
+        ...
+        <div
+          className={
+            page === Math.ceil(count / 100) - 1
+              ? classes.activeBtn
+              : classes.button
+          }
           onClick={() => handlePageChange(Math.ceil(count / 100) - 1)}
         >
           {Math.ceil(count / 100) - 1}
         </div>
         <div
-          className={classes.button}
+          className={
+            page === Math.ceil(count / 100) ? classes.activeBtn : classes.button
+          }
           onClick={() => handlePageChange(Math.ceil(count / 100))}
         >
           {Math.ceil(count / 100)}
