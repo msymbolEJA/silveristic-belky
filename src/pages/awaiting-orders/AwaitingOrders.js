@@ -8,13 +8,12 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import { Link } from "react-router-dom";
 import { tableColumns } from "../../helper/Constants";
 import { getData } from "../../helper/PostData";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     // marginTop: "50px",
     margin: "10px",
@@ -76,7 +75,9 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#0069D9",
     },
   },
-  table: {},
+  table: {
+    width: "calc(100% - 20px)",
+  },
   tableCellHeader: {
     fontFamily: "Courier New",
     fontWeight: "bold",
@@ -144,23 +145,35 @@ const AwaitingOrders = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row, index) => (
-                <TableRow
-                  key={row.index}
-                  className={index % 2 === 1 ? classes.darkTableRow : null}
-                >
-                  {tableColumns?.map((item, i) => (
-                    <TableCell className={classes.tableCell} align="center">
-                      {row[item?.objKey]}
-                      {item?.objKey2 ? (
-                        <div key={i}>
-                          <br /> {row[item?.objKey2]}
-                        </div>
-                      ) : null}
-                    </TableCell>
-                  ))}
+              {rows === null ? (
+                <TableRow>
+                  <TableCell align="center" colSpan={14}>
+                    Loading...
+                  </TableCell>
                 </TableRow>
-              ))}
+              ) : (
+                rows?.map((row, index) => (
+                  <TableRow
+                    key={row?.id}
+                    className={index % 2 === 1 ? classes.darkTableRow : null}
+                  >
+                    {tableColumns?.map((item, i) => (
+                      <TableCell
+                        key={i}
+                        className={classes.tableCell}
+                        align="center"
+                      >
+                        {row[item?.objKey]}
+                        {item?.objKey2 ? (
+                          <div>
+                            <br /> {row[item?.objKey2]}
+                          </div>
+                        ) : null}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              )}
             </TableBody>
           </Table>
         </TableContainer>
