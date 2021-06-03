@@ -157,3 +157,26 @@ export const NavbarOptions = [
     ],
   },
 ];
+
+export const tableColumns = [
+  { id: 1, name: "Sip.No", name2: "No", objKey: "receipt_id", objKey2: "id" },
+  {
+    id: 2,
+    name: "Tarih",
+    name2: "Adet",
+    objKey: "creation_tsz",
+    objKey2: "qty",
+  },
+  { id: 3, name: "Sitem Tarihi", objKey: "created_date" },
+  { id: 4, name: "Buyer", objKey: "buyer" },
+  { id: 5, name: "Supplier", objKey: "supplier" },
+  { id: 6, name: "Tip", objKey: "type" },
+  { id: 7, name: "Uzunluk", objKey: "length" },
+  { id: 8, name: "Renk", objKey: "color" },
+  { id: 9, name: "Adet", objKey: "qty" },
+  { id: 10, name: "Boyut", objKey: "size" },
+  { id: 11, name: "Başlangıç", objKey: "start" },
+  { id: 12, name: "Boşluk", objKey: "space" },
+  { id: 13, name: "Açıklama", objKey: "explanation" },
+  { id: 14, name: "Internal Note", objKey: "gift_message" },
+];

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
@@ -8,11 +9,15 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { Link } from "react-router-dom";
+import { tableColumns } from "../../helper/Constants";
+import { getData } from "../../helper/PostData";
+
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const useStyles = makeStyles((theme) => ({
   root: {
     // marginTop: "50px",
-    marginLeft: "10px",
+    margin: "10px",
     display: "flex",
     flexDirection: "column",
   },
@@ -20,8 +25,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#007BFF",
     color: "white",
     textTransform: "none",
-    width: "200px",
-    margin: "10px",
+    marginRight: "5px",
     "&:hover": {
       backgroundColor: "#0069D9",
     },
@@ -48,105 +52,121 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "1.5rem",
     fontWeight: "bold",
     marginBottom: "0px",
+    margin: 5,
+    marginTop: 15,
+  },
+  headerDiv: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    width: "fit-content",
   },
   found: {
     fontSize: "1.2rem",
     fontWeight: "bold",
+    margin: 5,
+  },
+  printBtn: {
+    width: "100%",
+    backgroundColor: "#007BFF",
+    color: "white",
+    textTransform: "none",
+    marginTop: 20,
+    "&:hover": {
+      backgroundColor: "#0069D9",
+    },
+  },
+  table: {},
+  tableCellHeader: {
+    fontFamily: "Courier New",
+    fontWeight: "bold",
+    border: "1px solid #DEE2E6",
+  },
+  tableCell: {
+    fontFamily: "Courier New",
+    border: "1px solid #DEE2E6",
+  },
+  darkTableRow: {
+    backgroundColor: "#F2F2F2",
   },
 }));
 
-const rows = [
-  {
-    receiptNumber: 132427,
-    no: 2071615284,
-    date: "06/02/21 08:31:39",
-    adet: "1/1/1",
-    systemDate: "06/02/21 08:43:00",
-    buyer: "Pamela Higgins",
-    supplier: "beyazit",
-    type: "Kolye Tasli",
-    length: "45cm",
-    color: "GOLD",
-    qty: "3 Tas",
-    size: "-",
-    start: "ortada",
-    space: "-",
-    explanation: "Emerald Alexandrite Emerald",
-    internalNote: "",
-  },
-];
-
 const AwaitingOrders = () => {
   const classes = useStyles();
+  const [rows, setRows] = useState([]);
+
+  useEffect(() => {
+    getData(`${BASE_URL}etsy/orders/?status=pending&limit=25&offset=0`).then(
+      (response) => {
+        console.log(response.data.results);
+        setRows(response.data.results);
+      }
+    );
+  }, []);
+
+  // http://185.15.198.109:8080/etsy/orders/?status=pending
 
   return (
     <div className={classes.root}>
-      <p className={classes.header}>Bekleyen Siparişleriniz</p>
-      <p className={classes.found}>{"0"} result found!</p>
-      <div className={classes.btnGroup}>
-        <Button variant="contained" className={classes.button}>
-          All
-        </Button>
-        <Button variant="contained" className={classes.button}>
-          USA
-        </Button>
-        <Button variant="contained" className={classes.button}>
-          International
-        </Button>
+      <div className={classes.headerDiv}>
+        <p className={classes.header}>Bekleyen Siparişleriniz</p>
+      </div>
+      <div className={classes.headerDiv}>
+        <p className={classes.found}>{"0"} result found!</p>
+      </div>
+      <div className={classes.headerDiv}>
+        <div className={classes.btnGroup}>
+          <Button variant="contained" className={classes.button}>
+            All
+          </Button>
+          <Button variant="contained" className={classes.button}>
+            USA
+          </Button>
+          <Button variant="contained" className={classes.button}>
+            International
+          </Button>
+        </div>
       </div>
       <div className={classes.paper}>
         <TableContainer component={Paper} className={classes.tContainer}>
           <Table className={classes.table} aria-label="simple table">
             <TableHead className={classes.thead}>
               <TableRow>
-                <TableCell>Sip.No / No</TableCell>
-                <TableCell align="center">Tarih / Adet</TableCell>
-                <TableCell align="center">Sistem Tarihi</TableCell>
-                <TableCell align="center">Buyer</TableCell>
-                <TableCell align="center">Supplier</TableCell>
-                <TableCell align="center">Tip</TableCell>
-                <TableCell align="center">Uzunluk</TableCell>
-                <TableCell align="center">Renk</TableCell>
-                <TableCell align="center">Adet</TableCell>
-                <TableCell align="center">Boyut</TableCell>
-                <TableCell align="center">Başlangıç</TableCell>
-                <TableCell align="center">Boşluk</TableCell>
-                <TableCell align="center">Açıklama</TableCell>
-                <TableCell align="center">Internal Note</TableCell>
+                {tableColumns?.map((item) => (
+                  <TableCell
+                    className={classes.tableCellHeader}
+                    align="center"
+                    key={item.id}
+                  >
+                    {item.name} {item?.name2 ? `/ ${item?.name2}` : null}
+                  </TableCell>
+                ))}
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
-                <TableRow key={row.receiptNumber}>
-                  <TableCell component="th" scope="row" align="center">
-                    <Link to={`/order?order=${row.receiptNumber}`}>
-                      {row.receiptNumber}
-                    </Link>
-                    <br /> {row.no}
-                  </TableCell>
-                  <TableCell align="center">
-                    {row.date} <br /> {row.adet}
-                  </TableCell>
-                  <TableCell align="center">{row.systemDate}</TableCell>
-                  <TableCell align="center">{row.buyer}</TableCell>
-                  <TableCell align="center">{row.supplier}</TableCell>
-                  <TableCell align="center">{row.type}</TableCell>
-                  <TableCell align="center">{row.length}</TableCell>
-                  <TableCell align="center">{row.color}</TableCell>
-                  <TableCell align="center">{row.qty}</TableCell>
-                  <TableCell align="center">{row.size}</TableCell>
-                  <TableCell align="center">{row.start}</TableCell>
-                  <TableCell align="center">{row.space}</TableCell>
-                  <TableCell align="center">{row.explanation}</TableCell>
-                  <TableCell align="center">{row.internalNote}</TableCell>
+              {rows.map((row, index) => (
+                <TableRow
+                  key={row.index}
+                  className={index % 2 === 1 ? classes.darkTableRow : null}
+                >
+                  {tableColumns?.map((item, i) => (
+                    <TableCell className={classes.tableCell} align="center">
+                      {row[item?.objKey]}
+                      {item?.objKey2 ? (
+                        <div key={i}>
+                          <br /> {row[item?.objKey2]}
+                        </div>
+                      ) : null}
+                    </TableCell>
+                  ))}
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
       </div>
-      <div className={classes.btnGroup}>
-        <Button variant="contained" className={classes.button}>
+      <div>
+        <Button variant="contained" className={classes.printBtn}>
           Yazdır
         </Button>
       </div>

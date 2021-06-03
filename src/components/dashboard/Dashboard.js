@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#007BFF",
     color: "white",
     textTransform: "none",
-    width: "200px",
+    // width: "200px",
     margin: "10px",
     "&:hover": {
       backgroundColor: "#0069D9",
@@ -29,8 +29,8 @@ const useStyles = makeStyles((theme) => ({
   },
   input: {
     padding: 8,
-    borderRadius: "5px",
-    border: "1px solid black",
+    borderRadius: "1px",
+    border: "1px solid grey",
   },
   inpBtn: {
     marginLeft: 5,

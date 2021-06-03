@@ -61,7 +61,7 @@ const DefaultContainer = () => (
     <PrivateRouter exact path="/search" component={Search} />
     <PrivateRouter exact path="/ready-orders" component={ReadyOrders} />
     <PrivateRouter exact path="/cargo-list" component={CargoList} />
-    <PrivateRouter exact path="/awaiting-orders" component={AwaitingOrders} />
+    <PrivateRouter exact path="/awaiting_orders" component={AwaitingOrders} />
     <PrivateRouter
       exact
       path="/workshop-due-dates"
