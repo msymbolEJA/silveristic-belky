@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -18,26 +17,6 @@ const useStyles = makeStyles(() => ({
     margin: "10px",
     display: "flex",
     flexDirection: "column",
-  },
-  button: {
-    backgroundColor: "#007BFF",
-    color: "white",
-    textTransform: "none",
-    marginRight: "5px",
-    "&:hover": {
-      backgroundColor: "#0069D9",
-    },
-  },
-  btnGroup: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  labels: {
-    display: "flex",
-    flexDirection: "column",
-    lineHeight: "1.5rem",
   },
   tContainer: {
     marginRight: "5px",
@@ -63,16 +42,6 @@ const useStyles = makeStyles(() => ({
     fontSize: "1.2rem",
     fontWeight: "bold",
     margin: 5,
-  },
-  printBtn: {
-    width: "100%",
-    backgroundColor: "#007BFF",
-    color: "white",
-    textTransform: "none",
-    marginTop: 20,
-    "&:hover": {
-      backgroundColor: "#0069D9",
-    },
   },
   table: {
     width: "calc(100% - 50px)",
@@ -170,35 +139,6 @@ const AwaitingOrders = () => {
             </TableBody>
           </Table>
         </TableContainer>
-      </div>
-      <div>
-        <Button variant="contained" className={classes.printBtn}>
-          Yazdır
-        </Button>
-      </div>
-      <div className={classes.labels}>
-        <h2>Eski Labellar</h2>
-        <a
-          href="http://45.76.235.108/static/pdf/bulk/admin/05_19_2021-15_24.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          admin/05_19_2021-15_24.pdf
-        </a>
-        <a
-          href="http://45.76.235.108/static/pdf/bulk/admin/05_19_2021-15_24.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          admin/05_19_2021-15_24.pdf
-        </a>
-        <a
-          href="http://45.76.235.108/static/pdf/bulk/admin/05_19_2021-15_24.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          admin/05_19_2021-15_24.pdf
-        </a>
       </div>
     </div>
   );
