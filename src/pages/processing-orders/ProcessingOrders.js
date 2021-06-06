@@ -176,30 +176,6 @@ const AwaitingOrders = () => {
           Yazdır
         </Button>
       </div>
-      <div className={classes.labels}>
-        <h2>Eski Labellar</h2>
-        <a
-          href="http://45.76.235.108/static/pdf/bulk/admin/05_19_2021-15_24.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          admin/05_19_2021-15_24.pdf
-        </a>
-        <a
-          href="http://45.76.235.108/static/pdf/bulk/admin/05_19_2021-15_24.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          admin/05_19_2021-15_24.pdf
-        </a>
-        <a
-          href="http://45.76.235.108/static/pdf/bulk/admin/05_19_2021-15_24.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          admin/05_19_2021-15_24.pdf
-        </a>
-      </div>
     </div>
   );
 };
