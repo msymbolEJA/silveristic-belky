@@ -101,13 +101,26 @@ const AwaitingOrders = () => {
   const [rows, setRows] = useState([]);
   const [count, setCount] = useState(0);
   const [allPdf, setAllPdf] = useState();
+  const [countryFilter, setCountryFilter] = useState("all");
 
   const getOrders = () => {
     getData(`${BASE_URL}etsy/orders/?status=pending&limit=25&offset=0`).then(
       (response) => {
-        console.log(response.data.count);
-        setCount(response.data.count);
-        setRows(response.data.results);
+        let resultFilteredByCountry = null;
+        if (countryFilter !== "all") {
+          resultFilteredByCountry = response.data.results.filter((item) =>
+            countryFilter === "usa"
+              ? item.country_id === "209"
+              : item.country_id !== "209"
+          );
+          setCount(resultFilteredByCountry.length);
+        } else {
+          resultFilteredByCountry = response.data.results;
+          setCount(response.data.count);
+        }
+        setRows(resultFilteredByCountry);
+
+        // setRows(response.data.results);
       }
     );
   };
@@ -126,9 +139,7 @@ const AwaitingOrders = () => {
   useEffect(() => {
     getOrders();
     getAllPdfFunc();
-  }, []);
-
-  // http://185.15.198.109:8080/etsy/orders/?status=pending
+  }, [countryFilter]);
 
   return (
     <div className={classes.root}>
@@ -140,13 +151,25 @@ const AwaitingOrders = () => {
       </div>
       <div className={classes.headerDiv}>
         <div className={classes.btnGroup}>
-          <Button variant="contained" className={classes.button}>
+          <Button
+            variant="contained"
+            className={classes.button}
+            onClick={() => setCountryFilter("all")}
+          >
             All
           </Button>
-          <Button variant="contained" className={classes.button}>
+          <Button
+            variant="contained"
+            className={classes.button}
+            onClick={() => setCountryFilter("usa")}
+          >
             USA
           </Button>
-          <Button variant="contained" className={classes.button}>
+          <Button
+            variant="contained"
+            className={classes.button}
+            onClick={() => setCountryFilter("int")}
+          >
             International
           </Button>
         </div>
