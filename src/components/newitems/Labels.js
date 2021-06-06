@@ -9,6 +9,7 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     flexDirection: "column",
     lineHeight: "1.5rem",
+    textAlign: "center",
   },
 }));
 

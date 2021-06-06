@@ -7,6 +7,7 @@ import { useHistory } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: "75px",
+    textAlign: "center",
   },
   button: {
     backgroundColor: "#007BFF",

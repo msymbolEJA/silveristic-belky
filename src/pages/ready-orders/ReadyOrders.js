@@ -17,6 +17,7 @@ const useStyles = makeStyles(() => ({
     margin: "10px",
     display: "flex",
     flexDirection: "column",
+    textAlign: "center",
   },
   btnGroup: {
     display: "flex",
