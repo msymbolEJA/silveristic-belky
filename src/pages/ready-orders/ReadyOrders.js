@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -18,15 +17,6 @@ const useStyles = makeStyles(() => ({
     margin: "10px",
     display: "flex",
     flexDirection: "column",
-  },
-  button: {
-    backgroundColor: "#007BFF",
-    color: "white",
-    textTransform: "none",
-    marginRight: "5px",
-    "&:hover": {
-      backgroundColor: "#0069D9",
-    },
   },
   btnGroup: {
     display: "flex",
@@ -96,14 +86,54 @@ const useStyles = makeStyles(() => ({
     borderRadius: "5px",
     marginBottom: "25px",
   },
+  hrStyle: {
+    marginLeft: "20px",
+    marginRight: "20px",
+  },
+  bottomInput: {
+    padding: 15,
+    width: "calc(100vw - 100px)",
+    border: "1px solid #DEE2E6",
+    borderRadius: "5px",
+  },
+  button: {
+    color: "#17A2B8",
+    textTransform: "none",
+    border: "1px solid #17A2B8",
+    // marginRight: "5px",
+    width: "fit-content",
+    paddingTop: "3px",
+    paddingBottom: "3px",
+    fontSize: "0.9rem",
+    paddingRight: "12px",
+    paddingLeft: "12px",
+    cursor: "pointer",
+    backgroundColor: "#fff",
+    borderRadius: "3px",
+    "&:hover": {
+      backgroundColor: "#17A2B8",
+      color: "white",
+    },
+  },
+  buttonDiv: {
+    display: "flex",
+    justifyContent: "center",
+    marginBottom: "20px",
+    marginTop: "20px",
+  },
 }));
 
 const AwaitingOrders = () => {
   const classes = useStyles();
   const [rows, setRows] = useState([]);
   const [count, setCount] = useState(0);
+  const [cargoForm, setCargoForm] = useState({
+    tracking_number: "",
+    carrier: "",
+    ref_number_f: "",
+  });
 
-  useEffect(() => {
+  const getOrders = () => {
     getData(`${BASE_URL}etsy/orders/?status=ready&limit=25&offset=0`).then(
       (response) => {
         console.log(response.data);
@@ -111,9 +141,44 @@ const AwaitingOrders = () => {
         setRows(response.data.results);
       }
     );
+  };
+
+  useEffect(() => {
+    getOrders();
   }, []);
 
   // http://185.15.198.109:8080/etsy/orders/?status=pending
+
+  const sendCargoForm = (e) => {
+    e.preventDefault();
+    console.log(cargoForm);
+    // let urlCargo = `${BASE_URL}etsy/cargo/`;
+
+    // postFormData(urlCargo, cargoForm)
+    //   .then((res) => {
+    //     // toastSuccessNotify(res.data.Success);
+    //     // setResult(res.data.Success);
+    //   })
+    //   .catch(({ response }) => {
+    //     // setResult(response.data.Failed);
+    //     // toastErrorNotify(response.data.Failed);
+    //   })
+
+    setCargoForm({
+      tracking_number: "",
+      carrier: "",
+      ref_number_f: "",
+    });
+    try {
+      getOrders();
+    } catch (error) {
+      //console.log(error);
+    }
+  };
+
+  const handleFormChange = (e) => {
+    setCargoForm({ ...cargoForm, [e.target.name]: e.target.value });
+  };
 
   return (
     <div className={classes.root}>
@@ -175,8 +240,39 @@ const AwaitingOrders = () => {
       </div>
 
       <div className={classes.paper}>
-        <h2>Gönderi Oluşturma</h2>
-        <hr />
+        <h3>Gönderi Oluşturma</h3>
+        <hr className={classes.hrStyle} />
+        <form onSubmit={sendCargoForm}>
+          <h4>Referans Numarası</h4>
+          <input
+            className={classes.bottomInput}
+            value={cargoForm.ref_number_f}
+            id="ref_number_f"
+            name="ref_number_f"
+            onChange={handleFormChange}
+          />
+          <h1>Kargo Firması</h1>
+          <input
+            className={classes.bottomInput}
+            value={cargoForm.carrier}
+            id="carrier"
+            name="carrier"
+            onChange={handleFormChange}
+          />
+          <h1>Takip Kodu</h1>
+          <input
+            className={classes.bottomInput}
+            value={cargoForm.tracking_number}
+            id="tracking_number"
+            name="tracking_number"
+            onChange={handleFormChange}
+          />
+          <div className={classes.buttonDiv}>
+            <button className={classes.button} type="submit">
+              Paketlemek Istediginize Emin Misiniz ??
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
