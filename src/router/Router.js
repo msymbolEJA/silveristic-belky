@@ -36,6 +36,7 @@ import ReadyOrders from "../pages/ready-orders/ReadyOrders";
 import InTransit from "../pages/in-transit/InTransit";
 import CancelledOrders from "../pages/cancelled-orders/CancelledOrders";
 import AllOrders from "../pages/all-orders/AllOrders";
+import OrdersSearch from "../pages/orders-search/OrdersSearch";
 
 const history = require("history").createBrowserHistory();
 
@@ -72,6 +73,7 @@ const DefaultContainer = () => (
     <PrivateRouter exact path="/ready_orders" component={ReadyOrders} />
     <PrivateRouter exact path="/in_transit" component={InTransit} />
     <PrivateRouter exact path="/cancelled_orders" component={CancelledOrders} />
+    <PrivateRouter exact path="/orders_search" component={OrdersSearch} />
     <PrivateRouter exact path="/orders/page/:page" component={AllOrders} />
     <PrivateRouter
       exact
