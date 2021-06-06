@@ -104,7 +104,7 @@ const AwaitingOrders = () => {
   const [countryFilter, setCountryFilter] = useState("all");
 
   const getOrders = () => {
-    getData(`${BASE_URL}etsy/orders/?status=pending&limit=25&offset=0`).then(
+    getData(`${BASE_URL}etsy/orders/?status=pending&limit=100&offset=0`).then(
       (response) => {
         let resultFilteredByCountry = null;
         if (countryFilter !== "all") {
@@ -128,7 +128,6 @@ const AwaitingOrders = () => {
   const getAllPdfFunc = () => {
     getAllPdf(`${BASE_URL}etsy/all_pdf/`)
       .then((response) => {
-        console.log(response);
         setAllPdf(response.data.a);
       })
       .catch((error) => {
@@ -139,7 +138,36 @@ const AwaitingOrders = () => {
   useEffect(() => {
     getOrders();
     getAllPdfFunc();
+    // eslint-disable-next-line
   }, [countryFilter]);
+
+  const printHandler = () => {
+    const data = "";
+    let urlPrint;
+    if (countryFilter === "usa") {
+      urlPrint = `${BASE_URL}etsy/print_all/?type=us`;
+    } else if (countryFilter === "int") {
+      urlPrint = `${BASE_URL}etsy/print_all/?type=int`;
+    } else urlPrint = `${BASE_URL}etsy/print_all/`;
+
+    getData(urlPrint, data)
+      .then((data) => {
+        // Open pdf after get
+        const link = document.createElement("a");
+        link.href = `${data.data.url}`;
+        link.setAttribute("target", "_blank");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      })
+      .catch(({ response }) => {
+        console.log(response.data.Failed);
+      })
+      .finally(() => {
+        getAllPdfFunc();
+        getOrders();
+      });
+  };
 
   return (
     <div className={classes.root}>
@@ -225,7 +253,11 @@ const AwaitingOrders = () => {
         </TableContainer>
       </div>
       <div>
-        <Button variant="contained" className={classes.printBtn}>
+        <Button
+          variant="contained"
+          className={classes.printBtn}
+          onClick={printHandler}
+        >
           Yazdır
         </Button>
       </div>
