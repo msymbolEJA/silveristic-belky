@@ -8,7 +8,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { tableColumns } from "../../helper/Constants";
-import { getData } from "../../helper/PostData";
+import { getData, getAllPdf } from "../../helper/PostData";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -100,8 +100,9 @@ const AwaitingOrders = () => {
   const classes = useStyles();
   const [rows, setRows] = useState([]);
   const [count, setCount] = useState(0);
+  const [allPdf, setAllPdf] = useState();
 
-  useEffect(() => {
+  const getOrders = () => {
     getData(`${BASE_URL}etsy/orders/?status=pending&limit=25&offset=0`).then(
       (response) => {
         console.log(response.data.count);
@@ -109,6 +110,22 @@ const AwaitingOrders = () => {
         setRows(response.data.results);
       }
     );
+  };
+
+  const getAllPdfFunc = () => {
+    getAllPdf(`${BASE_URL}etsy/all_pdf/`)
+      .then((response) => {
+        console.log(response);
+        setAllPdf(response.data.a);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getOrders();
+    getAllPdfFunc();
   }, []);
 
   // http://185.15.198.109:8080/etsy/orders/?status=pending
@@ -191,27 +208,21 @@ const AwaitingOrders = () => {
       </div>
       <div className={classes.labels}>
         <h2>Eski Labellar</h2>
-        <a
-          href="http://45.76.235.108/static/pdf/bulk/admin/05_19_2021-15_24.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          admin/05_19_2021-15_24.pdf
-        </a>
-        <a
-          href="http://45.76.235.108/static/pdf/bulk/admin/05_19_2021-15_24.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          admin/05_19_2021-15_24.pdf
-        </a>
-        <a
-          href="http://45.76.235.108/static/pdf/bulk/admin/05_19_2021-15_24.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          admin/05_19_2021-15_24.pdf
-        </a>
+        {allPdf?.length === 0 ? (
+          <h4>Herhangi bir label yok!</h4>
+        ) : (
+          allPdf?.map((pdf, index) => (
+            <div key={`${index}${pdf}`}>
+              <a
+                href={`${BASE_URL}media/pdf/bulk/${pdf}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {pdf}
+              </a>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
