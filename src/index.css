@@ -11,6 +11,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   word-wrap: break-word;
-  text-align: center;
+  /* text-align: center; */
   background-color: #fafafa;
 }
