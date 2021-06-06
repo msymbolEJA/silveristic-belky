@@ -171,11 +171,6 @@ const AwaitingOrders = () => {
           </Table>
         </TableContainer>
       </div>
-      <div>
-        <Button variant="contained" className={classes.printBtn}>
-          Yazdır
-        </Button>
-      </div>
     </div>
   );
 };
