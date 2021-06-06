@@ -9,6 +9,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { tableColumns } from "../../helper/Constants";
 import { getData } from "../../helper/PostData";
+import Labels from "../../components/newitems/Labels";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -176,30 +177,7 @@ const AwaitingOrders = () => {
           Yazdır
         </Button>
       </div>
-      <div className={classes.labels}>
-        <h2>Eski Labellar</h2>
-        <a
-          href="http://45.76.235.108/static/pdf/bulk/admin/05_19_2021-15_24.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          admin/05_19_2021-15_24.pdf
-        </a>
-        <a
-          href="http://45.76.235.108/static/pdf/bulk/admin/05_19_2021-15_24.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          admin/05_19_2021-15_24.pdf
-        </a>
-        <a
-          href="http://45.76.235.108/static/pdf/bulk/admin/05_19_2021-15_24.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          admin/05_19_2021-15_24.pdf
-        </a>
-      </div>
+      <Labels />
     </div>
   );
 };
