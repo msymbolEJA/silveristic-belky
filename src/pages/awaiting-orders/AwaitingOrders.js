@@ -8,7 +8,8 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { tableColumns } from "../../helper/Constants";
-import { getData, getAllPdf } from "../../helper/PostData";
+import { getData } from "../../helper/PostData";
+import Labels from "../../components/newitems/Labels";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -100,11 +101,10 @@ const AwaitingOrders = () => {
   const classes = useStyles();
   const [rows, setRows] = useState([]);
   const [count, setCount] = useState(0);
-  const [allPdf, setAllPdf] = useState();
   const [countryFilter, setCountryFilter] = useState("all");
 
   const getOrders = () => {
-    getData(`${BASE_URL}etsy/orders/?status=pending&limit=100&offset=0`).then(
+    getData(`${BASE_URL}etsy/orders/?status=pending&limit=25&offset=0`).then(
       (response) => {
         let resultFilteredByCountry = null;
         if (countryFilter !== "all") {
@@ -125,19 +125,9 @@ const AwaitingOrders = () => {
     );
   };
 
-  const getAllPdfFunc = () => {
-    getAllPdf(`${BASE_URL}etsy/all_pdf/`)
-      .then((response) => {
-        setAllPdf(response.data.a);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   useEffect(() => {
     getOrders();
-    getAllPdfFunc();
+
     // eslint-disable-next-line
   }, [countryFilter]);
 
@@ -164,7 +154,6 @@ const AwaitingOrders = () => {
         console.log(response.data.Failed);
       })
       .finally(() => {
-        getAllPdfFunc();
         getOrders();
       });
   };
@@ -261,24 +250,7 @@ const AwaitingOrders = () => {
           Yazdır
         </Button>
       </div>
-      <div className={classes.labels}>
-        <h2>Eski Labellar</h2>
-        {allPdf?.length === 0 ? (
-          <h4>Herhangi bir label yok!</h4>
-        ) : (
-          allPdf?.map((pdf, index) => (
-            <div key={`${index}${pdf}`}>
-              <a
-                href={`${BASE_URL}media/pdf/bulk/${pdf}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {pdf}
-              </a>
-            </div>
-          ))
-        )}
-      </div>
+      <Labels />
     </div>
   );
 };
