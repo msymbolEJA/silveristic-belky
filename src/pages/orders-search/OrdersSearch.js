@@ -26,6 +26,7 @@ const useStyles = makeStyles(() => ({
   },
   input: {
     margin: 0,
+    marginBottom: 20,
     marginLeft: 8,
     border: "none",
     padding: "5px",
@@ -38,6 +39,7 @@ const useStyles = makeStyles(() => ({
   },
   inputTitle: {
     marginBottom: 10,
+    display: "block",
     marginLeft: 10,
     fontSize: "0.9rem",
   },
@@ -45,6 +47,7 @@ const useStyles = makeStyles(() => ({
     width: 90,
     display: "block",
     marginLeft: 8,
+    marginBottom: 15,
     margin: 0,
     border: "none",
     padding: "5px",
@@ -105,69 +108,180 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+const initialValues = {
+  id: "",
+  status: "",
+  sku: "",
+  supplier: "",
+  internalNote: "",
+  receiptId: "",
+  trackingCode: "",
+};
+
 const OrdersSearch = () => {
   const classes = useStyles();
-  const [rows, setRows] = useState([]);
+  const [rows, setRows] = useState();
+  const [searchInfo, setSearchInfo] = useState(initialValues);
 
-  useEffect(() => {
-    getData(`${BASE_URL}etsy/orders/?status=in_transit&limit=25&offset=0`).then(
-      (response) => {
-        console.log(response.data);
-        setRows(response.data.results);
-      }
-    );
-  }, []);
+  // useEffect(() => {
+  //   getData(`${BASE_URL}etsy/orders/?status=in_transit&limit=25&offset=0`).then(
+  //     (response) => {
+  //       console.log(response.data);
+  //       setRows(response.data.results);
+  //     }
+  //   );
+  // }, []);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    console.log(searchInfo);
+  };
+
+  const handleChange = (e) => {
+    console.log(e.target.name);
+    console.log(e.target.value);
+    setSearchInfo({ ...searchInfo, [e.target.name]: e.target.value });
+  };
+
+  const handleClear = (e) => {
+    e.preventDefault();
+    setSearchInfo(initialValues);
+  };
+
+  const handleValueSearch = (e) => {
+    e.preventDefault();
+    console.log("handleValueSearch");
+    console.log(searchInfo);
+  };
 
   return (
     <div>
       {rows === undefined ? (
         <div className={classes.searchRoot}>
           <div className={classes.firstDiv}>
-            <div className={classes.innerCont}>
-              <p className={classes.title}>Combined Search</p>
-              <p className={classes.inputTitle}>ID:</p>
-              <input className={classes.input} placeholder="XXXXXX" />
-              <p className={classes.inputTitle}>Status:</p>
-              <select id="status" className={classes.select}>
-                <option value="all">all</option>
-                <option value="awaiting">awaiting</option>
-                <option value="processing">processing</option>
-                <option value="ready">ready</option>
-                <option value="in_transit">in_transit</option>
-                <option value="repeat">repeat</option>
-                <option value="shipped">shipped</option>
-                <option value="cancelled">cancelled</option>
-                <option value="follow_up">follow_up</option>
-              </select>
-              <p className={classes.inputTitle}>SKU:</p>
-              <input className={classes.input} />
-              <p className={classes.inputTitle}>Supplier:</p>
-              <select id="status" className={classes.select}>
-                <option value="all">all</option>
-                <option value="asya">asya</option>
-                <option value="beyazit">beyazit</option>
-                <option value="stok">stok</option>
-              </select>
-              <p className={classes.inputTitle}>Internal Note:</p>
-              <input className={classes.input} />
-            </div>
-            <div>
-              <button className={classes.search}>Search</button>
-              <button className={classes.clear}>Clear</button>
-            </div>
+            <form>
+              <div className={classes.innerCont}>
+                <p className={classes.title}>Combined Search</p>
+                <label htmlFor="id" className={classes.inputTitle}>
+                  ID:
+                </label>
+                <input
+                  name="id"
+                  id="id"
+                  className={classes.input}
+                  placeholder="XXXXXX"
+                  value={searchInfo.id}
+                  onChange={(e) => handleChange(e)}
+                  type="number"
+                />
+                <label htmlFor="status" className={classes.inputTitle}>
+                  Status:
+                </label>
+                <select
+                  name="status"
+                  id="status"
+                  className={classes.select}
+                  value={searchInfo.status}
+                  onChange={(e) => handleChange(e)}
+                >
+                  <option value="all">all</option>
+                  <option value="awaiting">awaiting</option>
+                  <option value="processing">processing</option>
+                  <option value="ready">ready</option>
+                  <option value="in_transit">in_transit</option>
+                  <option value="repeat">repeat</option>
+                  <option value="shipped">shipped</option>
+                  <option value="cancelled">cancelled</option>
+                  <option value="follow_up">follow_up</option>
+                </select>
+                <label htmlFor="sku" className={classes.inputTitle}>
+                  SKU:
+                </label>
+                <input
+                  name="sku"
+                  id="sku"
+                  className={classes.input}
+                  value={searchInfo.sku}
+                  onChange={(e) => handleChange(e)}
+                />
+                <label htmlFor="supplier" className={classes.inputTitle}>
+                  Supplier:
+                </label>
+                <select
+                  name="supplier"
+                  id="supplier"
+                  className={classes.select}
+                  value={searchInfo.supplier}
+                  onChange={(e) => handleChange(e)}
+                >
+                  <option value="all">all</option>
+                  <option value="asya">asya</option>
+                  <option value="beyazit">beyazit</option>
+                  <option value="stok">stok</option>
+                </select>
+                <label htmlFor="internalNote" className={classes.inputTitle}>
+                  Internal Note:
+                </label>
+                <input
+                  name="internalNote"
+                  id="internalNote"
+                  className={classes.input}
+                  value={searchInfo.internalNote}
+                  onChange={(e) => handleChange(e)}
+                />
+              </div>
+              <div>
+                <button
+                  type="submit"
+                  className={classes.search}
+                  onClick={handleSearch}
+                >
+                  Search
+                </button>
+                <button className={classes.clear} onClick={handleClear}>
+                  Clear
+                </button>
+              </div>
+            </form>
           </div>
           <div className={classes.firstDiv}>
-            <div className={classes.innerCont}>
-              <p className={classes.title}>Value Search</p>
-              <p className={classes.inputTitle}>Receipt Id:</p>
-              <input className={classes.input} placeholder="XXXXXX" />
-              <p className={classes.inputTitle}>Tracking Code:</p>
-              <input className={classes.input} />
-            </div>
-            <div>
-              <button className={classes.search}>Search</button>
-              <button className={classes.clear}>Clear</button>
-            </div>
+            <form>
+              <div className={classes.innerCont}>
+                <p className={classes.title}>Value Search</p>
+                <label htmlFor="receiptId" className={classes.inputTitle}>
+                  Receipt Id:
+                </label>
+                <input
+                  className={classes.input}
+                  id="receiptId"
+                  name="receiptId"
+                  value={searchInfo.receiptId}
+                  onChange={(e) => handleChange(e)}
+                />
+                <label htmlFor="trackingCode" className={classes.inputTitle}>
+                  Tracking Code:
+                </label>
+                <input
+                  id="trackingCode"
+                  name="trackingCode"
+                  className={classes.input}
+                  value={searchInfo.trackingCode}
+                  onChange={(e) => handleChange(e)}
+                />
+              </div>
+              <div>
+                <button
+                  className={classes.search}
+                  onClick={handleValueSearch}
+                  type="submit"
+                >
+                  Search
+                </button>
+                <button className={classes.clear} onClick={handleClear}>
+                  Clear
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       ) : (
