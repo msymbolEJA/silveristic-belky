@@ -180,3 +180,28 @@ export const tableColumns = [
   { id: 13, name: "Açıklama", objKey: "explanation" },
   { id: 14, name: "Internal Note", objKey: "gift_message" },
 ];
+
+export const editableTableColumns = [
+  { id: 1, name: "Sip.No", name2: "No", objKey: "receipt", objKey2: "id" },
+  {
+    id: 2,
+    name: "OrderDate",
+    name2: "Buyer",
+    objKey: "created_date",
+    objKey2: "buyer",
+  },
+  { id: 3, name: "Status", objKey: "status" },
+  { id: 4, name: "Supplier", objKey: "supplier" },
+  { id: 5, name: "Name", objKey: "type" },
+  { id: 6, name: "Length", objKey: "length" },
+  { id: 7, name: "Color", objKey: "color" },
+  { id: 8, name: "Qty", objKey: "qty" },
+  { id: 9, name: "Size", objKey: "size" },
+  { id: 10, name: "Start", objKey: "start" },
+  { id: 11, name: "Boşluk", objKey: "space" },
+  { id: 12, name: "Ready\n?", objKey: "approved" },
+  { id: 13, name: "Açıklama", objKey: "explanation" },
+  { id: 14, name: "Personalization", objKey: "personalization" },
+  { id: 15, name: "C.Note", objKey: "message_from_buyer" },
+  { id: 16, name: "Internal Note", objKey: "gift_message" },
+];
