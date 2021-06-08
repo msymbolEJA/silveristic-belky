@@ -191,31 +191,25 @@ const AwaitingOrders = () => {
           </Button>
         </div>
       </div>
-      <div className={classes.paper}>
-        <TableContainer className={classes.tContainer}>
-          <Table className={classes.table} aria-label="simple table">
-            <TableHead className={classes.thead}>
-              <TableRow>
-                {tableColumns?.map((item) => (
-                  <TableCell
-                    className={classes.tableCellHeader}
-                    align="center"
-                    key={item.id}
-                  >
-                    {item.name} {item?.name2 ? `/ ${item?.name2}` : null}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows === null ? (
+      {rows?.length > 0 ? (
+        <div className={classes.paper}>
+          <TableContainer className={classes.tContainer}>
+            <Table className={classes.table} aria-label="simple table">
+              <TableHead className={classes.thead}>
                 <TableRow>
-                  <TableCell align="center" colSpan={14}>
-                    Loading...
-                  </TableCell>
+                  {tableColumns?.map((item) => (
+                    <TableCell
+                      className={classes.tableCellHeader}
+                      align="center"
+                      key={item.id}
+                    >
+                      {item.name} {item?.name2 ? `/ ${item?.name2}` : null}
+                    </TableCell>
+                  ))}
                 </TableRow>
-              ) : (
-                rows?.map((row, index) => (
+              </TableHead>
+              <TableBody>
+                {rows?.map((row, index) => (
                   <TableRow
                     key={row?.id}
                     className={index % 2 === 1 ? classes.darkTableRow : null}
@@ -235,12 +229,12 @@ const AwaitingOrders = () => {
                       </TableCell>
                     ))}
                   </TableRow>
-                ))
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </div>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </div>
+      ) : null}
       <div>
         <Button
           variant="contained"
