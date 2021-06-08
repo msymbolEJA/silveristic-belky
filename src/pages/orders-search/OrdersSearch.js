@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CustomTable from "../../components/newitems/ChangableTable";
-import { getData } from "../../helper/PostData";
+import { queryData } from "../../helper/PostData";
+import { useHistory } from "react-router-dom";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+const BASE_URL_MAPPING = process.env.REACT_APP_BASE_URL_MAPPING;
 
 const useStyles = makeStyles(() => ({
   searchRoot: {
@@ -114,33 +115,58 @@ const initialValues = {
   sku: "",
   supplier: "",
   internalNote: "",
-  receiptId: "",
-  trackingCode: "",
+};
+const initialValuesSearch = {
+  receipt__receipt_id: "",
+  tracking_code: "",
 };
 
 const OrdersSearch = () => {
   const classes = useStyles();
+  const history = useHistory();
   const [rows, setRows] = useState();
   const [searchInfo, setSearchInfo] = useState(initialValues);
+  const [valueSearchInfo, setValueSearchInfo] = useState(initialValuesSearch);
 
-  // useEffect(() => {
-  //   getData(`${BASE_URL}etsy/orders/?status=in_transit&limit=25&offset=0`).then(
-  //     (response) => {
-  //       console.log(response.data);
-  //       setRows(response.data.results);
-  //     }
-  //   );
-  // }, []);
+  const getSearchInfo = (searchKeyword) => {
+    let queryString = "?";
+    Object.keys(searchKeyword).forEach((key) => {
+      if (searchKeyword[key]) {
+        queryString = `${queryString}${key}=${searchKeyword[key]}&`;
+      }
+    });
+    console.log("queryString", queryString);
+    // history.push(`orders_search/${queryString.slice(0, -1)}`);
+    if (queryString === "?") {
+      return null;
+    } else {
+      queryString = queryString.slice(0, -1);
+      let path = `${BASE_URL_MAPPING}${queryString}`;
+      console.log(path);
+      queryData(path)
+        .then((response) => {
+          setRows(response.data.results);
+          console.log("RDR", response.data.results);
+        })
+        .catch((error) => {
+          console.log(error);
+          setRows([]);
+        });
+    }
+  };
 
   const handleSearch = (e) => {
     e.preventDefault();
     console.log(searchInfo);
+    getSearchInfo(searchInfo);
   };
 
   const handleChange = (e) => {
-    console.log(e.target.name);
-    console.log(e.target.value);
     setSearchInfo({ ...searchInfo, [e.target.name]: e.target.value });
+    console.log(searchInfo);
+  };
+  const handleValueChange = (e) => {
+    setValueSearchInfo({ ...valueSearchInfo, [e.target.name]: e.target.value });
   };
 
   const handleClear = (e) => {
@@ -151,11 +177,19 @@ const OrdersSearch = () => {
   const handleValueSearch = (e) => {
     e.preventDefault();
     console.log("handleValueSearch");
-    console.log(searchInfo);
+    console.log(valueSearchInfo);
+    getSearchInfo(valueSearchInfo);
+  };
+
+  const handleNewSearch = () => {
+    console.log("handleNewSearch");
+    history.push("/orders_search");
+    setRows();
   };
 
   return (
     <div>
+      {/* {true ? ( */}
       {rows === undefined ? (
         <div className={classes.searchRoot}>
           <div className={classes.firstDiv}>
@@ -186,7 +220,7 @@ const OrdersSearch = () => {
                 >
                   <option value="all">all</option>
                   <option value="awaiting">awaiting</option>
-                  <option value="processing">processing</option>
+                  <option value="in_progress">processing</option>
                   <option value="ready">ready</option>
                   <option value="in_transit">in_transit</option>
                   <option value="repeat">repeat</option>
@@ -248,25 +282,29 @@ const OrdersSearch = () => {
             <form>
               <div className={classes.innerCont}>
                 <p className={classes.title}>Value Search</p>
-                <label htmlFor="receiptId" className={classes.inputTitle}>
+                <label
+                  htmlFor="receipt__receipt_id"
+                  className={classes.inputTitle}
+                >
                   Receipt Id:
                 </label>
                 <input
                   className={classes.input}
-                  id="receiptId"
-                  name="receiptId"
-                  value={searchInfo.receiptId}
-                  onChange={(e) => handleChange(e)}
+                  id="receipt__receipt_id"
+                  name="receipt__receipt_id"
+                  type="number"
+                  value={searchInfo.receipt__receipt_id}
+                  onChange={(e) => handleValueChange(e)}
                 />
-                <label htmlFor="trackingCode" className={classes.inputTitle}>
+                <label htmlFor="tracking_code" className={classes.inputTitle}>
                   Tracking Code:
                 </label>
                 <input
-                  id="trackingCode"
-                  name="trackingCode"
+                  id="tracking_code"
+                  name="tracking_code"
                   className={classes.input}
-                  value={searchInfo.trackingCode}
-                  onChange={(e) => handleChange(e)}
+                  value={searchInfo.tracking_code}
+                  onChange={(e) => handleValueChange(e)}
                 />
               </div>
               <div>
@@ -286,9 +324,16 @@ const OrdersSearch = () => {
         </div>
       ) : (
         <div className={classes.resultDiv}>
-          <button className={classes.nSBtn}>New Search</button>
-          <p className={classes.foundResult}>{rows.length} Result Form</p>
-          <CustomTable rows={rows} />
+          <button className={classes.nSBtn} onClick={handleNewSearch}>
+            New Search
+          </button>
+          <p className={classes.foundResult}>{rows.length} Result Found!</p>
+          <CustomTable
+            getSearchInfo={getSearchInfo}
+            searchInfo={searchInfo}
+            rows={rows}
+            valueSearchInfo={valueSearchInfo}
+          />
         </div>
       )}
     </div>
