@@ -52,6 +52,20 @@ const useStyles = makeStyles(() => ({
       backgroundColor: "#0069D9",
     },
   },
+  select: {
+    width: "fit-content",
+    height: "40px",
+    display: "block",
+    // margin: 5,
+    border: "1px solid #DEE2E6",
+    borderRadius: "5px",
+    padding: "5px",
+    borderRadius: "5px",
+    "&:focus": {
+      outline: "none !important",
+      boxShadow: "0 0 10px #0069D9",
+    },
+  },
 }));
 
 const initialValues = {
