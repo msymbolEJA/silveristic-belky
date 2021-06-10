@@ -205,3 +205,16 @@ export const editableTableColumns = [
   { id: 15, name: "C.Note", objKey: "message_from_buyer" },
   { id: 16, name: "Internal Note", objKey: "note" },
 ];
+
+export const newOrderColumns = [
+  { id: 1, name: "Customer", objKey: "customer" },
+  { id: 2, name: "Supplier", objKey: "supplier" },
+  { id: 3, name: "Type", objKey: "type" },
+  { id: 4, name: "Length", objKey: "length" },
+  { id: 5, name: "Color", objKey: "color" },
+  { id: 6, name: "Qty", objKey: "qty" },
+  { id: 7, name: "Size", objKey: "size" },
+  { id: 8, name: "Start", objKey: "start" },
+  { id: 9, name: "Boşluk", objKey: "space" },
+  { id: 10, name: "Explanation", objKey: "explanation" },
+];
