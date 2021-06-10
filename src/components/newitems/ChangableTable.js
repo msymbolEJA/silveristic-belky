@@ -73,12 +73,9 @@ const CustomTable = ({ rows, handleSearch, searchType }) => {
           // console.log("THEN", response);
         })
         .catch((error) => {
-          // console.log(error);
+          console.log(error);
         })
         .finally(() => {
-          // console.log(searchInfo);
-          // console.log(valueSearchInfo);
-          // getSearchInfo(searchInfo, "direct");
           handleSearch("", searchType);
         });
     },
@@ -88,11 +85,11 @@ const CustomTable = ({ rows, handleSearch, searchType }) => {
   // console.log(location.search);
 
   const handleOptionChange = (e, id) => {
-    // console.log(id, e.target.name, e.target.value);
-    // setSearchInfo({ ...searchInfo, [e.target.name]: e.target.value });
-    // console.log(searchInfo);
-
     handleRowChange(id, { [e.target.name]: e.target.value });
+  };
+
+  const handleReady = (e, id) => {
+    handleRowChange(id, { [e.target.name]: e.target.checked });
   };
 
   return (
@@ -137,6 +134,8 @@ const CustomTable = ({ rows, handleSearch, searchType }) => {
                             type="checkbox"
                             className={classes.checkbox}
                             defaultChecked={row[item?.objKey]}
+                            onClick={(e) => handleReady(e, row.id)}
+                            name="approved"
                           />
                         </label>
                       ) : item?.objKey === "personalization" &&
