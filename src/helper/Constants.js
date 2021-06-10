@@ -203,5 +203,5 @@ export const editableTableColumns = [
   { id: 13, name: "Açıklama", objKey: "explanation" },
   { id: 14, name: "Personalization", objKey: "personalization" },
   { id: 15, name: "C.Note", objKey: "message_from_buyer" },
-  { id: 16, name: "Internal Note", objKey: "gift_message" },
+  { id: 16, name: "Internal Note", objKey: "note" },
 ];
