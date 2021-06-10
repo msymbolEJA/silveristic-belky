@@ -129,27 +129,23 @@ const OrdersSearch = () => {
 
   const getSearchInfo = (searchKeyword) => {
     let queryString = "?";
-    console.log({ searchKeyword });
+
     Object.keys(searchKeyword).forEach((key) => {
       if (searchKeyword[key]) {
         queryString = `${queryString}${key}=${searchKeyword[key]}&`;
       }
     });
-    console.log("queryString", queryString);
     // history.push(`orders_search/${queryString.slice(0, -1)}`);
     if (queryString === "?") {
       return null;
     } else {
       queryString = queryString.slice(0, -1);
       let path = `${BASE_URL_MAPPING}${queryString}`;
-      console.log(path);
       queryData(path)
         .then((response) => {
           setRows(response.data.results);
-          console.log("RDR", response.data.results);
         })
         .catch((error) => {
-          console.log(error);
           setRows([]);
         });
     }
@@ -162,8 +158,6 @@ const OrdersSearch = () => {
     if (type !== searchType) {
       setSearchType(type);
     }
-    console.log(searchInfo);
-    console.log(type);
     if (type === "valueSearch") {
       getSearchInfo({
         receipt__receipt_id: searchInfo.receipt__receipt_id,
@@ -182,7 +176,6 @@ const OrdersSearch = () => {
 
   const handleChange = (e) => {
     setSearchInfo({ ...searchInfo, [e.target.name]: e.target.value });
-    console.log(searchInfo);
   };
 
   const handleClear = (e) => {
@@ -191,7 +184,6 @@ const OrdersSearch = () => {
   };
 
   const handleNewSearch = () => {
-    console.log("handleNewSearch");
     history.push("/orders_search");
     setRows();
   };
@@ -338,12 +330,9 @@ const OrdersSearch = () => {
           </button>
           <p className={classes.foundResult}>{rows.length} Result Found!</p>
           <CustomTable
-            getSearchInfo={getSearchInfo}
-            searchInfo={searchInfo}
             searchType={searchType}
             handleSearch={handleSearch}
             rows={rows}
-            // valueSearchInfo={valueSearchInfo}
           />
         </div>
       )}

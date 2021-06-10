@@ -8,7 +8,6 @@ import TableRow from "@material-ui/core/TableRow";
 import { makeStyles } from "@material-ui/core/styles";
 import { editableTableColumns } from "../../helper/Constants";
 import { putData } from "../../helper/PostData";
-import { useLocation } from "react-router-dom";
 
 const BASE_URL_MAPPING = process.env.REACT_APP_BASE_URL_MAPPING;
 
@@ -46,15 +45,8 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const CustomTable = ({
-  rows,
-  searchInfo,
-  valueSearchInfo,
-  handleSearch,
-  searchType,
-}) => {
+const CustomTable = ({ rows, handleSearch, searchType }) => {
   const classes = useStyles();
-  let location = useLocation();
 
   const handleRowChange = useCallback(
     (id, data) => {
@@ -66,25 +58,25 @@ const CustomTable = ({
         return;
       putData(`${BASE_URL_MAPPING}${id}/`, data)
         .then((response) => {
-          console.log("THEN", response);
+          // console.log("THEN", response);
         })
         .catch((error) => {
-          console.log(error);
+          // console.log(error);
         })
         .finally(() => {
-          console.log(searchInfo);
-          console.log(valueSearchInfo);
+          // console.log(searchInfo);
+          // console.log(valueSearchInfo);
           // getSearchInfo(searchInfo, "direct");
           handleSearch("", searchType);
         });
     },
-    [rows]
+    [rows, handleSearch, searchType]
   );
 
-  console.log(location.search);
+  // console.log(location.search);
 
   const handleOptionChange = (e, id) => {
-    console.log(id, e.target.name, e.target.value);
+    // console.log(id, e.target.name, e.target.value);
     // setSearchInfo({ ...searchInfo, [e.target.name]: e.target.value });
     // console.log(searchInfo);
 
@@ -146,7 +138,7 @@ const CustomTable = ({
                           value={row[item?.objKey]}
                           onChange={(e) => handleOptionChange(e, row.id)}
                         >
-                          <option value="all">all</option>
+                          <option value="">all</option>
                           <option value="awaiting">awaiting</option>
                           <option value="in_progress">processing</option>
                           <option value="ready">ready</option>
