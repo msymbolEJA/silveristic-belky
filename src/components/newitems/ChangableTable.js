@@ -8,6 +8,7 @@ import TableRow from "@material-ui/core/TableRow";
 import { makeStyles } from "@material-ui/core/styles";
 import { editableTableColumns } from "../../helper/Constants";
 import { putData } from "../../helper/PostData";
+import EditableTableCell from "../newitems/EditableCell";
 
 const BASE_URL_MAPPING = process.env.REACT_APP_BASE_URL_MAPPING;
 
@@ -47,6 +48,17 @@ const useStyles = makeStyles(() => ({
 
 const CustomTable = ({ rows, handleSearch, searchType }) => {
   const classes = useStyles();
+
+  const onChange = (e, id, name) => {
+    if (!rows.length || !name || !e?.target?.innerText) return;
+    if (
+      rows?.filter((item) => item.id === name)?.[0]?.[name] ===
+      e.target.innerText
+    )
+      return;
+    handleRowChange(id, { [name]: e.target.innerText });
+    handleSearch("", searchType);
+  };
 
   const handleRowChange = useCallback(
     (id, data) => {
@@ -161,6 +173,22 @@ const CustomTable = ({ rows, handleSearch, searchType }) => {
                           <option value="beyazit">beyazit</option>
                           <option value="stok">stok</option>
                         </select>
+                      ) : item?.objKey === "type" ||
+                        item?.objKey === "length" ||
+                        item?.objKey === "color" ||
+                        item?.objKey === "qty" ||
+                        item?.objKey === "size" ||
+                        item?.objKey === "start" ||
+                        item?.objKey === "explanation" ||
+                        item?.objKey === "space" ||
+                        item?.objKey === "note" ? (
+                        <EditableTableCell
+                          {...{
+                            row,
+                            name: item?.objKey,
+                            onChange,
+                          }}
+                        />
                       ) : (
                         row[item?.objKey]
                       )}
