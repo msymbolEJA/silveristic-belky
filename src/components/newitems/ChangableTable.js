@@ -46,7 +46,13 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const CustomTable = ({ rows, searchInfo, getSearchInfo, valueSearchInfo }) => {
+const CustomTable = ({
+  rows,
+  searchInfo,
+  valueSearchInfo,
+  handleSearch,
+  searchType,
+}) => {
   const classes = useStyles();
   let location = useLocation();
 
@@ -68,7 +74,8 @@ const CustomTable = ({ rows, searchInfo, getSearchInfo, valueSearchInfo }) => {
         .finally(() => {
           console.log(searchInfo);
           console.log(valueSearchInfo);
-          getSearchInfo(searchInfo, "direct");
+          // getSearchInfo(searchInfo, "direct");
+          handleSearch("", searchType);
         });
     },
     [rows]
@@ -155,7 +162,7 @@ const CustomTable = ({ rows, searchInfo, getSearchInfo, valueSearchInfo }) => {
                           id="supplier"
                           className={classes.select}
                           value={row[item?.objKey]}
-                          onChange={(e) => handleOptionChange(e)}
+                          onChange={(e) => handleOptionChange(e, row.id)}
                         >
                           <option value="all">all</option>
                           <option value="asya">asya</option>

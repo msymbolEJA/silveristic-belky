@@ -115,8 +115,6 @@ const initialValues = {
   sku: "",
   supplier: "",
   internalNote: "",
-};
-const initialValuesSearch = {
   receipt__receipt_id: "",
   tracking_code: "",
 };
@@ -126,10 +124,12 @@ const OrdersSearch = () => {
   const history = useHistory();
   const [rows, setRows] = useState();
   const [searchInfo, setSearchInfo] = useState(initialValues);
-  const [valueSearchInfo, setValueSearchInfo] = useState(initialValuesSearch);
+  const [searchType, setSearchType] = useState();
+  // const [valueSearchInfo, setValueSearchInfo] = useState(initialValuesSearch);
 
   const getSearchInfo = (searchKeyword) => {
     let queryString = "?";
+    console.log({ searchKeyword });
     Object.keys(searchKeyword).forEach((key) => {
       if (searchKeyword[key]) {
         queryString = `${queryString}${key}=${searchKeyword[key]}&`;
@@ -155,30 +155,39 @@ const OrdersSearch = () => {
     }
   };
 
-  const handleSearch = (e) => {
-    e.preventDefault();
+  const handleSearch = (e, type) => {
+    if (e) {
+      e.preventDefault();
+    }
+    if (type !== searchType) {
+      setSearchType(type);
+    }
     console.log(searchInfo);
-    getSearchInfo(searchInfo);
+    console.log(type);
+    if (type === "valueSearch") {
+      getSearchInfo({
+        receipt__receipt_id: searchInfo.receipt__receipt_id,
+        tracking_code: searchInfo.tracking_code,
+      });
+    } else {
+      getSearchInfo({
+        id: searchInfo.id,
+        status: searchInfo.status,
+        sku: searchInfo.sku,
+        supplier: searchInfo.supplier,
+        internalNote: searchInfo.internalNote,
+      });
+    }
   };
 
   const handleChange = (e) => {
     setSearchInfo({ ...searchInfo, [e.target.name]: e.target.value });
     console.log(searchInfo);
   };
-  const handleValueChange = (e) => {
-    setValueSearchInfo({ ...valueSearchInfo, [e.target.name]: e.target.value });
-  };
 
   const handleClear = (e) => {
     e.preventDefault();
     setSearchInfo(initialValues);
-  };
-
-  const handleValueSearch = (e) => {
-    e.preventDefault();
-    console.log("handleValueSearch");
-    console.log(valueSearchInfo);
-    getSearchInfo(valueSearchInfo);
   };
 
   const handleNewSearch = () => {
@@ -268,7 +277,7 @@ const OrdersSearch = () => {
                 <button
                   type="submit"
                   className={classes.search}
-                  onClick={handleSearch}
+                  onClick={(e) => handleSearch(e, "combinedSearch")}
                 >
                   Search
                 </button>
@@ -294,7 +303,7 @@ const OrdersSearch = () => {
                   name="receipt__receipt_id"
                   type="number"
                   value={searchInfo.receipt__receipt_id}
-                  onChange={(e) => handleValueChange(e)}
+                  onChange={(e) => handleChange(e)}
                 />
                 <label htmlFor="tracking_code" className={classes.inputTitle}>
                   Tracking Code:
@@ -304,13 +313,13 @@ const OrdersSearch = () => {
                   name="tracking_code"
                   className={classes.input}
                   value={searchInfo.tracking_code}
-                  onChange={(e) => handleValueChange(e)}
+                  onChange={(e) => handleChange(e)}
                 />
               </div>
               <div>
                 <button
                   className={classes.search}
-                  onClick={handleValueSearch}
+                  onClick={(e) => handleSearch(e, "valueSearch")}
                   type="submit"
                 >
                   Search
@@ -331,8 +340,10 @@ const OrdersSearch = () => {
           <CustomTable
             getSearchInfo={getSearchInfo}
             searchInfo={searchInfo}
+            searchType={searchType}
+            handleSearch={handleSearch}
             rows={rows}
-            valueSearchInfo={valueSearchInfo}
+            // valueSearchInfo={valueSearchInfo}
           />
         </div>
       )}
