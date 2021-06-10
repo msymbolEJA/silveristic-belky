@@ -103,7 +103,7 @@ const AwaitingOrders = () => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    getData(`${BASE_URL}etsy/orders/?repeat=true&limit=25&offset=0`).then(
+    getData(`${BASE_URL}etsy/orders/?is_repeat=true&limit=25&offset=0`).then(
       (response) => {
         console.log(response.data);
         setCount(response.data.count);
