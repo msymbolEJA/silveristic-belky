@@ -9,6 +9,8 @@ import TableRow from "@material-ui/core/TableRow";
 import { shipmentListColumns } from "../../helper/Constants";
 import { getData, putData } from "../../helper/PostData";
 import EditableTableCell from "../../components/newitems/EditableCell";
+import Button from "@material-ui/core/Button";
+
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -59,14 +61,38 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     justifyContent: "center",
   },
+  headerDiv: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    width: "fit-content",
+  },
+  button: {
+    backgroundColor: "#007BFF",
+    color: "white",
+    textTransform: "none",
+    marginRight: "5px",
+    "&:hover": {
+      backgroundColor: "#0069D9",
+    },
+  },
+  btnGroup: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 }));
 
 const ShippedOrders = () => {
   const classes = useStyles();
   const [rows, setRows] = useState();
+  const [supplierFilter, setSupplierFilter] = useState("all");
+
 
   const getOrders = () => {
     getData(`${BASE_URL}etsy/cargo_list/`).then((response) => {
+      // console.log({response})
       let dataObj = response.data;
       const formattedData = dataObj
         ? Object.keys(dataObj).map((key) => {
@@ -76,11 +102,28 @@ const ShippedOrders = () => {
             }));
           })
         : [];
-      // console.log(formattedData[0]);
+        //  console.log("formattedData",formattedData);
+        let newFormData =[] 
+        if(supplierFilter === "all"){
+          newFormData = [...formattedData[0], ...formattedData[1]]
+        }else if(supplierFilter === "asya"){
+          newFormData = formattedData[1]
+          // console.log("aaaaa",formattedData[1])
+        }else{
+          newFormData = formattedData[0]
+          // console.log("bbbbbbb",formattedData[0])
+        }
+      // console.log("--NFD--",newFormData)
 
-      setRows(formattedData[0]);
+      setRows(newFormData);
     });
   };
+
+  useEffect(() => {
+    getOrders()
+    // console.log(supplierFilter)
+    setRows([]);
+  }, [supplierFilter])
   
 
   const tnFunc = (tn, carrier) => {
@@ -122,6 +165,31 @@ const ShippedOrders = () => {
 
   return (
     <div className={classes.root}>
+     <div className={classes.headerDiv}>
+        <div className={classes.btnGroup}>
+          <Button
+            variant="contained"
+            className={classes.button}
+            onClick={() => setSupplierFilter("all")}
+          >
+            All
+          </Button>
+          <Button
+            variant="contained"
+            className={classes.button}
+            onClick={() => setSupplierFilter("asya")}
+          >
+            Asya
+          </Button>
+          <Button
+            variant="contained"
+            className={classes.button}
+            onClick={() => setSupplierFilter("beyazit")}
+          >
+            Beyazit
+          </Button>
+        </div>
+      </div>
       <div className={classes.paper}>
         <TableContainer className={classes.tContainer}>
           <Table className={classes.table} aria-label="simple table">
