@@ -104,7 +104,7 @@ const AwaitingOrders = () => {
   const [countryFilter, setCountryFilter] = useState("all");
 
   const getOrders = () => {
-    getData(`${BASE_URL}etsy/orders/?status=pending&limit=25&offset=0`).then(
+    getData(`${BASE_URL}etsy/orders/?status=awaiting&limit=25&offset=0`).then(
       (response) => {
         let resultFilteredByCountry = null;
         if (countryFilter !== "all") {
