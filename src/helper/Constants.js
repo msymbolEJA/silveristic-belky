@@ -218,3 +218,12 @@ export const newOrderColumns = [
   { id: 9, name: "Boşluk", objKey: "space" },
   { id: 10, name: "Explanation", objKey: "explanation" },
 ];
+
+export const shipmentListColumns = [
+  { id: 1, name: "ID", objKey: "id" },
+  { id: 2, name: "Referans No", objKey: "refNumber" },
+  { id: 3, name: "Gönderi Tarihi", objKey: "shipment_date" },
+  { id: 4, name: "Adet", objKey: "content" },
+  { id: 5, name: "Firma", objKey: "carrier" },
+  { id: 6, name: "Takip Kodu", objKey: "tracking_number" },
+];

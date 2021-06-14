@@ -64,7 +64,7 @@ const Dashboard = () => {
           variant="contained"
           onClick={handleRoute}
           className={classes.button}
-          id="awaiting-orders"
+          id="awaiting_orders"
         >
           Bekleyen Siparişler
         </Button>
