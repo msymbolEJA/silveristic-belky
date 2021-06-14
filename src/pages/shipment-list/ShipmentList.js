@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -7,8 +7,8 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { shipmentListColumns } from "../../helper/Constants";
-import { getData } from "../../helper/PostData";
-import { Link } from "react-router-dom";
+import { getData, putData } from "../../helper/PostData";
+import EditableTableCell from "../../components/newitems/EditableCell";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -76,25 +76,47 @@ const ShippedOrders = () => {
             }));
           })
         : [];
-      console.log(formattedData[0]);
+      // console.log(formattedData[0]);
 
       setRows(formattedData[0]);
     });
   };
+  
 
-  // const tnFunc = (tn, carrier) => {
-  //   if (carrier.includes("DHL") || carrier.includes("DHL")) {
-  //     return `https://www.dhl.com/en/express/tracking.html?AWB=${tn}&brand=DHL`;
-  //   } else if (carrier.includes("UPS") || carrier.includes("ups")) {
-  //     return `https://www.ups.com/track?tracknum=${tn}`;
-  //   } else {
-  //     return tn;
-  //   }
-  // };
+  const tnFunc = (tn, carrier) => {
+    if (carrier.toUpperCase().includes("DHL")) {
+      return `https://www.dhl.com/en/express/tracking.html?AWB=${tn}&brand=DHL`;
+    } else if (carrier.toUpperCase().includes("UPS")) {
+      return `https://www.ups.com/track?tracknum=${tn}`;
+    } else {
+      return tn;
+    }
+  };
+
+  const handleRowChange = useCallback(
+    (id, data) => {
+      // console.log(id,data)
+      if (!data) return;
+      putData(`${BASE_URL}etsy/shipments/${id}/`, data)
+        .then((response) => {
+          //  console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => getOrders());
+    },
+    [getOrders]
+  );
+
+
+ const onChange = (e, id, name) => {
+    //  console.log("onChange",id, name);
+    handleRowChange(id, { [name]: e.target.innerText });
+  };
 
   useEffect(() => {
     getOrders();
-
     // eslint-disable-next-line
   }, []);
 
@@ -135,7 +157,15 @@ const ShippedOrders = () => {
                         className={classes.tableCell}
                         align="center"
                       >
-                        {item?.objKey === "id" ? (
+                        {
+                        item?.objKey === "carrier" ?
+                        <EditableTableCell  {...{
+                          row,
+                          name: item?.objKey,
+                          onChange,
+                        }} />
+                        :
+                        item?.objKey === "id" ? (
                           <>
                             <a
                               href={`shipment?id=${row[item?.objKey]}`}
@@ -145,9 +175,13 @@ const ShippedOrders = () => {
                               {row[item?.objKey]}
                             </a>
                           </>
-                        ) : // ) : item?.objKey === "tracking_number" ? (
-                        //   tnFunc(row[item?.objKey], row[item?.carrier])
-                        item?.objKey === "content" ? (
+                        ) : item?.objKey === "tracking_number" ? (
+                          <a href={tnFunc(row[item?.objKey], row.carrier)}
+                          target="_blank" rel="noreferrer"
+                          >
+                            {row[item?.objKey]}
+                          </a>
+                        ) : item?.objKey === "content" ? (
                           row[item?.objKey]?.length
                         ) : (
                           row[item?.objKey]

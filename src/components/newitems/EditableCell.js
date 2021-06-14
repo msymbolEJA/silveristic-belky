@@ -36,7 +36,7 @@ const useStyles = makeStyles(() => ({
     //wordWrap: "break-word"
   },
   editable: {
-    minHeight: "109px",
+    // minHeight: "109px",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -91,16 +91,6 @@ const EditableTableCell = ({ row, name, onChange }) => {
         onChange={handleContentChange} // handle innerHTML change
         onBlur={handleBlur} // handle innerHTML change
       />
-      {/*   {true ? (
-        <TextareaAutosize
-          defaultValue={row[name] ? row[name] : ""} // first : value={row[name]} // i've changed
-          name={name}
-          // onChange={(e) => onChange(e, row)}
-          className={classes.input}
-        />
-      ) : (
-        row[name]?.replace(/&quot;/g, '"')?.replace(/&#39;/g, "'")
-      )} */}
     </div>
   );
 };
