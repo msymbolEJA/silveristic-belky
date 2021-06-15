@@ -10,7 +10,7 @@ import { shipmentListColumns } from "../../helper/Constants";
 import { getData, putData } from "../../helper/PostData";
 import EditableTableCell from "../../components/newitems/EditableCell";
 import Button from "@material-ui/core/Button";
-
+import { useHistory } from "react-router-dom";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -47,6 +47,10 @@ const useStyles = makeStyles(() => ({
   },
   darkTableRow: {
     backgroundColor: "#F2F2F2",
+    cursor: "pointer",
+  },
+  lightTableRow: {
+    cursor: "pointer",
   },
   thead: {
     backgroundColor: "#6495ED",
@@ -88,7 +92,7 @@ const ShippedOrders = () => {
   const classes = useStyles();
   const [rows, setRows] = useState();
   const [supplierFilter, setSupplierFilter] = useState("all");
-
+  const history = useHistory();
 
   const getOrders = () => {
     getData(`${BASE_URL}etsy/cargo_list/`).then((response) => {
@@ -102,17 +106,17 @@ const ShippedOrders = () => {
             }));
           })
         : [];
-        //  console.log("formattedData",formattedData);
-        let newFormData =[] 
-        if(supplierFilter === "all"){
-          newFormData = [...formattedData[0], ...formattedData[1]]
-        }else if(supplierFilter === "asya"){
-          newFormData = formattedData[1]
-          // console.log("aaaaa",formattedData[1])
-        }else{
-          newFormData = formattedData[0]
-          // console.log("bbbbbbb",formattedData[0])
-        }
+      //  console.log("formattedData",formattedData);
+      let newFormData = [];
+      if (supplierFilter === "all") {
+        newFormData = [...formattedData[0], ...formattedData[1]];
+      } else if (supplierFilter === "asya") {
+        newFormData = formattedData[1];
+        // console.log("aaaaa",formattedData[1])
+      } else {
+        newFormData = formattedData[0];
+        // console.log("bbbbbbb",formattedData[0])
+      }
       // console.log("--NFD--",newFormData)
 
       setRows(newFormData);
@@ -120,11 +124,10 @@ const ShippedOrders = () => {
   };
 
   useEffect(() => {
-    getOrders()
+    getOrders();
     // console.log(supplierFilter)
     setRows([]);
-  }, [supplierFilter])
-  
+  }, [supplierFilter]);
 
   const tnFunc = (tn, carrier) => {
     if (carrier.toUpperCase().includes("DHL")) {
@@ -152,8 +155,7 @@ const ShippedOrders = () => {
     [getOrders]
   );
 
-
- const onChange = (e, id, name) => {
+  const onChange = (e, id, name) => {
     //  console.log("onChange",id, name);
     handleRowChange(id, { [name]: e.target.innerText });
   };
@@ -163,9 +165,13 @@ const ShippedOrders = () => {
     // eslint-disable-next-line
   }, []);
 
+  const handleRowClick = (id) => {
+    history.push(`/cargo-content/${id}`);
+  };
+
   return (
     <div className={classes.root}>
-     <div className={classes.headerDiv}>
+      <div className={classes.headerDiv}>
         <div className={classes.btnGroup}>
           <Button
             variant="contained"
@@ -217,7 +223,12 @@ const ShippedOrders = () => {
                 rows?.map((row, index) => (
                   <TableRow
                     key={index}
-                    className={index % 2 === 1 ? classes.darkTableRow : null}
+                    className={
+                      index % 2 === 1
+                        ? classes.darkTableRow
+                        : classes.lightTableRow
+                    }
+                    onClick={() => handleRowClick(row.id)}
                   >
                     {shipmentListColumns?.map((item, i) => (
                       <TableCell
@@ -225,32 +236,55 @@ const ShippedOrders = () => {
                         className={classes.tableCell}
                         align="center"
                       >
-                        {
-                        item?.objKey === "carrier" ?
-                        <EditableTableCell  {...{
-                          row,
-                          name: item?.objKey,
-                          onChange,
-                        }} />
-                        :
-                        item?.objKey === "id" ? (
-                          <>
-                            <a
-                              href={`shipment?id=${row[item?.objKey]}`}
-                              target="_blank"
-                              rel="noreferrer"
-                            >
-                              {row[item?.objKey]}
-                            </a>
-                          </>
+                        {item?.objKey === "carrier" ? (
+                          <EditableTableCell
+                            {...{
+                              row,
+                              name: item?.objKey,
+                              onChange,
+                            }}
+                          />
+                        ) : item?.objKey === "id" ? (
+                          <>{row[item?.objKey]}</>
                         ) : item?.objKey === "tracking_number" ? (
-                          <a href={tnFunc(row[item?.objKey], row.carrier)}
-                          target="_blank" rel="noreferrer"
-                          >
-                            {row[item?.objKey]}
-                          </a>
-                        ) : item?.objKey === "content" ? (
-                          row[item?.objKey]?.length
+                          <EditableTableCell
+                            align="center"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                            }}
+                            {...{
+                              row,
+                              name: "tracking_number",
+                              onChange,
+                              trackingNumber: tnFunc(
+                                row[item?.objKey],
+                                row.carrier
+                              ),
+                            }}
+                          />
+                        ) : item?.name === "Adet" ? (
+                          row[item?.objKey].length
+                        ) : item?.name === "İçerik" ? (
+                          row[item?.objKey].map((key, i) => (
+                            <span
+                              key={i}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                              }}
+                            >
+                              <a
+                                href={`/order-details/${key}/`}
+                                key={i}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                }}
+                              >
+                                {key}
+                              </a>
+                              {" - "}
+                              {(i + 1) % 10 === 0 ? <br /> : null}
+                            </span>
+                          ))
                         ) : (
                           row[item?.objKey]
                         )}

@@ -221,9 +221,10 @@ export const newOrderColumns = [
 
 export const shipmentListColumns = [
   { id: 1, name: "ID", objKey: "id" },
-  { id: 2, name: "Referans No", objKey: "refNumber" },
-  { id: 3, name: "Gönderi Tarihi", objKey: "shipment_date" },
-  { id: 4, name: "Adet", objKey: "content" },
-  { id: 5, name: "Firma", objKey: "carrier" },
-  { id: 6, name: "Takip Kodu", objKey: "tracking_number" },
+  { id: 2, name: "Referans Numarası", objKey: "refNumber" },
+  { id: 3, name: "Firma", objKey: "carrier" },
+  { id: 4, name: "İçerik", objKey: "content" },
+  { id: 5, name: "Adet", objKey: "content" },
+  { id: 6, name: "Gönderi Tarihi", objKey: "shipment_date" },
+  { id: 7, name: "Takip Kodu", objKey: "tracking_number" },
 ];

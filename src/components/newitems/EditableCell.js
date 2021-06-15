@@ -36,8 +36,8 @@ const useStyles = makeStyles(() => ({
     //wordWrap: "break-word"
   },
   editable: {
-    minHeight: "50px",
-    minWidth: "50px",
+    minHeight: "100%",
+    minWidth: "100%",
     // display: "flex",
     // alignItems: "center",
     // justifyContent: "center",
@@ -48,7 +48,7 @@ const useStyles = makeStyles(() => ({
 /* <TextareaAutosize aria-label="empty textarea" placeholder="Empty" />
  */
 
-const EditableTableCell = ({ row, name, onChange }) => {
+const EditableTableCell = ({ row, name, onChange, trackingNumber }) => {
   const classes = useStyles();
   const [content, setContent] = useState(row[name] || "");
 
@@ -67,6 +67,9 @@ const EditableTableCell = ({ row, name, onChange }) => {
   return (
     <div
       align="center"
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
       //  onClick={(e) => handleRowClick(row.id, name)}
       style={{
         backgroundColor:
@@ -92,6 +95,19 @@ const EditableTableCell = ({ row, name, onChange }) => {
         onChange={handleContentChange} // handle innerHTML change
         onBlur={handleBlur} // handle innerHTML change
       />
+      <br />
+      {trackingNumber && (
+        <a
+          href={trackingNumber}
+          target="_blank"
+          rel="noreferrer"
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
+          Visit
+        </a>
+      )}
     </div>
   );
 };
