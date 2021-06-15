@@ -36,11 +36,12 @@ const useStyles = makeStyles(() => ({
     //wordWrap: "break-word"
   },
   editable: {
-    // minHeight: "109px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "column",
+    minHeight: "50px",
+    minWidth: "50px",
+    // display: "flex",
+    // alignItems: "center",
+    // justifyContent: "center",
+    // flexDirection: "column",
   },
 }));
 
