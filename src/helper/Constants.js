@@ -150,7 +150,7 @@ export const NavbarOptions = [
     name: "follow",
     options: [
       { id: 1, order: "Gönderi Listesi", url: "shipment_list" },
-      { id: 2, order: "Gönderi İçerikleri", url: "shipment_content" },
+      // { id: 2, order: "Gönderi İçerikleri", url: "shipment_content" },
       { id: 3, order: "Üretim Takip", url: "due_dates" },
       { id: 4, order: "Gönderi Takip", url: "shipment_due_dates" },
       { id: 5, order: "Follow-up", url: "follow_up" },
