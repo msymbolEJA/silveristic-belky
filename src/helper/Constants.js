@@ -228,3 +228,13 @@ export const shipmentListColumns = [
   { id: 6, name: "Gönderi Tarihi", objKey: "shipment_date" },
   { id: 7, name: "Takip Kodu", objKey: "tracking_number" },
 ];
+
+export const cargoContentTableColumns = [
+  { id: 1, name: "Order Id", objKey: "id" },
+  { id: 2, name: "Receipt Id", objKey: "receipt_id" },
+  { id: 3, name: "Customer", objKey: "name" },
+  { id: 4, name: "Item Index", objKey: "item_index" },
+  { id: 5, name: "Type", objKey: "type" },
+  { id: 6, name: "Status", objKey: "status" },
+  { id: 7, name: "Note", objKey: "note" },
+];
