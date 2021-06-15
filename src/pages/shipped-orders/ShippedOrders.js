@@ -65,7 +65,7 @@ const ShippedOrders = () => {
   const [rows, setRows] = useState();
 
   const getOrders = () => {
-    getData(`${BASE_URL}etsy/orders/?status=pending&limit=100&offset=0`).then(
+    getData(`${BASE_URL}etsy/orders/?status=shipped&limit=100&offset=0&ordering=-last_updated`).then(
       (response) => {
         setRows(response.data.results);
       }
@@ -81,7 +81,7 @@ const ShippedOrders = () => {
   return (
     <div className={classes.root}>
       <h1 className={classes.header}>Shipped Order</h1>
-      <h2 className={classes.header}>Only Last???? 100 order is displayed</h2>
+      <h2 className={classes.header}>Only Last 100 order is displayed</h2>
       <h3 className={classes.header}>100 result found !</h3>
       <div className={classes.inputDiv}>
         <input type="text" className={classes.input} />
