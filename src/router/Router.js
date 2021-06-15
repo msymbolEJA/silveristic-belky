@@ -18,7 +18,7 @@ import ResetPassword from "../components/forgetpassword/ResetPassword";
 import AllOrdersTable from "../components/orders/allorders/AllOrdersTable";
 import Search from "../components/search/Search";
 // import ReadyOrders from "../components/orders/readyorders/ReadyOrders";
-import OrderDetails from "../components/orders/readyorders/orderdetails/OrderDetails";
+import OrderDetails from "../pages/order-details/OrderDetails";
 // Private Router
 import PrivateRouter from "./PrivateRouter";
 import Approval from "../components/approval/Approval";
