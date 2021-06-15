@@ -23,7 +23,7 @@ import OrderDetails from "../components/orders/readyorders/orderdetails/OrderDet
 import PrivateRouter from "./PrivateRouter";
 import Approval from "../components/approval/Approval";
 import CargoList from "../components/cargo/CargoList";
-import CargoContent from "../pages/shipment-list/CargoContent";
+import CargoContent from "../pages/cargo-content/CargoContent";
 import WorkshopDueDates from "../components/cargo/WorkshopDueDates";
 import ShipmentDueDates from "../components/cargo/ShipmentDueDates";
 import StockList from "../components/stock/StockList";
