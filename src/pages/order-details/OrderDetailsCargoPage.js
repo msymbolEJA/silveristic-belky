@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
     minHeight: "10vh",
     margin: "5vw",
     marginBottom: theme.spacing(2),
+    textAlign: "center",
   },
   container: {
     // maxHeight: "83vh",
@@ -184,7 +185,7 @@ const CargoPage = ({ getListFunc, id, setRefresh }) => {
             color="primary"
             className={classes.submit}
           >
-            Are you sure for package?
+            Paketlemek istedğinize emin misiniz?
           </Button>
         </form>
       </Paper>

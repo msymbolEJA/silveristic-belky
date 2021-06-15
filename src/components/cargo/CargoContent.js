@@ -60,7 +60,7 @@ export default function CustomizedTables({ match }) {
   return (
     <TableContainer component={Paper} className={classes.root}>
       <Typography className={classes.header} variant="h3">
-        Cargo Content
+        Gönderi İçerikleri
       </Typography>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
