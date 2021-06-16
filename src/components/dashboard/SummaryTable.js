@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#add8e6",
       borderRadius: "0.5rem 0.5rem 0 0",
       // fontSize: "1.1rem",
-      transition: "0.5s",
+      transition: "1s",
     },
     minHeight: "6rem",
   },
@@ -145,13 +145,16 @@ export default function SummaryTable({
                       <TableRow
                         key={index}
                         className={classes.tableRow}
-                        onClick={() =>
-                          title === "orders"
-                            ? history.push(
-                                `/all-orders?&status=${item.cell1.toLowerCase()}&limit=2500&offset=0`
-                              )
-                            : null
-                        }
+                        style={{
+                          cursor: title === "orders" ? "default" : "pointer",
+                        }}
+                        // onClick={() =>
+                        //   title === "orders"
+                        //     ? history.push(
+                        //         `/all-orders?&status=${item.cell1.toLowerCase()}&limit=2500&offset=0`
+                        //       )
+                        //     : null
+                        // }
                       >
                         <TableCell align="left" component="th" scope="row">
                           {title === "orders" ? (

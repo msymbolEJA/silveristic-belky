@@ -153,7 +153,8 @@ const Dashboard = () => {
           <SummaryTable
             title="orders"
             total={0}
-            next={`/all-orders?&status=${newStatu}&limit=${PAG_ROW_NUMBER}&offset=0`}
+            next={`/awaiting_orders`}
+            // next={`/all-orders?&status=${newStatu}&limit=${PAG_ROW_NUMBER}&offset=0`}
             icon={<ListAltIcon className={classes.icon} />}
             header1={formatMessage({
               id: "status",
@@ -170,7 +171,7 @@ const Dashboard = () => {
           <SummaryTable
             title="behindSchedule"
             total={0}
-            next="/workshop-due-dates"
+            next="/due_dates"
             icon={
               <LocalShippingIcon className={classes.icon} color="primary" />
             }
@@ -190,7 +191,7 @@ const Dashboard = () => {
             <SummaryTable
               title="behindOverallSchedule"
               total={0}
-              next="/shipment-due-dates"
+              next="/shipment_due_dates"
               icon={
                 <CardGiftcardIcon className={classes.icon} color="primary" />
               }

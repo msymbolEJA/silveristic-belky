@@ -110,7 +110,10 @@ const CostGetter = () => {
         {calcCost.isLoading ? (
           <h3>Calculating...</h3>
         ) : (
-          <h3>{calcCost.totalCost && "Total Cost : $" + calcCost.totalCost}</h3>
+          <h3>
+            {calcCost.totalCost &&
+              "Total Cost : $" + calcCost.totalCost.toFixed(2)}
+          </h3>
         )}
       </div>
     </Paper>
