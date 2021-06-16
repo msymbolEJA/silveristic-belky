@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
   },
+
   thead: {
     backgroundColor: "#6495ED",
   },
@@ -85,9 +86,8 @@ export default function CustomizedTables() {
   const [supplier, setSupplier] = useState("");
 
   useEffect(() => {
-    getData(`${BASE_URL}etsy/due_dates/?supplier=${supplier}`).then(
+    getData(`${BASE_URL}etsy/shipment_due_dates/?supplier=${supplier}`).then(
       (response) => {
-        // console.log(response.data);
         setCargoList(response.data);
       }
     );
@@ -96,7 +96,7 @@ export default function CustomizedTables() {
   return (
     <Grid item xs={12} md={12} className={classes.root}>
       <div className={classes.headerDiv}>
-        <h1 className={classes.header}>Üretim Takip</h1>
+        <h1 className={classes.header}>Gönderi Takip</h1>
         <div className={classes.btnGroup}>
           <Button
             variant="contained"
