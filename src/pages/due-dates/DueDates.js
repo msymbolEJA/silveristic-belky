@@ -9,6 +9,7 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { getData } from "../../helper/PostData";
 import { FormattedMessage } from "react-intl";
+import Button from "@material-ui/core/Button";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -57,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#6495ED",
   },
   header: {
-    fontSize: "1.5rem",
+    fontSize: "2rem",
     fontWeight: "bold",
     marginBottom: "0px",
     margin: 5,
@@ -68,6 +69,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "flex-start",
     width: "fit-content",
+    marginLeft: "0.5rem",
   },
   found: {
     fontSize: "1.2rem",
@@ -115,37 +117,54 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 40,
     display: "inline",
   },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.primary,
-    //width: "42rem",
-  },
   tableDiv: {
     margin: "10px",
-  },
-  headerDiv: {
-    marginLeft: "10px",
-    marginTop: "75px",
   },
 }));
 
 export default function CustomizedTables() {
   const classes = useStyles();
   const [cargoList, setCargoList] = useState({});
+  const [supplier, setSupplier] = useState("");
 
   useEffect(() => {
-    getData(`${BASE_URL}etsy/due_dates/`).then((response) => {
-      setCargoList(response.data);
-    });
-  }, []);
+    getData(`${BASE_URL}etsy/due_dates/?supplier=${supplier}`).then(
+      (response) => {
+        // console.log(response.data);
+        setCargoList(response.data);
+      }
+    );
+  }, [supplier]);
 
   return (
     <Grid item xs={12} md={12} className={classes.root}>
       <div className={classes.headerDiv}>
-        <h1 style={{ display: "inline", marginLeft: "0.5rem" }}>
+        <h1 className={classes.header}>
           <FormattedMessage id="dueDate" defaultMessage="Due Dates" />
         </h1>
+        <div className={classes.btnGroup}>
+          <Button
+            variant="contained"
+            className={classes.button}
+            onClick={() => setSupplier("all")}
+          >
+            All
+          </Button>
+          <Button
+            variant="contained"
+            className={classes.button}
+            onClick={() => setSupplier("asya")}
+          >
+            Asya
+          </Button>
+          <Button
+            variant="contained"
+            className={classes.button}
+            onClick={() => setSupplier("beyazit")}
+          >
+            Beyazit
+          </Button>
+        </div>
       </div>
       <div className={classes.tableDiv}>
         <Paper className={classes.paper}>
