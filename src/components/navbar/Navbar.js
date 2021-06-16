@@ -53,6 +53,9 @@ const useStyles = makeStyles((theme) => ({
   menuDiv: {
     display: "flex",
   },
+  menuItem: {
+    width: "150px",
+  },
 }));
 
 export default function MenuAppBar() {
@@ -147,6 +150,7 @@ export default function MenuAppBar() {
                       <MenuItem
                         onClick={(e) => handleMenuClick(e, item.name, item.url)}
                         key={index}
+                        className={classes.menuItem}
                       >
                         {item.order}
                       </MenuItem>
