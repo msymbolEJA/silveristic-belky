@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
+import TableContainer from "@material-ui/core/TableContainer";
 
 import {
   Paper,
@@ -34,10 +35,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   paper: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.primary,
-    //width: "42rem",
+    border: "2px solid #F2F2F2",
+    borderRadius: "5px",
   },
   icon: {
     fontSize: 40,
@@ -55,10 +54,20 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       backgroundColor: "#add8e6",
       borderRadius: "0.5rem 0.5rem 0 0",
-      fontSize: "1.1rem",
+      // fontSize: "1.1rem",
       transition: "0.5s",
     },
     minHeight: "6rem",
+  },
+  tContainer: {
+    marginRight: "5px",
+    width: "100%",
+  },
+  thead: {
+    backgroundColor: "#6495ED",
+    "& .MuiTableCell-alignLeft": {
+      height: "50px",
+    },
   },
 }));
 
@@ -91,7 +100,7 @@ export default function SummaryTable({
 
   return (
     <Grid item xs={12} md={6} className={classes.root}>
-      <Paper
+      <div
         className={classes.paper}
         onClick={title === "orders" ? null : handleClick}
       >
@@ -102,83 +111,85 @@ export default function SummaryTable({
           </h3>
         </div>
         <div>
-          <Table className={classes.table}>
-            <TableHead style={{ backgroundColor: "black" }}>
-              <TableRow>
-                <TableCell align="left" style={{ color: "white" }}>
-                  {header1}
-                </TableCell>
-                <TableCell align="right" style={{ color: "white" }}>
-                  {header2}
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            {data?.length ? (
-              <TableBody>
-                {data === "noOrders" ? (
-                  <TableRow>
-                    <TableCell
-                      colSpan="2"
-                      align="center"
-                      component="th"
-                      scope="row"
-                    >
-                      <FormattedMessage
-                        id="everythingOnSchedule"
-                        defaultMessage="EVERYTHING IS ON SCHEDULE"
-                      />
-                    </TableCell>
-                  </TableRow>
-                ) : (
-                  data.map((item, index) => (
-                    <TableRow
-                      key={index}
-                      className={classes.tableRow}
-                      onClick={() =>
-                        title === "orders"
-                          ? history.push(
-                              `/all-orders?&status=${item.cell1.toLowerCase()}&limit=2500&offset=0`
-                            )
-                          : null
-                      }
-                    >
-                      <TableCell align="left" component="th" scope="row">
-                        {title === "orders" ? (
-                          <FormattedMessage
-                            id={
-                              item.cell1.toLowerCase() === "awaiting"
-                                ? "approved"
-                                : item.cell1.toLowerCase()
-                            }
-                            defaultMessage={
-                              item.cell1.toLowerCase() === "awaiting"
-                                ? "APPROVED"
-                                : item.cell1
-                            }
-                          />
-                        ) : (
-                          item.cell1
-                        )}
+          <TableContainer className={classes.tContainer}>
+            <Table className={classes.table}>
+              <TableHead className={classes.thead}>
+                <TableRow>
+                  <TableCell align="left" className={classes.tableCellHeader}>
+                    {header1}
+                  </TableCell>
+                  <TableCell align="right" className={classes.tableCellHeader}>
+                    {header2}
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              {data?.length ? (
+                <TableBody>
+                  {data === "noOrders" ? (
+                    <TableRow>
+                      <TableCell
+                        colSpan="2"
+                        align="center"
+                        component="th"
+                        scope="row"
+                      >
+                        <FormattedMessage
+                          id="everythingOnSchedule"
+                          defaultMessage="EVERYTHING IS ON SCHEDULE"
+                        />
                       </TableCell>
-                      <TableCell align="right">{item.cell2}</TableCell>
                     </TableRow>
-                  ))
-                )}
-              </TableBody>
-            ) : (
-              <tbody>
-                <tr>
-                  <td colSpan="2" style={{ display: "table-cell" }}>
-                    <CircularProgress
-                      style={{ marginTop: "1rem", marginBottom: "1rem" }}
-                    />
-                  </td>
-                </tr>
-              </tbody>
-            )}
-          </Table>
+                  ) : (
+                    data.map((item, index) => (
+                      <TableRow
+                        key={index}
+                        className={classes.tableRow}
+                        onClick={() =>
+                          title === "orders"
+                            ? history.push(
+                                `/all-orders?&status=${item.cell1.toLowerCase()}&limit=2500&offset=0`
+                              )
+                            : null
+                        }
+                      >
+                        <TableCell align="left" component="th" scope="row">
+                          {title === "orders" ? (
+                            <FormattedMessage
+                              id={
+                                item.cell1.toLowerCase() === "awaiting"
+                                  ? "approved"
+                                  : item.cell1.toLowerCase()
+                              }
+                              defaultMessage={
+                                item.cell1.toLowerCase() === "awaiting"
+                                  ? "APPROVED"
+                                  : item.cell1
+                              }
+                            />
+                          ) : (
+                            item.cell1
+                          )}
+                        </TableCell>
+                        <TableCell align="right">{item.cell2}</TableCell>
+                      </TableRow>
+                    ))
+                  )}
+                </TableBody>
+              ) : (
+                <tbody>
+                  <tr>
+                    <td colSpan="2" style={{ display: "table-cell" }}>
+                      <CircularProgress
+                        style={{ marginTop: "1rem", marginBottom: "1rem" }}
+                      />
+                    </td>
+                  </tr>
+                </tbody>
+              )}
+            </Table>
+          </TableContainer>
         </div>
-      </Paper>
+      </div>
     </Grid>
   );
 }

@@ -29,6 +29,15 @@ const useStyles = makeStyles((theme) => ({
     minHeight: "5rem",
     borderBottom: "1px solid black",
   },
+  btn: {
+    backgroundColor: "#007BFF",
+    color: "white",
+    textTransform: "none",
+    marginRight: "5px",
+    "&:hover": {
+      backgroundColor: "#0069D9",
+    },
+  },
 }));
 
 const CostGetter = () => {
@@ -71,7 +80,7 @@ const CostGetter = () => {
   return (
     <Paper className={classes.paper} style={{}}>
       <div className={classes.titleStyle}>
-        <BorderColorIcon style={{ color: "#3F51B5", fontSize: "2rem" }} />
+        <BorderColorIcon style={{ color: "#6495ED", fontSize: "2rem" }} />
         <h3 style={{ display: "inline", marginLeft: "0.5rem" }}>
           Cost Calculator
         </h3>
@@ -80,7 +89,7 @@ const CostGetter = () => {
       <input ref={beginnerDateRef} type="date" />
       <label htmlFor="endDate">End Date:</label>
       <input ref={endDateRef} type="date" />
-      <Button variant="contained" color="primary" onClick={getDate}>
+      <Button variant="contained" className={classes.btn} onClick={getDate}>
         Calculate
       </Button>
       <div style={{ height: "1.5rem" }}>
