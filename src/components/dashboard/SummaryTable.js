@@ -35,8 +35,9 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   paper: {
-    border: "2px solid #F2F2F2",
+    border: "1px solid lightgrey",
     borderRadius: "5px",
+    padding: "10px",
   },
   icon: {
     fontSize: 40,

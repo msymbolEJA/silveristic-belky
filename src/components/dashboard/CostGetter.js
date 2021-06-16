@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     width: 254,
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-evenly",
+    // justifyContent: "space-evenly",
     alignItems: "center",
     height: 400,
   },
@@ -26,17 +26,25 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    minHeight: "5rem",
+    height: "6rem",
     borderBottom: "1px solid black",
   },
   btn: {
     backgroundColor: "#007BFF",
     color: "white",
     textTransform: "none",
-    marginRight: "5px",
+    marginTop: "20px",
     "&:hover": {
       backgroundColor: "#0069D9",
     },
+  },
+  inputs: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  label: {
+    margin: "10px",
+    fontSize: "1.5rem",
   },
 }));
 
@@ -78,17 +86,23 @@ const CostGetter = () => {
   }, []);
 
   return (
-    <Paper className={classes.paper} style={{}}>
+    <Paper className={classes.paper}>
       <div className={classes.titleStyle}>
         <BorderColorIcon style={{ color: "#6495ED", fontSize: "2rem" }} />
         <h3 style={{ display: "inline", marginLeft: "0.5rem" }}>
           Cost Calculator
         </h3>
       </div>
-      <label htmlFor="beginnerDate">Beginner Date:</label>
-      <input ref={beginnerDateRef} type="date" />
-      <label htmlFor="endDate">End Date:</label>
-      <input ref={endDateRef} type="date" />
+      <div className={classes.inputs}>
+        <label htmlFor="beginnerDate" className={classes.label}>
+          Beginner Date:
+        </label>
+        <input ref={beginnerDateRef} type="date" />
+        <label htmlFor="endDate" className={classes.label}>
+          End Date:
+        </label>
+        <input ref={endDateRef} type="date" />
+      </div>
       <Button variant="contained" className={classes.btn} onClick={getDate}>
         Calculate
       </Button>
