@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
     marginTop: 60,
   },
   paper: {
-    border: "2px solid #F2F2F2",
+    border: "1px solid lightgrey",
     borderRadius: "5px",
   },
   tContainer: {
@@ -65,11 +65,11 @@ const ShippedOrders = () => {
   const [rows, setRows] = useState();
 
   const getOrders = () => {
-    getData(`${BASE_URL}etsy/orders/?status=shipped&limit=100&offset=0&ordering=-last_updated`).then(
-      (response) => {
-        setRows(response.data.results);
-      }
-    );
+    getData(
+      `${BASE_URL}etsy/orders/?status=shipped&limit=100&offset=0&ordering=-last_updated`
+    ).then((response) => {
+      setRows(response.data.results);
+    });
   };
 
   useEffect(() => {

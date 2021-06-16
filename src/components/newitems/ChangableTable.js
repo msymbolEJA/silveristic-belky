@@ -14,7 +14,7 @@ const BASE_URL_MAPPING = process.env.REACT_APP_BASE_URL_MAPPING;
 
 const useStyles = makeStyles(() => ({
   paper: {
-    border: "2px solid #F2F2F2",
+    border: "1px solid lightgrey",
     borderRadius: "5px",
   },
   tContainer: {

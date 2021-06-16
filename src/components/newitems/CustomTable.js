@@ -10,7 +10,7 @@ import { tableColumns } from "../../helper/Constants";
 
 const useStyles = makeStyles(() => ({
   paper: {
-    border: "2px solid #F2F2F2",
+    border: "1px solid lightgrey",
     borderRadius: "5px",
   },
   tContainer: {

@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#F2F2F2",
   },
   paper: {
-    border: "2px solid #F2F2F2",
+    border: "1px solid lightgrey",
     borderRadius: "5px",
   },
   root: {
