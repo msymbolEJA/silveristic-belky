@@ -10,6 +10,7 @@ import { editableTableColumns } from "../../helper/Constants";
 import { getData, putData } from "../../helper/PostData";
 import moment from "moment";
 import EditableCell from "../../components/newitems/EditableCell";
+import { Link } from "react-router-dom";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 const BASE_URL_MAPPING = process.env.REACT_APP_BASE_URL_MAPPING;
@@ -263,6 +264,10 @@ const AwaitingOrders = () => {
                               onChange,
                             }}
                           />
+                        ) : item?.name === "No" ? (
+                          <Link to={`/orders/${row[item?.objKey]}`}>
+                            {row[item?.objKey]}
+                          </Link>
                         ) : (
                           row[item?.objKey]
                         )}

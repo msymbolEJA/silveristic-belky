@@ -350,7 +350,7 @@ const AwaitingOrders = (props) => {
                         className={classes.tableCell}
                         align="center"
                       >
-                        {item?.name === "Sip.No" ? (
+                        {item?.name === "No" ? (
                           <Link to={`/orders/${row[item?.objKey]}`}>
                             {row[item?.objKey]}
                           </Link>

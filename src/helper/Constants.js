@@ -159,7 +159,7 @@ export const NavbarOptions = [
 ];
 
 export const tableColumns = [
-  { id: 1, name: "Sip.No", name2: "No", objKey: "id", objKey2: "receipt_id" },
+  { id: 1, name: "No", name2: "Sip.No", objKey: "id", objKey2: "receipt_id" },
   {
     id: 2,
     name: "Tarih",
@@ -182,7 +182,7 @@ export const tableColumns = [
 ];
 
 export const editableTableColumns = [
-  { id: 1, name: "Sip.No", name2: "No", objKey: "receipt", objKey2: "id" },
+  { id: 1, name: "No", name2: "Sip.No", objKey: "id", objKey2: "receipt_id" },
   {
     id: 2,
     name: "OrderDate",
