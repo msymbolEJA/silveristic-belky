@@ -6,9 +6,10 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { makeStyles } from "@material-ui/core/styles";
-import { editableTableColumns } from "../../helper/Constants";
+import { editableMappingTableColumns } from "../../helper/Constants";
 import { putData } from "../../helper/PostData";
 import EditableTableCell from "../newitems/EditableCell";
+import { Link } from "react-router-dom";
 
 const BASE_URL_MAPPING = process.env.REACT_APP_BASE_URL_MAPPING;
 
@@ -98,7 +99,7 @@ const CustomTable = ({ rows, handleSearch, searchType }) => {
         <Table className={classes.table} aria-label="simple table">
           <TableHead className={classes.thead}>
             <TableRow>
-              {editableTableColumns?.map((item) => (
+              {editableMappingTableColumns?.map((item) => (
                 <TableCell
                   className={classes.tableCellHeader}
                   align="center"
@@ -122,7 +123,7 @@ const CustomTable = ({ rows, handleSearch, searchType }) => {
                   key={row?.id}
                   className={index % 2 === 1 ? classes.darkTableRow : null}
                 >
-                  {editableTableColumns?.map((item, i) => (
+                  {editableMappingTableColumns?.map((item, i) => (
                     <TableCell
                       key={i}
                       className={classes.tableCell}
@@ -188,6 +189,10 @@ const CustomTable = ({ rows, handleSearch, searchType }) => {
                             onChange,
                           }}
                         />
+                      ) : item?.name === "No" ? (
+                        <Link to={`/orders/${row[item?.objKey]}`}>
+                          {row[item?.objKey]}
+                        </Link>
                       ) : (
                         row[item?.objKey]
                       )}
