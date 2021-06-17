@@ -102,14 +102,16 @@ const AwaitingOrders = () => {
   const [rows, setRows] = useState([]);
   const [count, setCount] = useState(0);
 
+  const getOrders = () => {
+    getData(`${BASE_URL}etsy/orders/?is_repeat=true`).then((response) => {
+      console.log(response.data);
+      setCount(response.data.count);
+      setRows(response.data.results);
+    });
+  };
+
   useEffect(() => {
-    getData(`${BASE_URL}etsy/orders/?is_repeat=true&limit=25&offset=0`).then(
-      (response) => {
-        console.log(response.data);
-        setCount(response.data.count);
-        setRows(response.data.results);
-      }
-    );
+    getOrders();
   }, []);
 
   // http://185.15.198.109:8080/etsy/orders/?status=pending
@@ -166,12 +168,6 @@ const AwaitingOrders = () => {
           </TableContainer>
         </div>
       ) : null}
-      <div>
-        <Button variant="contained" className={classes.printBtn}>
-          Yazdır
-        </Button>
-      </div>
-      <Labels />
     </div>
   );
 };
