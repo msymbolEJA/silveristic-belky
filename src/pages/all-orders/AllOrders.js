@@ -159,25 +159,139 @@ const AwaitingOrders = (props) => {
             Önceki
           </div>
         ) : null}
-        <div
-          className={classes.activeBtn}
-          onClick={() => handlePageChange(page)}
-        >
-          {page}
-        </div>
-        <div
-          className={classes.button}
-          onClick={() => handlePageChange(Number(page) + 1)}
-        >
-          {Number(page) + 1}
-        </div>
-        <div
-          className={classes.button}
-          onClick={() => handlePageChange(Number(page) + 2)}
-        >
-          {Number(page) + 2}
-        </div>
-        ...
+        {page > 5 ? (
+          <>
+            <div className={classes.button} onClick={() => handlePageChange(1)}>
+              {1}
+            </div>
+            <div className={classes.button} onClick={() => handlePageChange(2)}>
+              {2}
+            </div>
+            ...
+            <div
+              className={classes.button}
+              onClick={() => handlePageChange(Number(page) - 2)}
+            >
+              {Number(page) - 2}
+            </div>
+            <div
+              className={classes.button}
+              onClick={() => handlePageChange(Number(page) - 1)}
+            >
+              {Number(page) - 1}
+            </div>
+          </>
+        ) : page > 4 ? (
+          <>
+            <div className={classes.button} onClick={() => handlePageChange(1)}>
+              {1}
+            </div>
+            <div className={classes.button} onClick={() => handlePageChange(2)}>
+              {2}
+            </div>
+            <div className={classes.button} onClick={() => handlePageChange(3)}>
+              {3}
+            </div>
+            <div className={classes.button} onClick={() => handlePageChange(4)}>
+              {4}
+            </div>
+          </>
+        ) : page > 3 ? (
+          <>
+            <div className={classes.button} onClick={() => handlePageChange(1)}>
+              {1}
+            </div>
+            <div className={classes.button} onClick={() => handlePageChange(2)}>
+              {2}
+            </div>
+            <div className={classes.button} onClick={() => handlePageChange(3)}>
+              {3}
+            </div>
+          </>
+        ) : page > 2 ? (
+          <>
+            <div className={classes.button} onClick={() => handlePageChange(1)}>
+              {1}
+            </div>
+            <div className={classes.button} onClick={() => handlePageChange(2)}>
+              {2}
+            </div>
+          </>
+        ) : page > 1 ? (
+          <>
+            <div className={classes.button} onClick={() => handlePageChange(1)}>
+              {1}
+            </div>
+          </>
+        ) : null}
+        {page < Math.ceil(count / 100) - 4 ? (
+          <>
+            <div
+              className={classes.activeBtn}
+              onClick={() => handlePageChange(page)}
+            >
+              {page}
+            </div>
+            <div
+              className={classes.button}
+              onClick={() => handlePageChange(Number(page) + 1)}
+            >
+              {Number(page) + 1}
+            </div>
+            <div
+              className={classes.button}
+              onClick={() => handlePageChange(Number(page) + 2)}
+            >
+              {Number(page) + 2}
+            </div>
+            ...
+          </>
+        ) : page < Math.ceil(count / 100) - 3 ? (
+          <>
+            <div
+              className={classes.activeBtn}
+              onClick={() => handlePageChange(page)}
+            >
+              {page}
+            </div>
+            <div
+              className={classes.button}
+              onClick={() => handlePageChange(Number(page) + 1)}
+            >
+              {Number(page) + 1}
+            </div>
+            <div
+              className={classes.button}
+              onClick={() => handlePageChange(Number(page) + 2)}
+            >
+              {Number(page) + 2}
+            </div>
+          </>
+        ) : page < Math.ceil(count / 100) - 2 ? (
+          <>
+            <div
+              className={classes.activeBtn}
+              onClick={() => handlePageChange(page)}
+            >
+              {page}
+            </div>
+            <div
+              className={classes.button}
+              onClick={() => handlePageChange(Number(page) + 1)}
+            >
+              {Number(page) + 1}
+            </div>
+          </>
+        ) : page < Math.ceil(count / 100) - 1 ? (
+          <>
+            <div
+              className={classes.activeBtn}
+              onClick={() => handlePageChange(page)}
+            >
+              {page}
+            </div>
+          </>
+        ) : null}
         <div
           className={
             page === Math.ceil(count / 100) - 1
