@@ -70,7 +70,7 @@ const useStyles = makeStyles(() => ({
 
 const initialValues = {
   customer: "",
-  supplier: "",
+  supplier: "asya",
   type: "",
   length: "",
   color: "",
@@ -79,7 +79,6 @@ const initialValues = {
   start: "",
   space: "",
   explanation: "",
-  status: "awaiting",
 };
 
 const CustomTable = () => {
