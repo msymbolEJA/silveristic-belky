@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
 import { getData } from "../../helper/PostData";
-import Typography from "@material-ui/core/Typography";
 import { cargoContentTableColumns } from "../../helper/Constants";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;

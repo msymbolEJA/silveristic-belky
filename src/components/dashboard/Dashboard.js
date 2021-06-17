@@ -18,7 +18,6 @@ import FloatingMenu from "./FloatingMenu";
 import CostGetter from "./CostGetter";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
-const PAG_ROW_NUMBER = process.env.REACT_APP_PAG_ROW_NUMBER;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -128,19 +127,6 @@ const Dashboard = () => {
         setShipmentDueDates("noOrders");
       });
   }, []);
-
-  // console.log("localUser", localUser);
-  // console.log(localUser === "admin");
-  const newStatu =
-    localRole === "admin" ||
-    localRole === "shop_manager" ||
-    localRole === "shop_packer"
-      ? "pending"
-      : localRole === "workshop_designer"
-      ? "in_progress"
-      : "awaiting";
-  // console.log({ localRole });
-  // console.log({ newStatu });
 
   return (
     <div className={classes.root}>

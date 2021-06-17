@@ -132,7 +132,6 @@ const AwaitingOrders = (props) => {
   console.log(props.match.params.page);
 
   useEffect(() => {
-    const pageOrders = page * 100;
     // const startOrders =
     getData(
       `${BASE_URL}etsy/orders/?status=&limit=100&offset=${(page - 1) * 100}`
