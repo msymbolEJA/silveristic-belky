@@ -9,6 +9,7 @@ import TableRow from "@material-ui/core/TableRow";
 import { tableColumns } from "../../helper/Constants";
 import { getData } from "../../helper/PostData";
 import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -349,7 +350,13 @@ const AwaitingOrders = (props) => {
                         className={classes.tableCell}
                         align="center"
                       >
-                        {row[item?.objKey]}
+                        {item?.name === "Sip.No" ? (
+                          <Link to={`/orders/${row[item?.objKey]}`}>
+                            {row[item?.objKey]}
+                          </Link>
+                        ) : (
+                          row[item?.objKey]
+                        )}
                         {item?.objKey2 ? (
                           <div>
                             <br /> {row[item?.objKey2]}
