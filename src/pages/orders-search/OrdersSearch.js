@@ -125,6 +125,7 @@ const OrdersSearch = () => {
   const [rows, setRows] = useState();
   const [searchInfo, setSearchInfo] = useState(initialValues);
   const [searchType, setSearchType] = useState();
+  const [count, setCount] = useState(0);
   // const [valueSearchInfo, setValueSearchInfo] = useState(initialValuesSearch);
 
   const getSearchInfo = (searchKeyword) => {
@@ -144,6 +145,7 @@ const OrdersSearch = () => {
       queryData(path)
         .then((response) => {
           setRows(response.data.results);
+          setCount(response.data.count);
         })
         .catch((error) => {
           setRows([]);
@@ -328,7 +330,7 @@ const OrdersSearch = () => {
           <button className={classes.nSBtn} onClick={handleNewSearch}>
             New Search
           </button>
-          <p className={classes.foundResult}>{rows.length} Result Found!</p>
+          <p className={classes.foundResult}>{count} Result Found!</p>
           <CustomTable
             searchType={searchType}
             handleSearch={handleSearch}
