@@ -11,6 +11,7 @@ import { getData, putData, getOnePdf } from "../../helper/PostData";
 import moment from "moment";
 import EditableCell from "../../components/newitems/EditableCell";
 import Button from "@material-ui/core/Button";
+import LogDetails from "../../components/newitems/LogDetails";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 const BASE_URL_MAPPING = process.env.REACT_APP_BASE_URL_MAPPING;
@@ -103,15 +104,21 @@ const SingleOrderPreparation = (props) => {
   const classes = useStyles();
   const [rows, setRows] = useState([]);
   const [count, setCount] = useState(0);
+  const [logData, setLogData] = useState([]);
 
   const getOrders = () => {
-    getData(`${BASE_URL}etsy/orders/${props.match.params.id}/`).then(
-      (response) => {
-        console.log(response);
+    getData(`${BASE_URL}etsy/orders/${props.match.params.id}/`)
+      .then((response) => {
         setCount(1);
         setRows([response.data]);
-      }
-    );
+      })
+      .then(() => {
+        getData(`${BASE_URL}etsy/dateLogs/${props.match.params.id}/`)
+          .then((res) => {
+            setLogData(res.data.results);
+          })
+          .catch((error) => console.log(error));
+      });
   };
 
   useEffect(() => {
@@ -173,7 +180,8 @@ const SingleOrderPreparation = (props) => {
       })
       .catch((error) => {
         console.log(error);
-      });
+      })
+      .finally(() => getOrders());
   };
 
   return (
@@ -311,6 +319,7 @@ const SingleOrderPreparation = (props) => {
           Yazdır
         </Button>
       </div>
+      <LogDetails logData={logData} />
     </div>
   );
 };

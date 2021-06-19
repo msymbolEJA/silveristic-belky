@@ -262,3 +262,10 @@ export const cargoContentTableColumns = [
   { id: 6, name: "Status", objKey: "status" },
   { id: 7, name: "Note", objKey: "note" },
 ];
+
+export const logTableColumns = [
+  { id: 1, name: "User", objKey: "user" },
+  { id: 2, name: "Type", objKey: "type" },
+  { id: 3, name: "Data", objKey: "data" },
+  { id: 4, name: "Change Date", objKey: "change_date" },
+];
