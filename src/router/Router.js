@@ -5,7 +5,7 @@ import { Router } from "react-router";
 
 // Pages
 import Dashboard from "../components/dashboard/Dashboard";
-import Account from "../components/account/Account";
+import Account from "../pages/account/Account";
 import Settings from "../components/settings/Settings";
 import Login from "../components/login/Login";
 import Navbar from "../components/navbar/Navbar";
