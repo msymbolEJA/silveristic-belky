@@ -10,6 +10,7 @@ import { tableColumns } from "../../helper/Constants";
 import { getData } from "../../helper/PostData";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
+import moment from "moment";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -349,7 +350,27 @@ const AwaitingOrders = (props) => {
                         className={classes.tableCell}
                         align="center"
                       >
-                        {item?.name === "No" ? (
+                        {item?.objKey === "creation_tsz" ? (
+                          moment(row[item?.objKey]).format("MM-DD-YY HH:mm") ===
+                          "Invalid date" ? (
+                            row[item?.objKey]
+                          ) : (
+                            moment
+                              .utc(row[item?.objKey])
+                              .local()
+                              .format("MM-DD-YY HH:mm")
+                          )
+                        ) : item?.objKey === "created_date" ? (
+                          moment(row[item?.objKey]).format("MM-DD-YY HH:mm") ===
+                          "Invalid date" ? (
+                            row[item?.objKey]
+                          ) : (
+                            moment
+                              .utc(row[item?.objKey])
+                              .local()
+                              .format("MM-DD-YY HH:mm")
+                          )
+                        ) : item?.name === "No" ? (
                           <Link to={`/orders/${row[item?.objKey]}`}>
                             {row[item?.objKey]}
                           </Link>

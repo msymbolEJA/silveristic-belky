@@ -10,6 +10,8 @@ import TableRow from "@material-ui/core/TableRow";
 import { tableColumns } from "../../helper/Constants";
 import { getData } from "../../helper/PostData";
 import Labels from "../../components/newitems/Labels";
+import { Link } from "react-router-dom";
+import moment from "moment";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -221,7 +223,33 @@ const AwaitingOrders = () => {
                         className={classes.tableCell}
                         align="center"
                       >
-                        {row[item?.objKey]}
+                        {item?.objKey === "creation_tsz" ? (
+                          moment(row[item?.objKey]).format("MM-DD-YY HH:mm") ===
+                          "Invalid date" ? (
+                            row[item?.objKey]
+                          ) : (
+                            moment
+                              .utc(row[item?.objKey])
+                              .local()
+                              .format("MM-DD-YY HH:mm")
+                          )
+                        ) : item?.objKey === "created_date" ? (
+                          moment(row[item?.objKey]).format("MM-DD-YY HH:mm") ===
+                          "Invalid date" ? (
+                            row[item?.objKey]
+                          ) : (
+                            moment
+                              .utc(row[item?.objKey])
+                              .local()
+                              .format("MM-DD-YY HH:mm")
+                          )
+                        ) : item?.name === "No" ? (
+                          <Link to={`/orders/${row[item?.objKey]}`}>
+                            {row[item?.objKey]}
+                          </Link>
+                        ) : (
+                          row[item?.objKey]
+                        )}
                         {item?.objKey2 ? (
                           <div>
                             <br /> {row[item?.objKey2]}
