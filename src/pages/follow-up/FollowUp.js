@@ -111,8 +111,6 @@ const FollowUp = () => {
     });
   };
 
-  // http://185.15.198.109:8080/etsy/mapping/?&is_repeat=undefined&is_followup=true&ordering=-id&limit=2500&offset=0
-
   useEffect(() => {
     getOrders();
   }, []);

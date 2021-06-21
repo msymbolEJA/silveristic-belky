@@ -105,13 +105,11 @@ const AwaitingOrders = () => {
   const [count, setCount] = useState(0);
 
   const getOrders = () => {
-    getData(`${BASE_URL}etsy/orders/?status=pending&limit=25&offset=0`).then(
-      (response) => {
-        console.log(response.data);
-        setCount(response.data.count);
-        setRows(response.data.results);
-      }
-    );
+    getData(`${BASE_URL}etsy/orders/?status=pending`).then((response) => {
+      console.log(response.data);
+      setCount(response.data.count);
+      setRows(response.data.results);
+    });
   };
 
   useEffect(() => {

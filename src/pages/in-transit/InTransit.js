@@ -103,13 +103,11 @@ const AwaitingOrders = () => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    getData(`${BASE_URL}etsy/orders/?status=in_transit&limit=25&offset=0`).then(
-      (response) => {
-        console.log(response.data);
-        setCount(response.data.count);
-        setRows(response.data.results);
-      }
-    );
+    getData(`${BASE_URL}etsy/orders/?status=in_transit`).then((response) => {
+      console.log(response.data);
+      setCount(response.data.count);
+      setRows(response.data.results);
+    });
   }, []);
 
   // http://185.15.198.109:8080/etsy/orders/?status=pending
