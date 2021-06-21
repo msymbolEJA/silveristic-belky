@@ -36,12 +36,14 @@ const useStyles = makeStyles(() => ({
     //wordWrap: "break-word"
   },
   editable: {
-    minHeight: "100%",
+    // minHeight: "100%",
+    minHeight: "80px",
     minWidth: "100%",
-    // display: "flex",
-    // alignItems: "center",
-    // justifyContent: "center",
-    // flexDirection: "column",
+    // backgroundColor: "red",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "column",
   },
 }));
 
@@ -95,18 +97,20 @@ const EditableTableCell = ({ row, name, onChange, trackingNumber }) => {
         onChange={handleContentChange} // handle innerHTML change
         onBlur={handleBlur} // handle innerHTML change
       />
-      <br />
       {trackingNumber && (
-        <a
-          href={trackingNumber}
-          target="_blank"
-          rel="noreferrer"
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-        >
-          Visit
-        </a>
+        <>
+          <br />
+          <a
+            href={trackingNumber}
+            target="_blank"
+            rel="noreferrer"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            Visit
+          </a>
+        </>
       )}
     </div>
   );
