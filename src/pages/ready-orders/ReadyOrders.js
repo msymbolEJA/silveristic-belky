@@ -7,7 +7,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { tableColumns } from "../../helper/Constants";
-import { getData } from "../../helper/PostData";
+import { getData, postFormData } from "../../helper/PostData";
 import { Link } from "react-router-dom";
 import moment from "moment";
 
@@ -137,13 +137,11 @@ const AwaitingOrders = () => {
   });
 
   const getOrders = () => {
-    getData(`${BASE_URL}etsy/orders/?status=ready&limit=25&offset=0`).then(
-      (response) => {
-        console.log(response.data);
-        setCount(response.data.count);
-        setRows(response.data.results);
-      }
-    );
+    getData(`${BASE_URL}etsy/orders/?status=ready`).then((response) => {
+      console.log(response.data);
+      setCount(response.data.count);
+      setRows(response.data.results);
+    });
   };
 
   useEffect(() => {
@@ -155,17 +153,17 @@ const AwaitingOrders = () => {
   const sendCargoForm = (e) => {
     e.preventDefault();
     console.log(cargoForm);
-    // let urlCargo = `${BASE_URL}etsy/cargo/`;
+    let urlCargo = `${BASE_URL}etsy/cargo/`;
 
-    // postFormData(urlCargo, cargoForm)
-    //   .then((res) => {
-    //     // toastSuccessNotify(res.data.Success);
-    //     // setResult(res.data.Success);
-    //   })
-    //   .catch(({ response }) => {
-    //     // setResult(response.data.Failed);
-    //     // toastErrorNotify(response.data.Failed);
-    //   })
+    postFormData(urlCargo, cargoForm)
+      .then((res) => {
+        // toastSuccessNotify(res.data.Success);
+        // setResult(res.data.Success);
+      })
+      .catch(({ response }) => {
+        // setResult(response.data.Failed);
+        // toastErrorNotify(response.data.Failed);
+      });
 
     setCargoForm({
       tracking_number: "",
