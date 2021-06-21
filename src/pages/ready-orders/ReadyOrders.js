@@ -163,6 +163,9 @@ const AwaitingOrders = () => {
       .catch(({ response }) => {
         // setResult(response.data.Failed);
         // toastErrorNotify(response.data.Failed);
+      })
+      .finally(() => {
+        getOrders();
       });
 
     setCargoForm({
@@ -170,11 +173,6 @@ const AwaitingOrders = () => {
       carrier: "",
       ref_number: "",
     });
-    try {
-      getOrders();
-    } catch (error) {
-      //console.log(error);
-    }
   };
 
   const handleFormChange = (e) => {
