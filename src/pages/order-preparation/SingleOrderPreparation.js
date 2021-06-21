@@ -12,6 +12,7 @@ import moment from "moment";
 import EditableCell from "../../components/newitems/EditableCell";
 import Button from "@material-ui/core/Button";
 import LogDetails from "../../components/newitems/LogDetails";
+import OrderDetailsCargoPage from "../order-details/OrderDetailsCargoPage";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 const BASE_URL_MAPPING = process.env.REACT_APP_BASE_URL_MAPPING;
@@ -105,6 +106,7 @@ const SingleOrderPreparation = (props) => {
   const [rows, setRows] = useState([]);
   const [count, setCount] = useState(0);
   const [logData, setLogData] = useState([]);
+  const [refresh, setRefresh] = useState(false);
 
   const getOrders = () => {
     getData(`${BASE_URL}etsy/orders/${props.match.params.id}/`)
@@ -123,7 +125,7 @@ const SingleOrderPreparation = (props) => {
 
   useEffect(() => {
     getOrders();
-  }, []);
+  }, [refresh]);
 
   const onChange = (e, id, name) => {
     if (!rows.length || !name || !e?.target?.innerText) return;
@@ -152,6 +154,7 @@ const SingleOrderPreparation = (props) => {
         })
         .finally(() => {
           getOrders();
+          setRefresh(!refresh);
         });
     },
     [rows]
@@ -309,6 +312,12 @@ const SingleOrderPreparation = (props) => {
             </Table>
           </TableContainer>
         </div>
+      ) : null}
+      {rows[0]?.status === "ready" ? (
+        <OrderDetailsCargoPage
+          id={props.match.params.id}
+          setRefresh={setRefresh}
+        />
       ) : null}
       <div>
         <Button

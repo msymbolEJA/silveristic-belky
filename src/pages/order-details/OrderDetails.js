@@ -62,6 +62,11 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     justifyContent: "center",
   },
+  logTableDiv: {
+    display: "flex",
+    justifyContent: "center",
+    marginBottom: "25px",
+  },
   logTContainer: {
     // margin: "10px",
     maxWidth: "1200px",
@@ -396,7 +401,7 @@ const OrderDetails = ({ match }) => {
           </h2>
         </div>
       )}
-      <div className={classes.logDiv}>
+      <div className={classes.logTableDiv}>
         <TableContainer component={Paper} className={classes.logTContainer}>
           <Table className={classes.table} aria-label="simple table">
             <TableHead className={classes.thead}>

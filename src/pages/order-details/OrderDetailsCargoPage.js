@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
   rootBottom: {
     minHeight: "10vh",
-    margin: "5vw",
+    margin: "25px",
     marginBottom: theme.spacing(2),
     textAlign: "center",
   },
@@ -107,12 +107,7 @@ const CargoPage = ({ getListFunc, id, setRefresh }) => {
   return (
     <div className={classes.root}>
       <Paper className={classes.rootBottom}>
-        <h1>
-          <FormattedMessage
-            id="createANewShipment"
-            defaultMessage="Create A New Shipment"
-          />
-        </h1>
+        <h1>Gönderi Oluşturma</h1>
         <form
           className={classes.root}
           autoComplete="off"
