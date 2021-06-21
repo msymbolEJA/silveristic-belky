@@ -133,7 +133,7 @@ const AwaitingOrders = () => {
   const [cargoForm, setCargoForm] = useState({
     tracking_number: "",
     carrier: "",
-    ref_number_f: "",
+    ref_number: "",
   });
 
   const getOrders = () => {
@@ -168,7 +168,7 @@ const AwaitingOrders = () => {
     setCargoForm({
       tracking_number: "",
       carrier: "",
-      ref_number_f: "",
+      ref_number: "",
     });
     try {
       getOrders();
@@ -273,9 +273,9 @@ const AwaitingOrders = () => {
           <h4>Referans Numarası</h4>
           <input
             className={classes.bottomInput}
-            value={cargoForm.ref_number_f}
-            id="ref_number_f"
-            name="ref_number_f"
+            value={cargoForm.ref_number}
+            id="ref_number"
+            name="ref_number"
             onChange={handleFormChange}
           />
           <h1>Kargo Firması</h1>
