@@ -254,7 +254,7 @@ const OrdersSearch = () => {
                   <option value="all">all</option>
                   <option value="asya">asya</option>
                   <option value="beyazit">beyazit</option>
-                  <option value="stok">stok</option>
+                  {/* <option value="stok">stok</option> */}
                 </select>
                 <label htmlFor="internalNote" className={classes.inputTitle}>
                   Internal Note:

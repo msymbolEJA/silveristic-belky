@@ -233,7 +233,7 @@ const FollowUp = () => {
                         >
                           <option value="asya">asya</option>
                           <option value="beyazit">beyazit</option>
-                          <option value="stok">stok</option>
+                          {/* <option value="stok">stok</option> */}
                         </select>
                       ) : item?.objKey === "created_date" ? (
                         moment(row[item?.objKey]).format("MM-DD-YY HH:mm") ===

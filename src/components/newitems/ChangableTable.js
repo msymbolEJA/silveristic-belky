@@ -171,7 +171,7 @@ const CustomTable = ({ rows, handleSearch, searchType }) => {
                           <option value="all">all</option>
                           <option value="asya">asya</option>
                           <option value="beyazit">beyazit</option>
-                          <option value="stok">stok</option>
+                          {/* <option value="stok">stok</option> */}
                         </select>
                       ) : item?.objKey === "type" ||
                         item?.objKey === "length" ||
