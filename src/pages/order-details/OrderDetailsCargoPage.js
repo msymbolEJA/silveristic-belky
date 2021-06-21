@@ -31,9 +31,6 @@ const useStyles = makeStyles((theme) => ({
   selectTableCell: {
     width: 60,
   },
-  buttonGroup: {
-    marginBottom: theme.spacing(1),
-  },
   header: {
     fontSize: "1.5rem",
   },
@@ -46,6 +43,30 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     marginBottom: theme.spacing(1),
+  },
+  button: {
+    color: "#17A2B8",
+    textTransform: "none",
+    border: "1px solid #17A2B8",
+    // marginRight: "5px",
+    width: "fit-content",
+    paddingTop: "3px",
+    paddingBottom: "3px",
+    fontSize: "1rem",
+    paddingRight: "12px",
+    paddingLeft: "12px",
+    cursor: "pointer",
+    backgroundColor: "#fff",
+    borderRadius: "3px",
+    "&:hover": {
+      backgroundColor: "#17A2B8",
+      color: "white",
+    },
+  },
+  buttonDiv: {
+    display: "flex",
+    justifyContent: "center",
+    padding: "20px",
   },
 }));
 
@@ -171,17 +192,11 @@ const CargoPage = ({ getListFunc, id, setRefresh }) => {
             onChange={handleChange}
             value={cargoForm.ref_number_f}
           />
-
-          <br />
-          <br />
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Paketlemek istedğinize emin misiniz?
-          </Button>
+          <div className={classes.buttonDiv}>
+            <button className={classes.button} type="submit">
+              Paketlemek istedğinize emin misiniz?
+            </button>
+          </div>
         </form>
       </Paper>
       {result ? <h1>{result}</h1> : null}
