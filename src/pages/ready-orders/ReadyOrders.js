@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -10,6 +10,7 @@ import { tableColumns } from "../../helper/Constants";
 import { getData, postFormData } from "../../helper/PostData";
 import { Link } from "react-router-dom";
 import moment from "moment";
+import BarcodeInput from "../../components/otheritems/BarcodeInput";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -124,12 +125,31 @@ const useStyles = makeStyles(() => ({
     marginBottom: "20px",
     marginTop: "20px",
   },
+  inputDiv: {
+    display: "flex",
+    justifyContent: "center",
+  },
+  input: {
+    backgroundColor: "#ADD8E6",
+    borderRadius: "5px",
+    fontSize: "1rem",
+    // fontWeight: "bold",
+  },
+  barcodePar: {
+    fontSize: "1rem",
+    margin: 0,
+    marginTop: 3,
+    marginRight: 10,
+    padding: 0,
+  },
 }));
 
 const AwaitingOrders = () => {
   const classes = useStyles();
   const [rows, setRows] = useState([]);
   const [count, setCount] = useState(0);
+  const [barcodeInput, setBarcodeInput] = useState();
+  const barcodeInputRef = useRef();
   const [cargoForm, setCargoForm] = useState({
     tracking_number: "",
     carrier: "",
@@ -179,6 +199,22 @@ const AwaitingOrders = () => {
     setCargoForm({ ...cargoForm, [e.target.name]: e.target.value });
   };
 
+  const handleBarcodeInputKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      console.log(barcodeInputRef.current.value);
+      setBarcodeInput(barcodeInputRef.current.value);
+    }
+  };
+
+  const handleError = useCallback((err) => {
+    console.error(err);
+  }, []);
+
+  const handleScan = useCallback((data) => {
+    setBarcodeInput(data);
+    barcodeInputRef.current.value = data;
+  }, []);
+
   return (
     <div className={classes.root}>
       <div className={classes.headerDiv}>
@@ -186,6 +222,18 @@ const AwaitingOrders = () => {
       </div>
       <div className={classes.headerDiv}>
         <p className={classes.found}>{count} result found!</p>
+      </div>
+      <div className={classes.inputDiv}>
+        <BarcodeInput onError={handleError} onScan={handleScan} />
+        <p className={classes.barcodePar}>
+          Barcode :{barcodeInput || "No Result"}
+        </p>
+        <input
+          type="text"
+          className={classes.input}
+          ref={barcodeInputRef}
+          onKeyDown={handleBarcodeInputKeyDown}
+        />
       </div>
       <div className={classes.paper}>
         <TableContainer className={classes.tContainer}>
