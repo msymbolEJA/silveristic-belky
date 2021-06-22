@@ -68,7 +68,8 @@ const Dashboard = () => {
           cell2: item.status_count,
         });
       });
-      console.log({ response });
+      // console.log(response.data[0]);
+
       // response.data[1].forEach((item) => {
       //   if (item.is_repeat)
       //     newResult.push({ cell1: "REPEAT", cell2: item.status_count });
