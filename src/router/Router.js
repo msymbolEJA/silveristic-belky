@@ -7,7 +7,8 @@ import { Router } from "react-router";
 import Dashboard from "../components/dashboard/Dashboard";
 import Account from "../pages/account/Account";
 import Settings from "../components/settings/Settings";
-import Login from "../components/login/Login";
+import Login from "../pages/login/Login";
+import LoginOld from "../components/login/Login";
 import Navbar from "../components/navbar/Navbar";
 import NewOrder from "../components/orders/new/NewOrder";
 import Register from "../components/register/Register";
@@ -54,6 +55,7 @@ const AppRouter = () => {
         <Route path="/reset/:id" component={ResetPassword} />
         <Route path="/forgot" component={ForgetPassword} />
         <Route exact path="/login" component={Login} />
+        <Route exact path="/login-old" component={LoginOld} />
         <Route component={DefaultContainer} />
       </Switch>
     </Router>
