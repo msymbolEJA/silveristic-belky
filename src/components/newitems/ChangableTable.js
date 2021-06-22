@@ -150,7 +150,7 @@ const CustomTable = ({ rows, handleSearch, searchType }) => {
                           value={row[item?.objKey]}
                           onChange={(e) => handleOptionChange(e, row.id)}
                         >
-                          <option value="">all</option>
+                          {/* <option value="">all</option> */}
                           <option value="awaiting">awaiting</option>
                           <option value="in_progress">processing</option>
                           <option value="ready">ready</option>
