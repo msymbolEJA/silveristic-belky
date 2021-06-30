@@ -34,6 +34,8 @@ const useStyles = makeStyles(() => ({
   tableCell: {
     fontFamily: "Courier New",
     border: "1px solid #DEE2E6",
+    padding: 0,
+    margin: 0,
   },
   darkTableRow: {
     backgroundColor: "#F2F2F2",
