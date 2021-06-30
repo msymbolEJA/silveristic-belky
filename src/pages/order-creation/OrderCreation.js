@@ -65,6 +65,24 @@ const useStyles = makeStyles(() => ({
       boxShadow: "0 0 10px #0069D9",
     },
   },
+  successResponse: {
+    textAlign: "center",
+    marginTop: 20,
+    backgroundColor: "#e5ffe5",
+    padding: 15,
+    borderRadius: 5,
+    color: "#722E35",
+    fontWeight: "bold",
+  },
+  errorResponse: {
+    textAlign: "center",
+    marginTop: 20,
+    backgroundColor: "#F8D7DA",
+    padding: 15,
+    borderRadius: 5,
+    color: "#722E35",
+    fontWeight: "bold",
+  },
 }));
 
 const initialValues = {
@@ -83,6 +101,8 @@ const initialValues = {
 const CustomTable = () => {
   const classes = useStyles();
   const [info, setInfo] = useState(initialValues);
+  const [creationSuccessResponse, setCreationSuccessResponse] = useState("");
+  const [creationErrorResponse, setCreationErrorResponse] = useState("");
 
   const handleContentChange = useCallback(
     (e, name) => {
@@ -95,10 +115,14 @@ const CustomTable = () => {
     console.log(info);
     postFormData(`${BASE_URL}etsy/manuel_orders/`, info)
       .then((data) => {
-        console.log(data);
+        console.log(data.data.response);
+        setCreationErrorResponse("");
+        setCreationSuccessResponse(data.data.response);
       })
       .catch((error) => {
         console.log(error);
+        setCreationSuccessResponse("");
+        setCreationErrorResponse("Something went wrong!");
       });
   };
 
@@ -163,6 +187,14 @@ const CustomTable = () => {
             Create
           </Button>
         </div>
+        {creationSuccessResponse && (
+          <div className={classes.successResponse}>
+            {creationSuccessResponse}
+          </div>
+        )}
+        {creationErrorResponse && (
+          <div className={classes.errorResponse}>{creationErrorResponse}</div>
+        )}
       </div>
     </div>
   );
