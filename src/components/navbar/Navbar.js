@@ -185,17 +185,32 @@ export default function MenuAppBar() {
                         onClose={(e) => handleClose(e, item?.name)}
                         className={classes.menu}
                       >
-                        {item?.options.map((item, index) => (
-                          <MenuItem
-                            onClick={(e) =>
-                              handleMenuClick(e, item.name, item.url)
-                            }
-                            key={index}
-                            className={classes.menuItem}
-                          >
-                            {item.order}
-                          </MenuItem>
-                        ))}
+                        {item?.options.map((optionItem, index) =>
+                          optionItem.url === "shipment_due_dates" ||
+                          optionItem.url === "follow_up" ? (
+                            localRole === "admin" ? (
+                              <MenuItem
+                                onClick={(e) =>
+                                  handleMenuClick(e, item.name, item.url)
+                                }
+                                key={index}
+                                className={classes.menuItem}
+                              >
+                                {optionItem.order}
+                              </MenuItem>
+                            ) : null
+                          ) : (
+                            <MenuItem
+                              onClick={(e) =>
+                                handleMenuClick(e, item.name, item.url)
+                              }
+                              key={index}
+                              className={classes.menuItem}
+                            >
+                              {optionItem.order}
+                            </MenuItem>
+                          )
+                        )}
                       </Menu>
                     </>
                   )}
