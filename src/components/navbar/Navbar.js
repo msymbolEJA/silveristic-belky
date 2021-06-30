@@ -126,36 +126,79 @@ export default function MenuAppBar() {
             >
               {NavbarOptions?.map((item, index) => (
                 <div key={index} className={classes.menuDiv}>
-                  <Button
-                    aria-controls="simple-menu"
-                    aria-haspopup="true"
-                    onClick={(e) => handleClick(e, item.name)}
-                    className={classes.menuBtn}
-                  >
-                    {item.label}
-                    <ArrowDropDownIcon
-                      color="disabled"
-                      style={{ color: "#CBD5DB" }}
-                    />
-                  </Button>
-                  <Menu
-                    id="simple-menu"
-                    anchorEl={anchorEl ? anchorEl[item?.name] : null}
-                    keepMounted
-                    open={Boolean(anchorEl ? anchorEl[item?.name] : null)}
-                    onClose={(e) => handleClose(e, item?.name)}
-                    className={classes.menu}
-                  >
-                    {item?.options.map((item, index) => (
-                      <MenuItem
-                        onClick={(e) => handleMenuClick(e, item.name, item.url)}
-                        key={index}
-                        className={classes.menuItem}
+                  {item.name === "administration" ? (
+                    localRole === "admin" ? (
+                      <>
+                        <Button
+                          aria-controls="simple-menu"
+                          aria-haspopup="true"
+                          onClick={(e) => handleClick(e, item.name)}
+                          className={classes.menuBtn}
+                        >
+                          {item.label}
+                          <ArrowDropDownIcon
+                            color="disabled"
+                            style={{ color: "#CBD5DB" }}
+                          />
+                        </Button>
+                        <Menu
+                          id="simple-menu"
+                          anchorEl={anchorEl ? anchorEl[item?.name] : null}
+                          keepMounted
+                          open={Boolean(anchorEl ? anchorEl[item?.name] : null)}
+                          onClose={(e) => handleClose(e, item?.name)}
+                          className={classes.menu}
+                        >
+                          {item?.options.map((item, index) => (
+                            <MenuItem
+                              onClick={(e) =>
+                                handleMenuClick(e, item.name, item.url)
+                              }
+                              key={index}
+                              className={classes.menuItem}
+                            >
+                              {item.order}
+                            </MenuItem>
+                          ))}
+                        </Menu>
+                      </>
+                    ) : null
+                  ) : (
+                    <>
+                      <Button
+                        aria-controls="simple-menu"
+                        aria-haspopup="true"
+                        onClick={(e) => handleClick(e, item.name)}
+                        className={classes.menuBtn}
                       >
-                        {item.order}
-                      </MenuItem>
-                    ))}
-                  </Menu>
+                        {item.label}
+                        <ArrowDropDownIcon
+                          color="disabled"
+                          style={{ color: "#CBD5DB" }}
+                        />
+                      </Button>
+                      <Menu
+                        id="simple-menu"
+                        anchorEl={anchorEl ? anchorEl[item?.name] : null}
+                        keepMounted
+                        open={Boolean(anchorEl ? anchorEl[item?.name] : null)}
+                        onClose={(e) => handleClose(e, item?.name)}
+                        className={classes.menu}
+                      >
+                        {item?.options.map((item, index) => (
+                          <MenuItem
+                            onClick={(e) =>
+                              handleMenuClick(e, item.name, item.url)
+                            }
+                            key={index}
+                            className={classes.menuItem}
+                          >
+                            {item.order}
+                          </MenuItem>
+                        ))}
+                      </Menu>
+                    </>
+                  )}
                 </div>
               ))}
             </div>
