@@ -81,6 +81,10 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.action.hover,
     },
   },
+  openPrintedPdf: {
+    textAlign: "center",
+    padding: 10,
+  },
 }));
 
 const OrderDetails = ({ match }) => {
@@ -357,7 +361,7 @@ const OrderDetails = ({ match }) => {
       {["in_progress", "ready", "in_transit", "shipped"].includes(
         rows[0]?.status
       ) && isPdfExist ? (
-        <>
+        <div className={classes.openPrintedPdf}>
           <a
             href={`${BASE_URL}media/pdf/${match.params.id}.pdf`}
             target="_blank"
@@ -368,7 +372,7 @@ const OrderDetails = ({ match }) => {
               defaultMessage="Open Printed Pdf"
             />
           </a>
-        </>
+        </div>
       ) : (
         <p>
           <FormattedMessage id="noPdfFiles" />
