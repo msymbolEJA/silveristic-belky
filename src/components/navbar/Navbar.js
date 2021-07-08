@@ -149,15 +149,15 @@ export default function MenuAppBar() {
                           onClose={(e) => handleClose(e, item?.name)}
                           className={classes.menu}
                         >
-                          {item?.options.map((item, index) => (
+                          {item?.options.map((each, index) => (
                             <MenuItem
                               onClick={(e) =>
-                                handleMenuClick(e, item.name, item.url)
+                                handleMenuClick(e, each.name, each.url)
                               }
                               key={index}
                               className={classes.menuItem}
                             >
-                              {item.order}
+                              {each.order}
                             </MenuItem>
                           ))}
                         </Menu>
@@ -191,7 +191,11 @@ export default function MenuAppBar() {
                             localRole === "admin" ? (
                               <MenuItem
                                 onClick={(e) =>
-                                  handleMenuClick(e, item.name, item.url)
+                                  handleMenuClick(
+                                    e,
+                                    optionItem.name,
+                                    optionItem.url
+                                  )
                                 }
                                 key={index}
                                 className={classes.menuItem}
@@ -202,7 +206,11 @@ export default function MenuAppBar() {
                           ) : (
                             <MenuItem
                               onClick={(e) =>
-                                handleMenuClick(e, item.name, item.url)
+                                handleMenuClick(
+                                  e,
+                                  optionItem.name,
+                                  optionItem.url
+                                )
                               }
                               key={index}
                               className={classes.menuItem}

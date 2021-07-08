@@ -158,6 +158,7 @@ export const NavbarOptions = [
       { id: 3, order: "Üretim Takip", url: "due_dates" },
       { id: 4, order: "Gönderi Takip", url: "shipment_due_dates" },
       { id: 5, order: "Follow-up", url: "follow_up" },
+      { id: 6, order: "Best Seller", url: "best_seller" },
     ],
   },
 ];
