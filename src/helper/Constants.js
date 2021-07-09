@@ -274,3 +274,8 @@ export const logTableColumns = [
   { id: 3, name: "Data", objKey: "data" },
   { id: 4, name: "Change Date", objKey: "change_date" },
 ];
+
+export const bestSellerColumns = [
+  { id: 1, name: "Type", objKey: "type" },
+  { id: 2, name: "Order Count", objKey: "order_count" },
+];
