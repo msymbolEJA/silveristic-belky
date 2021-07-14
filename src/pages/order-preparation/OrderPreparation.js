@@ -104,7 +104,7 @@ const useStyles = makeStyles(() => ({
 const AwaitingOrders = () => {
   const classes = useStyles();
   const [rows, setRows] = useState([]);
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState();
 
   const getOrders = () => {
     getData(`${BASE_URL}etsy/orders/?status=pending`).then((response) => {
@@ -163,7 +163,11 @@ const AwaitingOrders = () => {
         <p className={classes.header}>Order Preparation</p>
       </div>
       <div className={classes.headerDiv}>
-        <p className={classes.found}>{count} result found!</p>
+        {count ? (
+          <p className={classes.found}>{count} result found!</p>
+        ) : count === 0 ? (
+          <p className={classes.found}>{count} result found!</p>
+        ) : null}
       </div>
       {rows?.length > 0 ? (
         <div className={classes.paper}>
