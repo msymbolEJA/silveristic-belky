@@ -321,6 +321,18 @@ const SingleOrderPreparation = (props) => {
           setRefresh={setRefresh}
         />
       ) : null}
+      {/* // SILVERISTIC daha sonra eklenecek. Adresleri sadece ASYA görecek. */}
+      {console.log(rows)}
+      {rows[0]?.country_id !== "209" ? (
+        <div style={{ marginTop: "1rem", textAlign: "center" }}>
+          <p>
+            Address: <b>{rows[0]?.formatted_address || "Adres yok!"} </b>
+          </p>
+          <p>
+            Buyer Email : <b>{rows[0]?.buyer_email || "Email yok!"}</b>
+          </p>
+        </div>
+      ) : null}
       <div>
         <Button
           variant="contained"
