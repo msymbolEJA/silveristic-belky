@@ -332,6 +332,20 @@ const AwaitingOrders = () => {
             name="carrier"
             onChange={handleFormChange}
           />
+          <h1>Kargo Tarihi</h1>
+          <input
+            className={classes.bottomInput}
+            id="date"
+            name="date"
+            label="Cargo Date"
+            type="date"
+            variant="outlined"
+            value={cargoForm.date}
+            onChange={handleFormChange}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
           <h1>Takip Kodu</h1>
           <input
             className={classes.bottomInput}
