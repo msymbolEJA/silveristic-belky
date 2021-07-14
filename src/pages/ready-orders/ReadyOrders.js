@@ -225,9 +225,7 @@ const AwaitingOrders = () => {
       </div>
       <div className={classes.inputDiv}>
         <BarcodeInput onError={handleError} onScan={handleScan} />
-        <p className={classes.barcodePar}>
-          Barcode :{barcodeInput || "No Result"}
-        </p>
+        <p className={classes.barcodePar}>{barcodeInput}</p>
         <input
           type="text"
           className={classes.input}
