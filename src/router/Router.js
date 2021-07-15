@@ -44,7 +44,7 @@ import ShippedOrders from "../pages/shipped-orders/ShippedOrders";
 import ShipmentList from "../pages/shipment-list/ShipmentList";
 import FollowUp from "../pages/follow-up/FollowUp";
 import SingleOrderPreparation from "../pages/order-preparation/SingleOrderPreparation";
-import BestSeller from "../pages/best-seller/BestSeller";
+import SoldOrders from "../pages/sold-orders/SoldOrders";
 
 const history = require("history").createBrowserHistory();
 
@@ -89,7 +89,7 @@ const DefaultContainer = () => (
     <PrivateRouter exact path="/shipped_orders" component={ShippedOrders} />
     <PrivateRouter exact path="/shipment_list" component={ShipmentList} />
     <PrivateRouter exact path="/follow_up" component={FollowUp} />
-    <PrivateRouter exact path="/best_seller" component={BestSeller} />
+    <PrivateRouter exact path="/sold_orders" component={SoldOrders} />
     <PrivateRouter
       exact
       path="/orders/:id"

@@ -10,7 +10,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import { bestSellerColumns } from "../../helper/Constants";
+import { soldOrdersColumns } from "../../helper/Constants";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -129,7 +129,7 @@ const DateGetter = () => {
 
   return (
     <div>
-      <h2 className={classes.header}>Best Seller</h2>
+      <h2 className={classes.header}>Satılan Ürünler</h2>
       <div className={classes.top}>
         <Paper className={classes.paper}>
           <div className={classes.inputs}>
@@ -156,7 +156,7 @@ const DateGetter = () => {
               <Table className={classes.table} aria-label="simple table">
                 <TableHead className={classes.thead}>
                   <TableRow>
-                    {bestSellerColumns?.map((item) => (
+                    {soldOrdersColumns?.map((item) => (
                       <TableCell
                         className={classes.tableCellHeader}
                         align="center"
@@ -173,7 +173,7 @@ const DateGetter = () => {
                       key={row?.id}
                       className={index % 2 === 1 ? classes.darkTableRow : null}
                     >
-                      {bestSellerColumns?.map((item, i) => (
+                      {soldOrdersColumns?.map((item, i) => (
                         <TableCell
                           key={i}
                           className={classes.tableCell}

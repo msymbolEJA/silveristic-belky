@@ -158,7 +158,7 @@ export const NavbarOptions = [
       { id: 3, order: "Üretim Takip", url: "due_dates" },
       { id: 4, order: "Gönderi Takip", url: "shipment_due_dates" },
       { id: 5, order: "Follow-up", url: "follow_up" },
-      { id: 6, order: "Best Seller", url: "best_seller" },
+      { id: 6, order: "Sold Orders", url: "sold_orders" },
     ],
   },
 ];
@@ -275,7 +275,7 @@ export const logTableColumns = [
   { id: 4, name: "Change Date", objKey: "change_date" },
 ];
 
-export const bestSellerColumns = [
+export const soldOrdersColumns = [
   { id: 1, name: "Type", objKey: "type" },
   { id: 2, name: "Order Count", objKey: "order_count" },
 ];
