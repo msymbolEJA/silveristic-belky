@@ -104,7 +104,7 @@ const FollowUp = () => {
   const [count, setCount] = useState(0);
 
   const getOrders = () => {
-    getData(`${BASE_URL}etsy/mapping/?is_followup=true`).then((response) => {
+    getData(`${BASE_URL}etsy/mapping/?status=follow_up`).then((response) => {
       console.log(response.data);
       setCount(response.data.count);
       setRows(response.data.results);
