@@ -7,12 +7,13 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { tableColumns } from "../../helper/Constants";
-import { getData, postFormData } from "../../helper/PostData";
+import { getData, putData, postFormData } from "../../helper/PostData";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import BarcodeInput from "../../components/otheritems/BarcodeInput";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
+const BASE_URL_MAPPING = process.env.REACT_APP_BASE_URL_MAPPING;
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -199,6 +200,16 @@ const AwaitingOrders = () => {
     setCargoForm({ ...cargoForm, [e.target.name]: e.target.value });
   };
 
+  const changeOrderStatus = (id, status) => {
+    putData(`${BASE_URL_MAPPING}${id}/`, { status })
+      .then((response) => {
+        getOrders();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const handleBarcodeInputKeyDown = (e) => {
     if (e.keyCode === 13) {
       console.log(barcodeInputRef.current.value);
@@ -214,6 +225,34 @@ const AwaitingOrders = () => {
     setBarcodeInput(data);
     barcodeInputRef.current.value = data;
   }, []);
+
+
+  useEffect(() => {
+    if (barcodeInput) checkOrderIfInProgress(barcodeInput);
+    // eslint-disable-next-line
+  }, [barcodeInput]);
+
+  const checkOrderIfInProgress = async (id) => {
+    let isInProgress = false;
+    const url = `${BASE_URL_MAPPING}${id}/`;
+    try {
+      const res = await getData(url);
+      isInProgress = res?.data?.status === "in_progress";
+      if (isInProgress) {
+        changeOrderStatus(id, "ready");
+      } else {
+        alert(
+          `Urun islemde degil`
+        );
+      }
+    } catch (error) {
+      alert(error?.response?.data?.detail || error?.message);
+    } finally {
+      barcodeInputRef.current.value = null;
+      setBarcodeInput(null);
+    }
+    return isInProgress;
+  };
 
   return (
     <div className={classes.root}>
@@ -232,7 +271,7 @@ const AwaitingOrders = () => {
           ref={barcodeInputRef}
           onKeyDown={handleBarcodeInputKeyDown}
         />
-      </div>
+      </div>      
       <div className={classes.paper}>
         <TableContainer className={classes.tContainer}>
           <Table className={classes.table} aria-label="simple table">
