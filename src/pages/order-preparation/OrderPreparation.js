@@ -112,7 +112,7 @@ const AwaitingOrders = () => {
   const [selected, setSelected] = useState([]);
 
   const getOrders = () => {
-    getData(`${BASE_URL}etsy/orders/?status=pending&limit=100&offset=0`).then(
+    getData(`${BASE_URL}etsy/orders/?status=pending&limit=2500&offset=0&ordering=-id`).then(
       (response) => {
         console.log(response.data);
         setCount(response.data.count);
