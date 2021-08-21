@@ -1020,10 +1020,9 @@ function App({ history }) {
                     <td
                       style={{
                         padding: 0,
-                        borderBottom: "1px solid #e0e0e0",
                         pointerEvents:
                           row.status === "pending" ? "auto" : "none",
-                        borderRight: "0.5px solid #E0E0E0",
+                        border: "none"
                       }}
                       onClick={(e) => {
                         e.stopPropagation();
@@ -1038,6 +1037,7 @@ function App({ history }) {
                     >
                       <Checkbox
                         checked={isItemSelected}
+                        style={{ border: "none" }}
                         disabled={
                           !(
                             !!row.supplier &&
