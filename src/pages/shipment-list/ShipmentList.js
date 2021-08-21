@@ -100,16 +100,19 @@ const ShippedOrders = () => {
       let dataObj = response.data;
       const formattedData = dataObj
         ? Object.keys(dataObj).map((key) => {
-          return Object.keys(dataObj[key]).map((key2) => ({
-            ...dataObj[key][key2],
-            refNumber: key2,
-          }));
-        })
+            return Object.keys(dataObj[key]).map((key2) => ({
+              ...dataObj[key][key2],
+              refNumber: key2,
+            }));
+          })
         : [];
       //  console.log("formattedData",formattedData);
       let newFormData = [];
       if (supplierFilter === "all") {
-        newFormData = formattedData?.[1]?.length ? [...formattedData[0], ...formattedData[1]] : [...formattedData[0]];
+        newFormData =
+           (formattedData?.[0]?.length && formattedData?.[1]?.length)
+            ? [...formattedData[0], ...formattedData[1]]
+            : formattedData?.[0]?.length ? [...formattedData[0]] : formattedData[0];
       } else if (supplierFilter === "asya" && formattedData?.[1]?.length) {
         newFormData = formattedData[1];
         // console.log("aaaaa",formattedData[1])
