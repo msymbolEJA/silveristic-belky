@@ -293,24 +293,25 @@ const AwaitingOrders = () => {
                           align="center"
                         >
                           {item?.objKey === "approved" ? (
-                            <label className="container">
-                              <td
-                                style={{
-                                  padding: 0,
-                                  pointerEvents:
-                                    row.status === "pending" ? "auto" : "none",
-                                }}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  handleCheckBoxClick(e, row.id, row);
-                                }}
-                                onBlur={(e) => {
-                                  e.stopPropagation();
-                                }}
-                                onChange={(e) => {
-                                  e.stopPropagation();
-                                }}
-                              >
+                            <div
+                              style={{
+                                padding: 0,
+                                pointerEvents:
+                                  row.status === "pending" ? "auto" : "none",
+                                display: "block",
+                              }}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleCheckBoxClick(e, row.id, row);
+                              }}
+                              onBlur={(e) => {
+                                e.stopPropagation();
+                              }}
+                              onChange={(e) => {
+                                e.stopPropagation();
+                              }}
+                            >
+                              <label className="container">
                                 <Checkbox
                                   checked={isItemSelected}
                                   disabled={
@@ -324,8 +325,8 @@ const AwaitingOrders = () => {
                                   color="primary"
                                   inputProps={{ "aria-labelledby": labelId }}
                                 />
-                              </td>
-                            </label>
+                              </label>
+                            </div>
                           ) : item?.objKey === "personalization" &&
                             (row[item?.objKey] === null ||
                               row[item?.objKey] === "") ? (
