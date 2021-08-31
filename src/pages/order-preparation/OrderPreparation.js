@@ -103,6 +103,11 @@ const useStyles = makeStyles(() => ({
     border: "1px solid lightgrey",
     borderRadius: "5px",
   },
+  select: {
+    height: "46px",
+    margin: "0 5px",
+    borderRadius: "5px",
+  },
 }));
 
 const AwaitingOrders = () => {
@@ -112,13 +117,13 @@ const AwaitingOrders = () => {
   const [selected, setSelected] = useState([]);
 
   const getOrders = () => {
-    getData(`${BASE_URL}etsy/orders/?status=pending&limit=2500&offset=0&ordering=-id`).then(
-      (response) => {
-        console.log(response.data);
-        setCount(response.data.count);
-        setRows(response.data.results);
-      }
-    );
+    getData(
+      `${BASE_URL}etsy/orders/?status=pending&limit=2500&offset=0&ordering=-id`
+    ).then((response) => {
+      console.log(response.data);
+      setCount(response.data.count);
+      setRows(response.data.results);
+    });
   };
 
   useEffect(() => {
@@ -279,6 +284,10 @@ const AwaitingOrders = () => {
               </TableHead>
               <TableBody>
                 {rows?.map((row, index) => {
+                  console.log(
+                    "🚀 ~ file: OrderPreparation.js ~ line 282 ~ {rows?.map ~ row",
+                    row
+                  );
                   const isItemSelected = selected.indexOf(row.id) !== -1;
                   const labelId = `enhanced-table-checkbox-${index}`;
                   return (
@@ -367,10 +376,17 @@ const AwaitingOrders = () => {
                             ) === "Invalid date" ? (
                               row[item?.objKey]
                             ) : (
-                              moment
-                                .utc(row[item?.objKey])
-                                .local()
-                                .format("MM-DD-YY HH:mm")
+                              <>
+                                {moment
+                                  .utc(row[item?.objKey])
+                                  .local()
+                                  .format("MM-DD-YY")}
+                                <br />
+                                {moment
+                                  .utc(row[item?.objKey])
+                                  .local()
+                                  .format("HH:mm")}
+                              </>
                             )
                           ) : item?.objKey === "type" ||
                             item?.objKey === "length" ||
@@ -396,9 +412,10 @@ const AwaitingOrders = () => {
                             row[item?.objKey]
                           )}
                           {item?.objKey2 ? (
-                            <div>
-                              <br /> {row[item?.objKey2]}
-                            </div>
+                            <div>{row[item?.objKey2]}</div>
+                          ) : null}
+                          {item?.objKey3 ? (
+                            <div>{row[item?.objKey3]}</div>
                           ) : null}
                         </TableCell>
                       ))}

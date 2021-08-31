@@ -187,7 +187,7 @@ export const tableColumns = [
 ];
 
 export const editableTableColumns = [
-  { id: 1, name: "No", name2: "Sip.No", objKey: "id", objKey2: "receipt_id" },
+  { id: 1, name: "No", name2: "Sip.No", objKey: "id", objKey2: "receipt_id", objKey3: "item_index" },
   {
     id: 2,
     name: "OrderDate",
