@@ -109,6 +109,7 @@ const SingleOrderPreparation = (props) => {
   const [count, setCount] = useState(0);
   const [logData, setLogData] = useState([]);
   const [refresh, setRefresh] = useState(false);
+  const localUser = localStorage.getItem("localUser");
 
   const getOrders = () => {
     getData(`${BASE_URL}etsy/orders/${props.match.params.id}/`)
@@ -323,7 +324,7 @@ const SingleOrderPreparation = (props) => {
       ) : null}
       {/* // SILVERISTIC daha sonra eklenecek. Adresleri sadece ASYA görecek. */}
       {console.log(rows)}
-      {rows[0]?.country_id !== "209" ? (
+      {rows[0]?.country_id !== "209" && localUser === "Kalanima" ? (
         <div style={{ marginTop: "1rem", textAlign: "center" }}>
           <p>
             Address: <b>{rows[0]?.formatted_address || "Adres yok!"} </b>
