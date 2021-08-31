@@ -86,13 +86,14 @@ const CustomTable = ({ rows, handleSearch, searchType }) => {
   );
 
   // console.log(location.search);
-
+  
   const handleOptionChange = (e, id) => {
     handleRowChange(id, { [e.target.name]: e.target.value });
   };
-
+  
   const handleReady = (e, id) => {
     handleRowChange(id, { [e.target.name]: e.target.checked });
+    if (e.target.checked) handleRowChange(id, { status: "awaiting" });
   };
 
   return (

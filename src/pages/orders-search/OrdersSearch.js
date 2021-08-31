@@ -123,7 +123,10 @@ const OrdersSearch = () => {
   const classes = useStyles();
   const history = useHistory();
   const [rows, setRows] = useState();
-  const [searchInfo, setSearchInfo] = useState(initialValues);
+  const [searchInfo, setSearchInfo] = useState(
+    JSON.parse(localStorage.getItem(`order-search-value`) || "[]") ||
+      initialValues
+  );
   const [searchType, setSearchType] = useState();
   const [count, setCount] = useState(0);
   // const [valueSearchInfo, setValueSearchInfo] = useState(initialValuesSearch);
@@ -174,6 +177,7 @@ const OrdersSearch = () => {
         internalNote: searchInfo.internalNote,
       });
     }
+    localStorage.setItem(`order-search-value`, JSON.stringify(searchInfo));
   };
 
   const handleChange = (e) => {
@@ -186,7 +190,7 @@ const OrdersSearch = () => {
   };
 
   const handleNewSearch = () => {
-    history.push("/orders_search");
+    history.push(`/orders_search`);
     setRows();
   };
 

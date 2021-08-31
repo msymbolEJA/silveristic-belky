@@ -169,6 +169,7 @@ const SingleOrderPreparation = (props) => {
 
   const handleReady = (e, id) => {
     handleRowChange(id, { [e.target.name]: e.target.checked });
+    if (e.target.checked) handleRowChange(id, { status: "awaiting" });
   };
 
   const printHandler = () => {
