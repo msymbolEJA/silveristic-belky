@@ -4,7 +4,7 @@ import CustomTable from "../../components/newitems/ChangableTable";
 import { queryData } from "../../helper/PostData";
 import { useHistory } from "react-router-dom";
 
-const BASE_URL_MAPPING = process.env.REACT_APP_BASE_URL_MAPPING;
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const useStyles = makeStyles(() => ({
   searchRoot: {
@@ -112,10 +112,11 @@ const useStyles = makeStyles(() => ({
 const initialValues = {
   id: "",
   status: "",
+  buyer: "",
   sku: "",
   supplier: "",
   internalNote: "",
-  receipt__receipt_id: "",
+  receipt: "",
   tracking_code: "",
 };
 
@@ -144,7 +145,7 @@ const OrdersSearch = () => {
       return null;
     } else {
       queryString = queryString.slice(0, -1);
-      let path = `${BASE_URL_MAPPING}${queryString}`;
+      let path = `${BASE_URL}etsy/mapping_search/${queryString}`;
       queryData(path)
         .then((response) => {
           setRows(response.data.results);
@@ -165,13 +166,14 @@ const OrdersSearch = () => {
     }
     if (type === "valueSearch") {
       getSearchInfo({
-        receipt__receipt_id: searchInfo.receipt__receipt_id,
+        receipt: searchInfo.receipt,
         tracking_code: searchInfo.tracking_code,
       });
     } else {
       getSearchInfo({
         id: searchInfo.id,
         status: searchInfo.status,
+        buyer: searchInfo.buyer,
         sku: searchInfo.sku,
         supplier: searchInfo.supplier,
         internalNote: searchInfo.internalNote,
@@ -235,6 +237,16 @@ const OrdersSearch = () => {
                   <option value="cancelled">cancelled</option>
                   <option value="follow_up">follow_up</option>
                 </select>
+                <label htmlFor="buyer" className={classes.inputTitle}>
+                  Buyer:
+                </label>
+                <input
+                  name="buyer"
+                  id="buyer"
+                  className={classes.input}
+                  value={searchInfo.buyer}
+                  onChange={(e) => handleChange(e)}
+                />
                 <label htmlFor="sku" className={classes.inputTitle}>
                   SKU:
                 </label>
@@ -255,7 +267,7 @@ const OrdersSearch = () => {
                   value={searchInfo.supplier}
                   onChange={(e) => handleChange(e)}
                 >
-                  <option value="all">all</option>
+                  <option value="">all</option>
                   <option value="asya">asya</option>
                   <option value="beyazit">beyazit</option>
                   {/* <option value="stok">stok</option> */}
@@ -289,18 +301,15 @@ const OrdersSearch = () => {
             <form>
               <div className={classes.innerCont}>
                 <p className={classes.title}>Value Search</p>
-                <label
-                  htmlFor="receipt__receipt_id"
-                  className={classes.inputTitle}
-                >
+                <label htmlFor="receipt" className={classes.inputTitle}>
                   Receipt Id:
                 </label>
                 <input
                   className={classes.input}
-                  id="receipt__receipt_id"
-                  name="receipt__receipt_id"
+                  id="receipt"
+                  name="receipt"
                   type="number"
-                  value={searchInfo.receipt__receipt_id}
+                  value={searchInfo.receipt}
                   onChange={(e) => handleChange(e)}
                 />
                 <label htmlFor="tracking_code" className={classes.inputTitle}>
