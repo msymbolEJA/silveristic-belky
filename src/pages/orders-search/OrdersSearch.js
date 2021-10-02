@@ -225,7 +225,7 @@ const OrdersSearch = () => {
                   value={searchInfo.status}
                   onChange={(e) => handleChange(e)}
                 >
-                  <option value="all">all</option>
+                  <option value="">all</option>
                   <option value="awaiting">awaiting</option>
                   <option value="in_progress">processing</option>
                   <option value="ready">ready</option>
