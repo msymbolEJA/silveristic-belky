@@ -103,7 +103,8 @@ const AwaitingOrders = () => {
   const [count, setCount] = useState(0);
 
   const getOrders = () => {
-    getData(`${BASE_URL}etsy/orders/?status=repeat`).then((response) => {
+    // getData(`${BASE_URL}etsy/orders/?status=repeat`).then((response) => {
+    getData(`${BASE_URL}etsy/orders/?is_repeat=true`).then((response) => {
       console.log(response.data);
       setCount(response.data.count);
       setRows(response.data.results);
