@@ -186,8 +186,39 @@ export const tableColumns = [
   { id: 14, name: "Internal Note", objKey: "gift_message" },
 ];
 
+export const tableColumnsReady = [
+  { id: 1, name: "readyCargo", objKey: "readyCargo" },
+  { id: 1, name: "No", name2: "Sip.No", objKey: "id", objKey2: "receipt_id" },
+  {
+    id: 2,
+    name: "Tarih",
+    name2: "Adet",
+    objKey: "creation_tsz",
+    objKey2: "qty",
+  },
+  { id: 3, name: "Sitem Tarihi", objKey: "created_date" },
+  { id: 4, name: "Buyer", objKey: "buyer" },
+  { id: 5, name: "Supplier", objKey: "supplier" },
+  { id: 6, name: "Tip", objKey: "type" },
+  { id: 7, name: "Uzunluk", objKey: "length" },
+  { id: 8, name: "Renk", objKey: "color" },
+  { id: 9, name: "Adet", objKey: "qty" },
+  { id: 10, name: "Boyut", objKey: "size" },
+  { id: 11, name: "Başlangıç", objKey: "start" },
+  { id: 12, name: "Boşluk", objKey: "space" },
+  { id: 13, name: "Açıklama", objKey: "explanation" },
+  { id: 14, name: "Internal Note", objKey: "gift_message" },
+];
+
 export const editableTableColumns = [
-  { id: 1, name: "No", name2: "Sip.No", objKey: "id", objKey2: "receipt_id", objKey3: "item_index" },
+  {
+    id: 1,
+    name: "No",
+    name2: "Sip.No",
+    objKey: "id",
+    objKey2: "receipt_id",
+    objKey3: "item_index",
+  },
   {
     id: 2,
     name: "OrderDate",
