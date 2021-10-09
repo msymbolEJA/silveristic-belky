@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { tableColumnsReady } from "../../helper/Constants";
-import { getData, putData, postFormData } from "../../helper/PostData";
+import { getData, putData, postData } from "../../helper/PostData";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import BarcodeInput from "../../components/otheritems/BarcodeInput";
@@ -188,7 +188,7 @@ const AwaitingOrders = () => {
     console.log({ ...cargoForm, ids: selected });
     let urlCargo = `${BASE_URL}etsy/cargo/`;
 
-    postFormData(urlCargo, { ...cargoForm, ids: selected })
+    postData(urlCargo, { ...cargoForm, ids: selected })
       .then((res) => {
         // toastSuccessNotify(res.data.Success);
         // setResult(res.data.Success);
@@ -207,6 +207,7 @@ const AwaitingOrders = () => {
       ref_number: "",
       ids: [],
     });
+    setSelected([]);
   };
 
   const handleFormChange = (e) => {
