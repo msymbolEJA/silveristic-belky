@@ -161,7 +161,7 @@ const AwaitingOrders = () => {
   const getOrders = () => {
     getData(
       // `${BASE_URL}etsy/orders/?status=pending&limit=2500&offset=0&ordering=-id`
-      `${BASE_URL}etsy/orders/?status=pending&limit=25&offset=0&ordering=-id`
+      `${BASE_URL}etsy/orders/?status=pending&limit=2500&offset=0&ordering=-id`
     ).then((response) => {
       console.log(response.data);
       setCount(response.data.count);

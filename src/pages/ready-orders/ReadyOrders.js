@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { tableColumnsReady } from "../../helper/Constants";
+import { tableColumns } from "../../helper/Constants";
 import { getData, putData, postData } from "../../helper/PostData";
 import { Link } from "react-router-dom";
 import moment from "moment";
@@ -12,7 +12,6 @@ import {
   TableHead,
   TableRow,
   TableContainer,
-  Checkbox,
 } from "@material-ui/core";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -153,7 +152,6 @@ const AwaitingOrders = () => {
   const [rows, setRows] = useState([]);
   const [count, setCount] = useState(0);
   const [barcodeInput, setBarcodeInput] = useState();
-  const [selected, setSelected] = useState([]);
   const barcodeInputRef = useRef();
   const [cargoForm, setCargoForm] = useState({
     tracking_number: "",
@@ -175,22 +173,11 @@ const AwaitingOrders = () => {
     getOrders();
   }, []);
 
-  const handleSelectAllClick = () => {
-    const tempArr = [];
-    if (!selected?.length) {
-      rows.forEach((row) => {
-        tempArr.push(row.id);
-      });
-    }
-    setSelected(tempArr);
-  };
-
   const sendCargoForm = (e) => {
     e.preventDefault();
-    console.log({ ...cargoForm, ids: selected });
     let urlCargo = `${BASE_URL}etsy/cargo/`;
 
-    postData(urlCargo, { ...cargoForm, ids: selected })
+    postData(urlCargo, { ...cargoForm, ids: rows?.map((item) => item?.id) })
       .then((res) => {
         // toastSuccessNotify(res.data.Success);
         // setResult(res.data.Success);
@@ -209,7 +196,6 @@ const AwaitingOrders = () => {
       ref_number: "",
       ids: [],
     });
-    setSelected([]);
   };
 
   const handleFormChange = (e) => {
@@ -230,16 +216,6 @@ const AwaitingOrders = () => {
     if (e.keyCode === 13) {
       console.log(barcodeInputRef.current.value);
       setBarcodeInput(barcodeInputRef.current.value);
-    }
-  };
-
-  const handleCheckBoxClick = (id) => {
-    let tempArr;
-    if (selected.includes(id)) {
-      tempArr = selected.filter((item) => id?.toString() !== item?.toString());
-      setSelected(tempArr);
-    } else {
-      setSelected([...selected, id]);
     }
   };
 
@@ -300,35 +276,15 @@ const AwaitingOrders = () => {
           <Table className={classes.table} aria-label="simple table">
             <TableHead className={classes.thead}>
               <TableRow>
-                {tableColumnsReady?.map((item) =>
-                  item?.objKey === "readyCargo" ? (
-                    <TableCell
-                      align="center"
-                      className={classes.tableCellHeader}
-                    >
-                      Cargo
-                      <Checkbox
-                        indeterminate={
-                          selected?.length > 0 &&
-                          selected?.length < rows?.length
-                        }
-                        checked={
-                          rows?.length > 0 && selected?.length === rows?.length
-                        }
-                        style={{ color: "black" }}
-                        onChange={handleSelectAllClick}
-                      />
-                    </TableCell>
-                  ) : (
-                    <TableCell
-                      className={classes.tableCellHeader}
-                      align="center"
-                      key={item.id}
-                    >
-                      {item.name} {item?.name2 ? `/ ${item?.name2}` : null}
-                    </TableCell>
-                  )
-                )}
+                {tableColumns?.map((item) => (
+                  <TableCell
+                    className={classes.tableCellHeader}
+                    align="center"
+                    key={item.id}
+                  >
+                    {item.name} {item?.name2 ? `/ ${item?.name2}` : null}
+                  </TableCell>
+                ))}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -344,68 +300,46 @@ const AwaitingOrders = () => {
                     key={row?.id}
                     className={index % 2 === 1 ? classes.darkTableRow : null}
                   >
-                    {tableColumnsReady?.map((item, i) =>
-                      item?.objKey === "readyCargo" ? (
-                        <td
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleCheckBoxClick(row?.id);
-                          }}
-                          onBlur={(e) => {
-                            e.stopPropagation();
-                          }}
-                          onChange={(e) => {
-                            e.stopPropagation();
-                          }}
-                        >
-                          <Checkbox
-                            style={{ color: "black" }}
-                            checked={selected.includes(row?.id)}
-                          />
-                        </td>
-                      ) : (
-                        <TableCell
-                          key={i}
-                          className={classes.tableCell}
-                          align="center"
-                        >
-                          {item?.objKey === "creation_tsz" ? (
-                            moment(row[item?.objKey]).format(
-                              "MM-DD-YY HH:mm"
-                            ) === "Invalid date" ? (
-                              row[item?.objKey]
-                            ) : (
-                              moment
-                                .utc(row[item?.objKey])
-                                .local()
-                                .format("MM-DD-YY HH:mm")
-                            )
-                          ) : item?.objKey === "created_date" ? (
-                            moment(row[item?.objKey]).format(
-                              "MM-DD-YY HH:mm"
-                            ) === "Invalid date" ? (
-                              row[item?.objKey]
-                            ) : (
-                              moment
-                                .utc(row[item?.objKey])
-                                .local()
-                                .format("MM-DD-YY HH:mm")
-                            )
-                          ) : item?.name === "No" ? (
-                            <Link to={`/orders/${row[item?.objKey]}`}>
-                              {row[item?.objKey]}
-                            </Link>
-                          ) : (
+                    {tableColumns?.map((item, i) => (
+                      <TableCell
+                        key={i}
+                        className={classes.tableCell}
+                        align="center"
+                      >
+                        {item?.objKey === "creation_tsz" ? (
+                          moment(row[item?.objKey]).format("MM-DD-YY HH:mm") ===
+                          "Invalid date" ? (
                             row[item?.objKey]
-                          )}
-                          {item?.objKey2 ? (
-                            <div>
-                              <br /> {row[item?.objKey2]}
-                            </div>
-                          ) : null}
-                        </TableCell>
-                      )
-                    )}
+                          ) : (
+                            moment
+                              .utc(row[item?.objKey])
+                              .local()
+                              .format("MM-DD-YY HH:mm")
+                          )
+                        ) : item?.objKey === "created_date" ? (
+                          moment(row[item?.objKey]).format("MM-DD-YY HH:mm") ===
+                          "Invalid date" ? (
+                            row[item?.objKey]
+                          ) : (
+                            moment
+                              .utc(row[item?.objKey])
+                              .local()
+                              .format("MM-DD-YY HH:mm")
+                          )
+                        ) : item?.name === "No" ? (
+                          <Link to={`/orders/${row[item?.objKey]}`}>
+                            {row[item?.objKey]}
+                          </Link>
+                        ) : (
+                          row[item?.objKey]
+                        )}
+                        {item?.objKey2 ? (
+                          <div>
+                            <br /> {row[item?.objKey2]}
+                          </div>
+                        ) : null}
+                      </TableCell>
+                    ))}
                   </TableRow>
                 ))
               )}
