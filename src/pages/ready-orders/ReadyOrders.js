@@ -162,11 +162,13 @@ const AwaitingOrders = () => {
   });
 
   const getOrders = () => {
-    getData(`${BASE_URL}etsy/orders/?status=ready`).then((response) => {
-      console.log(response.data);
-      setCount(response.data.count);
-      setRows(response.data.results);
-    });
+    getData(`${BASE_URL}etsy/orders/?status=ready&ordering=-id`).then(
+      (response) => {
+        // console.log(response.data);
+        setCount(response.data.count);
+        setRows(response.data.results);
+      }
+    );
   };
 
   useEffect(() => {

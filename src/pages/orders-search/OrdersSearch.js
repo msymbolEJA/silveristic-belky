@@ -145,7 +145,7 @@ const OrdersSearch = () => {
       return null;
     } else {
       queryString = queryString.slice(0, -1);
-      let path = `${BASE_URL}etsy/mapping_search/${queryString}`;
+      let path = `${BASE_URL}etsy/mapping_search/${queryString}&ordering=-id`;
       queryData(path)
         .then((response) => {
           setRows(response.data.results);

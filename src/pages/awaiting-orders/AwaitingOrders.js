@@ -107,23 +107,25 @@ const AwaitingOrders = () => {
   const [countryFilter, setCountryFilter] = useState("all");
 
   const getOrders = () => {
-    getData(`${BASE_URL}etsy/orders/?status=awaiting`).then((response) => {
-      let resultFilteredByCountry = null;
-      if (countryFilter !== "all") {
-        resultFilteredByCountry = response.data.results.filter((item) =>
-          countryFilter === "usa"
-            ? item.country_id === "209"
-            : item.country_id !== "209"
-        );
-        setCount(resultFilteredByCountry.length);
-      } else {
-        resultFilteredByCountry = response.data.results;
-        setCount(response.data.count);
-      }
-      setRows(resultFilteredByCountry);
+    getData(`${BASE_URL}etsy/orders/?status=awaiting&ordering=-id`).then(
+      (response) => {
+        let resultFilteredByCountry = null;
+        if (countryFilter !== "all") {
+          resultFilteredByCountry = response.data.results.filter((item) =>
+            countryFilter === "usa"
+              ? item.country_id === "209"
+              : item.country_id !== "209"
+          );
+          setCount(resultFilteredByCountry.length);
+        } else {
+          resultFilteredByCountry = response.data.results;
+          setCount(response.data.count);
+        }
+        setRows(resultFilteredByCountry);
 
-      // setRows(response.data.results);
-    });
+        // setRows(response.data.results);
+      }
+    );
   };
 
   useEffect(() => {

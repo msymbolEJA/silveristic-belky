@@ -132,7 +132,9 @@ const AwaitingOrders = (props) => {
 
   useEffect(() => {
     getData(
-      `${BASE_URL}etsy/orders/?status=&limit=100&offset=${(page - 1) * 100}`
+      `${BASE_URL}etsy/orders/?status=&ordering=-id&limit=100&offset=${
+        (page - 1) * 100
+      }`
     ).then((response) => {
       setCount(response.data.count);
       setRows(response.data.results);
