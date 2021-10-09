@@ -226,6 +226,7 @@ export const editableTableColumns = [
     objKey: "created_date",
     objKey2: "buyer",
   },
+  { id: 17, name: "Ready Date", objKey: "ready_date" },
   { id: 3, name: "Status", objKey: "status" },
   { id: 4, name: "Supplier", objKey: "supplier" },
   { id: 5, name: "Name", objKey: "type" },
