@@ -1,15 +1,23 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import { makeStyles } from "@material-ui/core/styles";
-import { editableMappingTableColumns } from "../../helper/Constants";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
+import ListItemText from "@material-ui/core/ListItemText";
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
+import {
+  editableMappingTableColumns,
+  repeatReasons,
+} from "../../helper/Constants";
 import { putData } from "../../helper/PostData";
 import EditableTableCell from "../newitems/EditableCell";
 import { Link } from "react-router-dom";
+import Button from "@material-ui/core/Button";
+import { Flag as FlagIcon, Repeat as RepeatIcon } from "@material-ui/icons";
 
 const BASE_URL_MAPPING = process.env.REACT_APP_BASE_URL_MAPPING;
 
@@ -49,19 +57,42 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+const StyledMenu = withStyles({
+  paper: {
+    border: "1px solid #d3d4d5",
+  },
+})((props) => (
+  <Menu
+    elevation={0}
+    getContentAnchorEl={null}
+    anchorOrigin={{
+      vertical: "bottom",
+      horizontal: "center",
+    }}
+    transformOrigin={{
+      vertical: "top",
+      horizontal: "center",
+    }}
+    {...props}
+  />
+));
+
+const StyledMenuItem = withStyles((theme) => ({
+  root: {
+    "&:focus": {
+      backgroundColor: theme.palette.primary.main,
+      "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
+        color: theme.palette.common.white,
+      },
+    },
+  },
+}))(MenuItem);
+
 const CustomTable = ({ rows, handleSearch, searchType }) => {
   const classes = useStyles();
-
-  const onChange = (e, id, name) => {
-    if (!rows.length || !name || !e?.target?.innerText) return;
-    if (
-      rows?.filter((item) => item.id === name)?.[0]?.[name] ===
-      e.target.innerText
-    )
-      return;
-    handleRowChange(id, { [name]: e.target.innerText });
-    handleSearch("", searchType);
-  };
+  const [repeatAnchorEl, setRepeatAnchorEl] = useState();
+  const [repeatMenuData, setRepeatMenuData] = useState({});
+  const [rowIdToRepeat, setRowIdToRepeat] = useState();
 
   const handleRowChange = useCallback(
     (id, data) => {
@@ -85,16 +116,163 @@ const CustomTable = ({ rows, handleSearch, searchType }) => {
     [rows, handleSearch, searchType]
   );
 
+  const onChange = (e, id, name) => {
+    if (!rows.length || !name || !e?.target?.innerText) return;
+    if (
+      rows?.filter((item) => item.id === name)?.[0]?.[name] ===
+      e.target.innerText
+    )
+      return;
+    handleRowChange(id, { [name]: e.target.innerText });
+    handleSearch("", searchType);
+  };
+
+  const handlerFlagRepeatChange = (id, name, value) => {
+    if (name === "is_repeat" && value === false) {
+      let data = { [name]: !value, status: "awaiting" };
+      handleRowChange(id, data);
+    } else if (name === "approved" && value === false) {
+      let data = { [name]: !value, status: "awaiting" };
+      handleRowChange(id, data);
+    } else {
+      let data = { [name]: !value };
+      handleRowChange(id, data);
+    }
+  };
+
+  const handleRepeatMenuItemClick = useCallback(
+    (row, reason) => () => {
+      const data = {
+        rowId: row.id,
+        is_repeat: true,
+        approved: true,
+        status: "awaiting",
+        explanation: "**REPEAT: " + reason + "** " + row?.explanation,
+      };
+      setRepeatMenuData(data);
+    },
+    []
+  );
+
+  const handleRepeatMenuClose = useCallback(() => {
+    setRepeatAnchorEl(null);
+    setRepeatMenuData({});
+  }, []);
+
+  const handleRepeatMenuConfirm = useCallback(() => {
+    if (repeatMenuData.rowId) {
+      handleRowChange(repeatMenuData.rowId, repeatMenuData);
+    }
+    handleRepeatMenuClose();
+  }, [handleRowChange, repeatMenuData, handleRepeatMenuClose]);
+
   // console.log(location.search);
-  
+
   const handleOptionChange = (e, id) => {
     handleRowChange(id, { [e.target.name]: e.target.value });
   };
-  
+
   const handleReady = (e, id) => {
     handleRowChange(id, { [e.target.name]: e.target.checked });
     if (e.target.checked) handleRowChange(id, { status: "awaiting" });
   };
+
+  const handlerRepeatChange = (e, id, is_repeat) => {
+    if (is_repeat) {
+      let data = { is_repeat: false };
+      handleRowChange(id, data);
+    } else {
+      setRowIdToRepeat(id);
+      setRepeatAnchorEl(e.currentTarget);
+    }
+  };
+
+  const repeatMenu = useCallback(
+    (row) => {
+      return (
+        <>
+          <StyledMenu
+            id="customized-menu"
+            anchorEl={repeatAnchorEl}
+            keepMounted
+            open={Boolean(repeatAnchorEl)}
+            onClose={handleRepeatMenuClose}
+          >
+            <hr />
+            <StyledMenuItem>
+              <ListItemText
+                primary="Wrong manufacturing"
+                id="Wrong manufacturing"
+                onClick={handleRepeatMenuItemClick(
+                  row,
+                  repeatReasons.MANUFACTURING_ERROR
+                )}
+              />
+            </StyledMenuItem>
+            <StyledMenuItem>
+              <ListItemText
+                primary="Discoloration"
+                id="discoloration"
+                onClick={handleRepeatMenuItemClick(
+                  row,
+                  repeatReasons.DISCOLORATION
+                )}
+              />
+            </StyledMenuItem>
+            <StyledMenuItem>
+              <ListItemText
+                primary="Break off"
+                id="break off"
+                onClick={handleRepeatMenuItemClick(
+                  row,
+                  repeatReasons.BREAK_OFF
+                )}
+              />
+            </StyledMenuItem>
+            <StyledMenuItem>
+              <ListItemText
+                primary="Lost in mail"
+                id="lost in mail"
+                onClick={handleRepeatMenuItemClick(
+                  row,
+                  repeatReasons.LOST_IN_MAIL
+                )}
+              />
+            </StyledMenuItem>
+            <StyledMenuItem>
+              <ListItemText
+                primary="Second"
+                id="Second"
+                onClick={handleRepeatMenuItemClick(row, repeatReasons.SECOND)}
+              />
+            </StyledMenuItem>
+            <StyledMenuItem style={{ justifyContent: "space-around" }}>
+              <Button
+                color="primary"
+                variant="contained"
+                onClick={handleRepeatMenuClose}
+              >
+                Cancel
+              </Button>
+              <Button
+                color="secondary"
+                variant="contained"
+                onClick={handleRepeatMenuConfirm}
+              >
+                OK
+              </Button>
+            </StyledMenuItem>
+          </StyledMenu>
+        </>
+      );
+    },
+    [
+      handleRepeatMenuClose,
+      handleRepeatMenuConfirm,
+      handleRepeatMenuItemClick,
+      repeatAnchorEl,
+    ]
+  );
 
   return (
     <div className={classes.paper}>
@@ -146,23 +324,51 @@ const CustomTable = ({ rows, handleSearch, searchType }) => {
                         row[item?.objKey] === null ? (
                         "None"
                       ) : item?.objKey === "status" ? (
-                        <select
-                          name="status"
-                          id="status"
-                          className={classes.select}
-                          value={row[item?.objKey]}
-                          onChange={(e) => handleOptionChange(e, row.id)}
-                        >
-                          {/* <option value="">all</option> */}
-                          <option value="awaiting">awaiting</option>
-                          <option value="in_progress">processing</option>
-                          <option value="ready">ready</option>
-                          <option value="in_transit">in_transit</option>
-                          <option value="repeat">repeat</option>
-                          <option value="shipped">shipped</option>
-                          <option value="cancelled">cancelled</option>
-                          <option value="follow_up">follow_up</option>
-                        </select>
+                        <div>
+                          <FlagIcon
+                            style={{
+                              color: row["is_followup"] ? "red" : "grey",
+                              cursor: "pointer",
+                            }}
+                            onClick={() =>
+                              handlerFlagRepeatChange(
+                                row.id,
+                                "is_followup",
+                                row["is_followup"]
+                              )
+                            }
+                          />
+                          <RepeatIcon
+                            style={{
+                              color: row["is_repeat"] ? "red" : "grey",
+                              cursor: "pointer",
+                            }}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handlerRepeatChange(e, row.id, row.is_repeat);
+                            }}
+                          />
+                          {Boolean(repeatAnchorEl) && row.id === rowIdToRepeat
+                            ? repeatMenu(row)
+                            : null}
+                          <select
+                            name="status"
+                            id="status"
+                            className={classes.select}
+                            value={row[item?.objKey]}
+                            onChange={(e) => handleOptionChange(e, row.id)}
+                          >
+                            {/* <option value="">all</option> */}
+                            <option value="awaiting">awaiting</option>
+                            <option value="in_progress">processing</option>
+                            <option value="ready">ready</option>
+                            <option value="in_transit">in_transit</option>
+                            {/* <option value="repeat">repeat</option> */}
+                            <option value="shipped">shipped</option>
+                            <option value="cancelled">cancelled</option>
+                            {/* <option value="follow_up">follow_up</option> */}
+                          </select>
+                        </div>
                       ) : item?.objKey === "supplier" ? (
                         <select
                           name="supplier"
