@@ -12,6 +12,7 @@ import { getData } from "../../helper/PostData";
 import Labels from "../../components/newitems/Labels";
 import { Link } from "react-router-dom";
 import moment from "moment";
+import customColors from "../../helper/Colors";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -47,7 +48,7 @@ const useStyles = makeStyles(() => ({
     width: "calc(100vw - 20px)",
   },
   thead: {
-    backgroundColor: "#6495ED",
+    backgroundColor: customColors.cornFlowerBlue,
   },
   header: {
     fontSize: "1.5rem",

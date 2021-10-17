@@ -15,6 +15,7 @@ import OrderDetailsCargoPage from "./OrderDetailsCargoPage";
 import moment from "moment";
 import { FormattedMessage, useIntl } from "react-intl";
 import { AppContext } from "../../context/Context";
+import customColors from "../../helper/Colors";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 const BASE_URL_MAPPING = process.env.REACT_APP_BASE_URL_MAPPING;
@@ -72,7 +73,7 @@ const useStyles = makeStyles(() => ({
     maxWidth: "1200px",
   },
   thead: {
-    backgroundColor: "#6495ED",
+    backgroundColor: customColors.cornFlowerBlue,
   },
   header: {
     fontSize: "1.5rem",

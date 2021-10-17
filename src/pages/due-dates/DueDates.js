@@ -10,6 +10,7 @@ import Grid from "@material-ui/core/Grid";
 import { getData } from "../../helper/PostData";
 import { FormattedMessage } from "react-intl";
 import Button from "@material-ui/core/Button";
+import customColors from "../../helper/Colors";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -30,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   thead: {
-    backgroundColor: "#6495ED",
+    backgroundColor: customColors.cornFlowerBlue,
   },
   header: {
     fontSize: "2rem",

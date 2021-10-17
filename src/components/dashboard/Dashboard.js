@@ -16,6 +16,7 @@ import { getData } from "../../helper/PostData";
 import { sortingArrayAdmin, sortingArrayUser } from "../../helper/Constants";
 import FloatingMenu from "./FloatingMenu";
 import CostGetter from "./CostGetter";
+import customColors from "../../helper/Colors";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -31,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
   icon: {
     fontSize: 50,
-    color: "#6495ED",
+    color: customColors.cornFlowerBlue,
   },
   button: {
     margin: "0.3rem",

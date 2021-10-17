@@ -11,6 +11,7 @@ import { getData, putData } from "../../helper/PostData";
 import EditableTableCell from "../../components/newitems/EditableCell";
 import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
+import customColors from "../../helper/Colors";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -53,7 +54,7 @@ const useStyles = makeStyles(() => ({
     cursor: "pointer",
   },
   thead: {
-    backgroundColor: "#6495ED",
+    backgroundColor: customColors.cornFlowerBlue,
   },
   input: {
     backgroundColor: "#ADD8E6",
@@ -110,9 +111,11 @@ const ShippedOrders = () => {
       let newFormData = [];
       if (supplierFilter === "all") {
         newFormData =
-           (formattedData?.[0]?.length && formattedData?.[1]?.length)
+          formattedData?.[0]?.length && formattedData?.[1]?.length
             ? [...formattedData[0], ...formattedData[1]]
-            : formattedData?.[0]?.length ? [...formattedData[0]] : formattedData[0];
+            : formattedData?.[0]?.length
+            ? [...formattedData[0]]
+            : formattedData[0];
       } else if (supplierFilter === "asya" && formattedData?.[1]?.length) {
         newFormData = formattedData[1];
         // console.log("aaaaa",formattedData[1])

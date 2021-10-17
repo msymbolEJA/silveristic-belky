@@ -5,6 +5,7 @@ import { getData } from "../../helper/PostData";
 import BorderColorIcon from "@material-ui/icons/BorderColor";
 import Button from "@material-ui/core/Button";
 import moment from "moment";
+import customColors from "../../helper/Colors";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -90,7 +91,9 @@ const CostGetter = () => {
   return (
     <Paper className={classes.paper}>
       <div className={classes.titleStyle}>
-        <BorderColorIcon style={{ color: "#6495ED", fontSize: "2rem" }} />
+        <BorderColorIcon
+          style={{ color: customColors.cornFlowerBlue, fontSize: "2rem" }}
+        />
         <h3 style={{ display: "inline", marginLeft: "0.5rem" }}>
           Cost Calculator
         </h3>

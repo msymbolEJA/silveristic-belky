@@ -13,6 +13,7 @@ import {
   TableRow,
   TableContainer,
 } from "@material-ui/core";
+import customColors from "../../helper/Colors";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 const BASE_URL_MAPPING = process.env.REACT_APP_BASE_URL_MAPPING;
@@ -41,7 +42,7 @@ const useStyles = makeStyles(() => ({
     width: "calc(100vw - 20px)",
   },
   thead: {
-    backgroundColor: "#6495ED",
+    backgroundColor: customColors.cornFlowerBlue,
   },
   header: {
     fontSize: "1.5rem",

@@ -18,6 +18,7 @@ import EditableTableCell from "../newitems/EditableCell";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import { Flag as FlagIcon, Repeat as RepeatIcon } from "@material-ui/icons";
+import customColors from "../../helper/Colors";
 
 const BASE_URL_MAPPING = process.env.REACT_APP_BASE_URL_MAPPING;
 
@@ -49,7 +50,7 @@ const useStyles = makeStyles(() => ({
     backgroundColor: "#F2F2F2",
   },
   thead: {
-    backgroundColor: "#6495ED",
+    backgroundColor: customColors.cornFlowerBlue,
   },
   checkbox: {
     padding: 10,

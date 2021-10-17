@@ -14,6 +14,7 @@ import {
   CircularProgress,
 } from "@material-ui/core";
 import { FormattedMessage } from "react-intl";
+import customColors from "../../helper/Colors";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -64,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
   },
   thead: {
-    backgroundColor: "#6495ED",
+    backgroundColor: customColors.cornFlowerBlue,
     "& .MuiTableCell-alignLeft": {
       height: "50px",
     },

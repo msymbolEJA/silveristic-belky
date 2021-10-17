@@ -9,6 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { newOrderColumns } from "../../helper/Constants";
 import Button from "@material-ui/core/Button";
 import { postFormData } from "../../helper/PostData";
+import customColors from "../../helper/Colors";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -34,7 +35,7 @@ const useStyles = makeStyles(() => ({
     border: "1px solid #DEE2E6",
   },
   thead: {
-    backgroundColor: "#6495ED",
+    backgroundColor: customColors.cornFlowerBlue,
   },
   input: {
     width: "100%",

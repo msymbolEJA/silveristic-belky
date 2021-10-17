@@ -8,6 +8,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { getData } from "../../helper/PostData";
 import { cargoContentTableColumns } from "../../helper/Constants";
+import customColors from "../../helper/Colors";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -47,7 +48,7 @@ const useStyles = makeStyles(() => ({
   },
   lightTableRow: {},
   thead: {
-    backgroundColor: "#6495ED",
+    backgroundColor: customColors.cornFlowerBlue,
   },
   input: {
     backgroundColor: "#ADD8E6",

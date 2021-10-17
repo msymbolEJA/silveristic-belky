@@ -11,6 +11,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { soldOrdersColumns } from "../../helper/Constants";
+import customColors from "../../helper/Colors";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -66,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 10,
   },
   thead: {
-    backgroundColor: "#6495ED",
+    backgroundColor: customColors.cornFlowerBlue,
   },
   darkTableRow: {
     backgroundColor: "#F2F2F2",

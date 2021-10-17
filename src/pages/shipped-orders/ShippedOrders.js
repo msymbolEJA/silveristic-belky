@@ -11,6 +11,7 @@ import { getData } from "../../helper/PostData";
 import moment from "moment";
 import BarcodeInput from "../../components/otheritems/BarcodeInput";
 import { Link } from "react-router-dom";
+import customColors from "../../helper/Colors";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -49,7 +50,7 @@ const useStyles = makeStyles(() => ({
     backgroundColor: "#F2F2F2",
   },
   thead: {
-    backgroundColor: "#6495ED",
+    backgroundColor: customColors.cornFlowerBlue,
   },
   input: {
     backgroundColor: "#ADD8E6",

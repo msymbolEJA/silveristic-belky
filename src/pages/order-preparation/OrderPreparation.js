@@ -23,6 +23,7 @@ import {
   Repeat as RepeatIcon,
   // ThumbUpAlt as ThumbUpAltIcon,
 } from "@material-ui/icons";
+import customColors from "../../helper/Colors";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 const BASE_URL_MAPPING = process.env.REACT_APP_BASE_URL_MAPPING;
@@ -59,7 +60,7 @@ const useStyles = makeStyles(() => ({
     width: "calc(100vw - 20px)",
   },
   thead: {
-    backgroundColor: "#6495ED",
+    backgroundColor: customColors.cornFlowerBlue,
   },
   header: {
     fontSize: "1.5rem",
@@ -161,7 +162,7 @@ const AwaitingOrders = () => {
   const getOrders = () => {
     getData(
       // `${BASE_URL}etsy/orders/?status=pending&limit=2500&offset=0&ordering=-id`
-      `${BASE_URL}etsy/orders/?status=pending&limit=2500&offset=0&ordering=-id`
+      `${BASE_URL}etsy/orders/?status=pending&limit=25&offset=0&ordering=-id`
     ).then((response) => {
       console.log(response.data);
       setCount(response.data.count);

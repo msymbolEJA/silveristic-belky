@@ -7,6 +7,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { logTableColumns } from "../../helper/Constants";
 import moment from "moment";
+import customColors from "../../helper/Colors";
 
 const useStyles = makeStyles(() => ({
   tContainer: {
@@ -14,7 +15,7 @@ const useStyles = makeStyles(() => ({
     width: "calc(100vw - 20px)",
   },
   thead: {
-    backgroundColor: "#6495ED",
+    backgroundColor: customColors.cornFlowerBlue,
   },
   table: {
     width: "calc(100% - 50px)",
