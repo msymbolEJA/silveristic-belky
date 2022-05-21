@@ -58,8 +58,14 @@ const Dashboard = () => {
     getData(`${BASE_URL}etsy/summary_order/`).then((response) => {
       const newResult = [];
       //console.log("response-Health_Check", response.data[4]);
+      console.log(
+        "🚀 ~ file: Dashboard.js ~ line 62 ~ getData ~ response.data",
+        response.data
+      );
       setlastDateOfOrder(response.data[1]);
-      setHealthCheck(response.data[2]);
+      setHealthCheck(
+        response.data[4]?.check && response.data[5]?.check_shopify
+      );
       response.data[0].forEach((item) => {
         newResult.push({
           cell1: item.status
