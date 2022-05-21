@@ -58,7 +58,7 @@ const useStyles = makeStyles(() => ({
     width: "fit-content",
   },
   found: {
-    fontSize: "1.2rem",
+    fontSize: "1.5rem",
     fontWeight: "bold",
     margin: 5,
   },

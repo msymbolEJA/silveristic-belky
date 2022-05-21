@@ -56,7 +56,7 @@ const StyledTableCell = withStyles((theme) => ({
     color: theme.palette.common.white,
   },
   body: {
-    fontSize: 14,
+    fontSize: "1.5rem",
   },
 }))(TableCell);
 
@@ -332,8 +332,8 @@ function AllOrdersTable() {
       case "shipped":
         newUrl += `status=${statu}&limit=${25}&offset=${0}`; //&limit=${rowsPerPage}&offset=${page * rowsPerPage}
         break;
-      default:
-        newUrl += `status=${statu}&limit=${2500}&offset=${0}`; //&limit=${rowsPerPage}&offset=${page * rowsPerPage}
+      default: //&limit=${rowsPerPage}&offset=${page * rowsPerPage}
+        newUrl += `status=${statu}&limit=${2500}&offset=${0}`;
         break;
     }
     history.push(`/all-orders?&${newUrl}`);

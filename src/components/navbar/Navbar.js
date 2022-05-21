@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
   rightPart: {
     display: "flex",
+    fontSize: "1.25rem",
     cursor: "pointer",
     "& p": {
       margin: "5px",

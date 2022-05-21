@@ -19,7 +19,7 @@ const StyledTableCell = withStyles((theme) => ({
     borderRight: "0.5px solid #E0E0E0",
   },
   body: {
-    fontSize: 14,
+    fontSize: "1.5rem",
   },
 }))(TableCell);
 

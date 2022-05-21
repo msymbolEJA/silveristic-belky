@@ -13,4 +13,17 @@ body {
   word-wrap: break-word;
   /* text-align: center; */
   background-color: #fafafa;
+
+}
+.MuiTableCell-root {
+ font-size: 1.2rem !important;   
+}
+.MuiButton-label {
+ font-size: 1.2rem !important;   
+}
+
+select {
+  height: 2.1rem !important;
+  font-size: 1.2rem !important;   
+  padding: 0;
 }

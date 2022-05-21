@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     marginTop: 30,
-    maxWidth: "300px",
+    maxWidth: "330px",
   },
   table: {
     minWidth: 150,

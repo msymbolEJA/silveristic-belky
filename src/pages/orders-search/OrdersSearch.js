@@ -59,7 +59,7 @@ const useStyles = makeStyles(() => ({
     },
   },
   title: {
-    fontSize: "1.2rem",
+    fontSize: "1.5rem",
     margin: 0,
   },
   search: {

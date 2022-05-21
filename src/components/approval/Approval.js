@@ -112,7 +112,7 @@ const StyledTableCell = withStyles((theme) => ({
     color: theme.palette.common.black,
   },
   body: {
-    fontSize: 14,
+    fontSize: "1.5rem",
   },
 }))(TableCell);
 
@@ -407,8 +407,8 @@ function App({ history }) {
       case "shipped":
         newUrl += `status=${statu}&limit=${25}&offset=${0}`; //&limit=${rowsPerPage}&offset=${page * rowsPerPage}
         break;
-      default:
-        newUrl += `status=${statu}&limit=${2500}&offset=${0}`; //&limit=${rowsPerPage}&offset=${page * rowsPerPage}
+      default: //&limit=${rowsPerPage}&offset=${page * rowsPerPage}
+        newUrl += `status=${statu}&limit=${2500}&offset=${0}`;
         break;
     }
     history.push(`/approval?&${newUrl}`);
@@ -1022,7 +1022,7 @@ function App({ history }) {
                         padding: 0,
                         pointerEvents:
                           row.status === "pending" ? "auto" : "none",
-                        border: "none"
+                        border: "none",
                       }}
                       onClick={(e) => {
                         e.stopPropagation();

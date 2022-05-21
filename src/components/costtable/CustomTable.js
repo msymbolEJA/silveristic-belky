@@ -20,7 +20,7 @@ const StyledTableCell = withStyles((theme) => ({
     color: theme.palette.common.white,
   },
   body: {
-    fontSize: 14,
+    fontSize: "1.5rem",
   },
 }))(TableCell);
 
